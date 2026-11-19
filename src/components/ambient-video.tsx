@@ -8,13 +8,16 @@ type AmbientVideoProps = {
   active?: boolean;
   paused?: boolean;
   manuallyStarted?: boolean;
+  src?: string;
+  poster?: string;
+  allowMobileAutoPlay?: boolean;
   className?: string;
   onPlaybackChange?: (playing: boolean) => void;
   onProgress?: (progress: number) => void;
   onUnavailable?: () => void;
 };
 
-export function AmbientVideo({ active = true, paused = false, manuallyStarted = false, className = "", onPlaybackChange, onProgress, onUnavailable }: AmbientVideoProps) {
+export function AmbientVideo({ active = true, paused = false, manuallyStarted = false, src, poster, allowMobileAutoPlay = false, className = "", onPlaybackChange, onProgress, onUnavailable }: AmbientVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
   const { isOpen } = useCinema();
@@ -30,10 +33,14 @@ export function AmbientVideo({ active = true, paused = false, manuallyStarted = 
 
     function sync() {
       if (!player || disposed) return;
-      const automatic = !reduced.matches && desktop.matches && !connection?.saveData && !["slow-2g", "2g"].includes(connection?.effectiveType || "");
+      const automatic = !reduced.matches && (allowMobileAutoPlay || desktop.matches) && !connection?.saveData && !["slow-2g", "2g"].includes(connection?.effectiveType || "");
       const shouldPlay = active && !paused && !isOpen && inView && !document.hidden && (manuallyStarted || automatic);
       if (shouldPlay) {
-        if (!player.getAttribute("src")) player.setAttribute("src", beninFilm.ambient);
+        const source = src || beninFilm.ambient;
+        if (player.getAttribute("src") !== source) {
+          player.setAttribute("src", source);
+          player.load();
+        }
         void player.play().catch(() => { /* The immediate photograph remains visible if autoplay is blocked. */ });
       } else {
         player.pause();
@@ -53,7 +60,7 @@ export function AmbientVideo({ active = true, paused = false, manuallyStarted = 
       document.removeEventListener("visibilitychange", sync);
       player.pause();
     };
-  }, [active, paused, manuallyStarted, isOpen]);
+  }, [active, paused, manuallyStarted, isOpen, allowMobileAutoPlay, src]);
 
-  return <video ref={ref} className={`ambient-video ${ready ? "is-ready" : ""} ${className}`} muted loop playsInline preload="none" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => { setReady(true); onPlaybackChange?.(true); }} onPause={() => onPlaybackChange?.(false)} onTimeUpdate={event => { const player = event.currentTarget; onProgress?.(player.duration ? player.currentTime / player.duration : 0); }} onError={() => { setReady(false); onPlaybackChange?.(false); onUnavailable?.(); }}/>
+  return <video ref={ref} src={src || beninFilm.ambient} poster={poster} className={`ambient-video ${ready ? "is-ready" : ""} ${className}`} muted loop playsInline autoPlay={allowMobileAutoPlay && !paused} preload="metadata" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => { setReady(true); onPlaybackChange?.(true); }} onPause={() => onPlaybackChange?.(false)} onTimeUpdate={event => { const player = event.currentTarget; onProgress?.(player.duration ? player.currentTime / player.duration : 0); }} onError={() => { setReady(false); onPlaybackChange?.(false); onUnavailable?.(); }}/>;
 }

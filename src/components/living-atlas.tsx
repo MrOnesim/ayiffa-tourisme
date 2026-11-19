@@ -57,7 +57,7 @@ export function LivingAtlas() {
       <div className="atlas-heading"><div><p className="eyebrow">ATLAS VIVANT / CINQ ESCALES</p><h2 id="atlas-title">Le Bénin,<br/><em>à la carte.</em></h2></div><div><p>Sélectionnez un repère pour découvrir le lieu et ouvrir sa fiche.</p><Link href="/destinations" className="text-link">Toutes les destinations<ArrowUpRight size={17}/></Link></div></div>
       <div className="atlas-layout">
         <div className="atlas-map-shell">
-          <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>NORD · SUD</span><span className="atlas-compass" aria-hidden="true"><span>N</span><i/></span></div>
+          <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>NORD · SUD</span><span className="atlas-compass" aria-hidden="true"/></div>
           <div className="atlas-map-wrap">
             <svg className="atlas-map" viewBox="15 -150 660 640" role="img" aria-label="Carte indicative du Bénin et de ses voisins avec cinq escales numérotées de 01 à 05">
               <defs><pattern id="atlasOcean" patternUnits="userSpaceOnUse" width="9" height="9"><path d="M0 9L9 0" stroke="#a9c1bd" strokeWidth=".35" opacity=".35"/></pattern><filter id="atlasShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#15392c" floodOpacity=".13"/></filter></defs>
@@ -89,7 +89,7 @@ export function LivingAtlas() {
               ><span className="atlas-stop-dot">{item.number}</span><span className="atlas-stop-label">{item.shortName}</span></button>)}
             </div>
           </div>
-          <div className="atlas-map-footer"><span><i/> BÉNIN</span><span>Carte indicative · Natural Earth</span><span>Positions des escales : repères illustratifs</span></div>
+          <div className="atlas-map-footer"><span>BÉNIN</span><span>Carte indicative · Natural Earth</span><span>Positions des escales : repères illustratifs</span></div>
         </div>
         <div className="atlas-panel">
           <div className="atlas-panel-top"><span>ESCALE {stop.number}</span><span>0{active + 1} / 0{atlasStops.length}</span></div>

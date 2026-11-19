@@ -87,7 +87,7 @@ export function DestinationFan() {
     </div>
     <div className="departure-toolbar">
       <span className="departure-hint"><MousePointer2 size={14}/><span className="fan-desktop-hint">Un premier regard. Une envie de départ.</span><span className="fan-mobile-hint">Glissez pour choisir votre horizon.</span></span>
-      <div className="departure-controls" aria-label="Parcourir les inspirations"><button onClick={() => go(-1)} disabled={selected === 0} aria-label="Inspiration précédente"><ArrowLeft size={18}/></button><span aria-live="polite">0{selected + 1}<i/>0{departurePostcards.length}</span><button onClick={() => go(1)} disabled={selected === departurePostcards.length - 1} aria-label="Inspiration suivante"><ArrowRight size={18}/></button></div>
+      <div className="departure-controls" aria-label="Parcourir les inspirations"><button onClick={() => go(-1)} disabled={selected === 0} aria-label="Inspiration précédente"><ArrowLeft size={18}/></button><span aria-live="polite">0{selected + 1} / 0{departurePostcards.length}</span><button onClick={() => go(1)} disabled={selected === departurePostcards.length - 1} aria-label="Inspiration suivante"><ArrowRight size={18}/></button></div>
       <Link className="text-link" href="/destinations">Explorer toutes les destinations<ArrowUpRight size={17}/></Link>
     </div>
     <p className="departure-access-note"><MoveHorizontal size={12}/>Des découvertes à choisir, un voyage à composer.</p>

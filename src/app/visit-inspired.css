@@ -2,17 +2,17 @@
 :root { --journey-ease: cubic-bezier(.22, 1, .36, 1); }
 
 /* Five photographs, opening like a handful of travel postcards. */
-.home-departures { padding-top: 82px; padding-bottom: 60px; }
+.home-departures { padding-top: 78px; padding-bottom: 68px; }
 .departure-heading { text-align: center; max-width: 850px; margin: 0 auto; }
 .departure-heading .eyebrow { justify-content: center; font-size: 8px; letter-spacing: 2px; margin-bottom: 24px; }
 .departure-heading .eyebrow > span:empty { display: none; }
-.departure-heading h2 { font-size: clamp(48px, 4.7vw, 70px); line-height: 1.05; letter-spacing: -1.8px; }
+.departure-heading h2 { font-size: clamp(48px, 4.7vw, 70px); line-height: 1.05; letter-spacing: -1.8px; text-wrap: balance; }
 .departure-heading h2 em { color: #788866; }
 .departure-heading > p:not(.eyebrow) { color: #6e7b64; font-size: 12px; line-height: 1.9; max-width: 490px; margin: 23px auto 0; }
 .departure-fan { --fan-spread: 1; --fan-lift: 0px; --fan-step: clamp(120px, 14vw, 196px); --fan-width: clamp(190px, 20vw, 260px); margin-top: 28px; }
 .departure-rail { position: relative; width: 100%; height: 490px; isolation: isolate; }
 .departure-position { position: absolute; top: 46px; left: 50%; width: var(--fan-width); height: 350px; z-index: var(--fan-order); transform: translateX(-50%) translateX(calc(var(--fan-slot) * var(--fan-step) * var(--fan-spread))) translateY(calc(var(--fan-arc) + var(--fan-lift))) rotate(calc(var(--fan-angle) * var(--fan-spread))); transform-origin: center 100%; }
-.departure-card { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border: 5px solid var(--cream); border-radius: 15px; background: #54765c; color: #fffbea; box-shadow: 0 20px 35px #153a2721; transform: translateY(0) scale(1); transition: transform .75s var(--journey-ease), box-shadow .7s, filter .7s; isolation: isolate; }
+.departure-card { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border: 4px solid var(--cream); border-radius: 13px; background: #54765c; color: #fffbea; box-shadow: 0 18px 32px #153a2721; transform: translateY(0) scale(1); transition: transform .75s var(--journey-ease), box-shadow .7s, filter .7s; isolation: isolate; }
 .departure-card > img { object-fit: cover; transition: transform 1.25s var(--journey-ease), filter .7s; z-index: -2; }
 .departure-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, #0a2419e6 0%, #0e2a1f45 35%, transparent 68%), linear-gradient(180deg, #12372638, transparent 35%); }
 .departure-label { position: absolute; top: 16px; left: 16px; font-size: 6px; letter-spacing: 1.1px; padding: 6px 9px; border-radius: 20px; background: #f8f7e7ed; color: #1d452b; }
@@ -71,7 +71,7 @@
 .journey-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #0d2b22ca 0%, #102f234f 55%, #1835280d 100%), linear-gradient(0deg, #0d291d9e, transparent 60%, #112c223d); }
 .journey-card-top { position: absolute; top: 34px; left: 41px; right: 39px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #F5F1E8; }
 .journey-card-top > span { display: flex; align-items: center; gap: 9px; font-size: 7px; letter-spacing: 1.7px; }
-.journey-card-top i { width: 4px; height: 4px; background: var(--chapter-accent); border-radius: 50%; }
+.journey-card-top i { display: none; }
 .journey-card-top > span:last-child { font-size: 7px; opacity: .7; }
 .journey-card-copy { position: absolute; left: 65px; right: 40px; bottom: 86px; max-width: 790px; z-index: 2; }
 .journey-card-copy h3 { font-size: clamp(72px, min(8vw, 14svh), 118px); line-height: .95; letter-spacing: -3.2px; }

@@ -206,20 +206,54 @@ body.ayiffa-signature {
 .hero.signature-hero { height: auto; min-height: 0; }
 .signature-hero .hero-inner { min-height: clamp(770px, 100svh, 850px); height: auto; display: flex; flex-direction: column; padding-bottom: 94px; }
 .signature-hero .hero-copy { flex-shrink: 0; }
-.signature-hero .hero-shade { background: linear-gradient(90deg, #0b291ec4 0%, #102f2361 48%, #13332912 100%), linear-gradient(0deg, #0b241cde 0%, transparent 53%), linear-gradient(180deg, #0b241d9e 0%, transparent 29%); }
+.signature-hero .hero-shade { background: linear-gradient(90deg, rgba(7, 38, 29, .58) 0%, rgba(7, 38, 29, .22) 46%, rgba(7, 38, 29, .12) 100%), linear-gradient(0deg, rgba(8, 34, 27, .72) 0%, transparent 58%), linear-gradient(180deg, rgba(8, 31, 24, .52) 0%, transparent 35%); }
 .signature-hero .cinematic-grain { opacity: .025; }
-.signature-hero .hero-copy { text-align: left; padding-top: clamp(175px, 19vh, 205px); max-width: 760px; margin: 0; }
-.signature-hero .hero-eyebrow { justify-content: flex-start; font-size: 9px; letter-spacing: 2px; }
+.signature-hero .hero-copy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(760px, calc(100% - 64px));
+  max-width: 760px;
+  margin: 0;
+  padding: 0;
+  transform: translate(-50%, -52%);
+  text-align: center;
+}
+.signature-hero .hero-eyebrow { justify-content: center; font-size: 9px; letter-spacing: 2px; }
 .signature-hero .hero-eyebrow > span:empty { width: 32px; background: #EFC51A; }
 .hero.signature-hero h1 { font-size: clamp(110px, 9.2vw, 138px); line-height: .9; letter-spacing: -3.8px; margin: 27px 0 24px; }
 .hero.signature-hero h1 em { font-size: .96em; line-height: 1.03; letter-spacing: -3.2px; color: #EFC51A; }
-.signature-hero .hero-description { font-size: 14px; line-height: 1.9; margin: 0; max-width: 450px; color: #B8B8B8; }
-.signature-hero .hero-buttons { justify-content: flex-start; gap: 14px; margin-top: 29px; }
-.signature-hero .hero-buttons .button { font-size: 12px; min-height: 52px; padding: 15px 25px; gap: 25px; }
+.signature-hero .hero-description { font-size: 15px; line-height: 1.75; margin: 0 auto; max-width: 480px; color: #F1F1E5; text-shadow: 0 2px 18px rgba(5, 28, 21, .35); }
+.signature-hero .hero-buttons { justify-content: center; column-gap: 28px; row-gap: 12px; margin-top: 32px; }
+.signature-hero .hero-buttons .button { font-size: 12px; min-height: 54px; padding: 15px 28px; gap: 28px; }
 .signature-hero .hero-buttons .button-outline { border-color: #faf9eb80; color: #FFFFFF; background: #ffffff11; }
+.signature-hero .hero-bottom,
+.signature-hero .hero-horizon-nav,
+.hero-topline,
+.signature-film-magnet,
+.hero-sticky-cta,
+.mobile-sticky-cta { display: none !important; }
+.hero-video-control {
+  position: absolute;
+  z-index: 12;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 50%;
+  background: rgba(8, 34, 27, .52);
+  color: #fffdf5;
+  backdrop-filter: blur(8px);
+  transition: background .25s, color .25s, transform .25s;
+}
+.hero-video-control:hover { background: #fffdf5; color: #0e2a23; transform: scale(1.05); }
+.hero-video-control:focus-visible { outline: 3px solid #E8A33D; outline-offset: 4px; }
 .signature-hero .hero-topline { top: 121px; }
 .signature-hero .hero-edition { font-size: 8px; letter-spacing: 1.7px; }
-.signature-hero .live-dot { background: #EFC51A; box-shadow: 0 0 0 4px #EFC51A15; }
+.signature-hero .live-dot { display: none; }
 .signature-hero .hero-ambient-toggle { font-size: 9px; }
 .signature-film-magnet { position: absolute; right: 4%; top: 36%; width: 190px; display: block; }
 .signature-film-magnet > .hero-film-trigger { display: flex; flex-direction: column; align-items: center; margin: 0; text-align: center; gap: 15px; width: 100%; padding: 0; animation: signatureFilmArrival 1.1s .65s both; transform: translate3d(var(--magnetic-x,0px),var(--magnetic-y,0px),0); }
@@ -781,7 +815,6 @@ body.ayiffa-signature {
 }
 @media (min-width: 1600px) {
   .signature-hero .hero-inner { min-height: clamp(850px, 100svh, 920px); }
-  .signature-hero .hero-copy { padding-top: 204px; }
   .hero.signature-hero h1 { font-size: 148px; }
 }
 @media (max-width: 1200px) {
@@ -805,10 +838,10 @@ body.ayiffa-signature {
 }
 @media (max-width: 1000px) {
   .hero.signature-hero { min-height: 780px; }
-  .signature-hero .hero-copy { max-width: 77%; padding-top: 170px; }
+  .signature-hero .hero-copy { position: absolute; top: 50%; left: 50%; width: min(700px, calc(100% - 64px)); max-width: 77%; padding: 0; transform: translate(-50%, -52%); }
   .hero.signature-hero h1 { font-size: 102px; }
   .signature-hero .hero-description { font-size: 13px; }
-  .signature-hero .hero-buttons { gap: 11px; }
+  .signature-hero .hero-buttons { column-gap: 24px; row-gap: 12px; }
   .signature-hero .hero-buttons .button { font-size: 10px; padding: 14px 19px; gap: 15px; }
   .signature-film-magnet { width: 133px; top: 40%; }
   .signature-film-orbit { width: 128px; height: 128px; }
@@ -851,6 +884,7 @@ body.ayiffa-signature {
 }
 @media (max-width: 700px) {
   .ayiffa-signature .button { font-size: 11px; min-height: 47px; }
+  .hero-video-control { right: 16px; bottom: 16px; width: 40px; height: 40px; }
   .ayiffa-signature .discovery-container { margin-top: 14px; }
   .signature-navigation .header-film { font-size: 10px; }
   .hero.signature-hero { height: auto; min-height: 0; max-height: none; }
@@ -858,13 +892,13 @@ body.ayiffa-signature {
   .signature-hero .hero-topline { top: 111px; }
   .signature-hero .hero-edition { font-size: 6px; letter-spacing: 1px; gap: 6px; }
   .signature-hero .hero-ambient-toggle { font-size: 7px; }
-  .signature-hero .hero-copy { padding-top: 160px; max-width: 100%; width: 100%; }
+  .signature-hero .hero-copy { position: absolute; top: 44%; left: 50%; width: calc(100% - 40px); max-width: 100%; padding: 0; transform: translate(-50%, -50%); text-align: center; }
   .signature-hero .hero-eyebrow { font-size: 7px; letter-spacing: 1.6px; gap: 9px; }
   .signature-hero .hero-eyebrow > span:empty { width: 22px; }
   .hero.signature-hero h1 { font-size: clamp(62px, 20vw, 94px); line-height: .93; letter-spacing: -2.2px; margin: 24px 0; }
   .hero.signature-hero h1 em { font-size: 1em; line-height: 1.04; letter-spacing: -2.2px; }
-  .signature-hero .hero-description { font-size: 12px; max-width: 330px; line-height: 1.9; }
-  .signature-hero .hero-buttons { margin-top: 26px; align-items: flex-start; gap: 9px; }
+  .signature-hero .hero-description { font-size: 12px; max-width: 330px; margin-inline: auto; line-height: 1.9; }
+  .signature-hero .hero-buttons { margin-top: 24px; align-items: center; justify-content: center; flex-direction: column; column-gap: 12px; row-gap: 16px; }
   .signature-hero .hero-buttons .button { min-height: 48px; font-size: 10px; padding: 14px 20px; gap: 24px; min-width: 252px; }
   .signature-hero .hero-buttons .hero-contact-link { min-height: 36px; min-width: 0; border: 0; background: transparent; padding: 8px 0; border-radius: 0; border-bottom: 1px solid #f0e3ce7a; }
   .signature-film-magnet { position: relative; top: auto; right: auto; left: auto; width: fit-content; margin-top: 28px; }
@@ -1000,7 +1034,7 @@ body.ayiffa-signature {
 }
 @media (max-width: 380px) {
   .signature-hero .hero-inner { min-height: 740px; }
-  .signature-hero .hero-copy { padding-top: 154px; }
+  .signature-hero .hero-copy { top: 43%; width: calc(100% - 32px); padding: 0; }
   .hero.signature-hero h1 { font-size: 20vw; letter-spacing: -1.9px; }
   .hero.signature-hero h1 em { letter-spacing: -1.9px; }
   .signature-hero .hero-description { font-size: 11px; }
@@ -1216,10 +1250,12 @@ body.ayiffa-signature {
 .ayiffa-signature .gallery-expand { position: absolute; z-index: 2; top: 13px; right: 13px; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid #FFFFFF80; border-radius: 50%; background: #0A201A70; color: #FFFDF5; }
 .ayiffa-signature .gallery-expand > svg { width: 17px; height: 17px; }
 .ayiffa-signature .gallery-tile:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.ayiffa-signature .home-gallery .gallery-grid { grid-auto-rows: clamp(170px, 19vw, 250px); }
+.ayiffa-signature .home-gallery .gallery-grid { grid-auto-rows: clamp(190px, 20vw, 270px); gap: 16px; }
 .ayiffa-signature .home-gallery .gallery-tile { aspect-ratio: auto; height: 100%; }
 .ayiffa-signature .home-gallery .gallery-tile:nth-child(1) { grid-column: span 2; grid-row: span 2; }
 .ayiffa-signature .home-gallery .gallery-tile:nth-child(2) { grid-column: span 2; }
+.ayiffa-signature .home-gallery .gallery-tile:nth-child(3),
+.ayiffa-signature .home-gallery .gallery-tile:nth-child(4) { border-radius: 12px; }
 
 .ayiffa-signature .home-testimonials.section { padding: 82px 0; background: #EAE9DF; }
 .ayiffa-signature .home-testimonials > .container {

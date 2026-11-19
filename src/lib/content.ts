@@ -17,7 +17,7 @@ export type Destination = {
 
 export const destinations: Destination[] = [
   {
-    slug: "ouidah", name: "Ouidah", region: "Atlantique", category: "Culture & patrimoine", image: "/images/ouidah.jpg",
+    slug: "ouidah", name: "Ouidah", region: "Atlantique", category: "Culture & patrimoine", image: "/images/ville ouidah vu du ciel.jpeg",
     imageAlt: "Vue aérienne des cases et de la végétation à Ouidah, au Bénin",
     tagline: "Là où l’histoire rencontre l’âme du Bénin.",
     intro: "Ville de mémoire et de cultures vivantes, Ouidah invite à prendre le temps. Ses lieux historiques, ses traditions et son littoral se découvrent autrement avec un guide.",
@@ -25,7 +25,7 @@ export const destinations: Destination[] = [
     story: "Marcher à Ouidah, c’est traverser plusieurs histoires. Celle de la traite atlantique, à aborder avec respect. Celle d’une ville profondément attachée à ses traditions. Et celle d’un Bénin contemporain, ouvert à la création. AYIFFA TOURISME, basée à Ouidah, vous accompagne dans cette découverte."
   },
   {
-    slug: "ganvie", name: "Ganvié", region: "Lac Nokoué", category: "Au fil de l’eau", image: "/images/ganvie.jpg",
+    slug: "ganvie", name: "Ganvié", region: "Lac Nokoué", category: "Au fil de l’eau", image: "/images/ganvie vu du ciel.jpeg",
     imageAlt: "Une pirogue sur le lac Nokoué, près de Ganvié, photographiée par Kenza Loussouarn",
     tagline: "Une autre vie, au fil de l’eau.",
     intro: "Sur le lac Nokoué, les pirogues dessinent les chemins du quotidien. Ganvié se découvre au rythme de l’eau, de ses maisons sur pilotis et de ses habitants.",
@@ -33,7 +33,7 @@ export const destinations: Destination[] = [
     story: "Ici, l’eau relie les maisons, les familles et les histoires. Une visite de Ganvié est une invitation à observer, à écouter et à comprendre une manière singulière d’habiter le lac. Le parcours se prépare avec votre guide, dans le respect des habitants et de leur intimité."
   },
   {
-    slug: "grand-popo", name: "Grand-Popo", region: "Mono", category: "Évasion & nature", image: "/images/grand-popo.jpg",
+    slug: "grand-popo", name: "Grand-Popo", region: "Mono", category: "Évasion & nature", image: "/images/deux voi vu du ciel.jpeg",
     imageAlt: "Le littoral de Grand-Popo, entre plage, océan Atlantique et cocotiers",
     tagline: "L’océan pour horizon, la douceur pour rythme.",
     intro: "Entre le fleuve Mono, les lagunes et l’océan Atlantique, Grand-Popo dévoile un Bénin ouvert sur l’horizon. Une invitation à ralentir et à regarder autrement.",
@@ -77,7 +77,7 @@ export type Circuit = {
 export const circuits: Circuit[] = [
   {
     slug: "route-des-esclaves", name: "Ouidah, sur les chemins de mémoire", subtitle: "Un voyage dans l’histoire", location: "Ouidah", duration: "1 journée", days: 1,
-    category: "Culture & patrimoine", image: "/images/ouidah.jpg", alt: "Patrimoine et paysages de Ouidah au Bénin",
+    category: "Culture & patrimoine", image: "/images/ouidah vu du ciel 1.jpeg", alt: "Patrimoine et paysages de Ouidah au Bénin",
     description: "Une visite guidée pour comprendre l’histoire de la traite atlantique et découvrir les lieux de mémoire de Ouidah. Un parcours sensible, accompagné par les récits de votre guide.",
     highlights: ["La Route des Esclaves", "La Porte du Non-Retour", "Une visite accompagnée", "Un parcours à votre rythme"],
     note: "La durée d’une journée est indiquée sur le site de l’agence. Le parcours, les horaires et les prestations incluses sont à confirmer dans votre devis.",
@@ -93,7 +93,7 @@ export const circuits: Circuit[] = [
   },
   {
     slug: "benin-huit-jours", name: "Le Bénin, tout simplement", subtitle: "Huit jours pour s’émerveiller", location: "Bénin", duration: "8 jours", days: 8,
-    category: "Voyage sur mesure", image: "/images/ganvie.jpg", alt: "Pirogue traditionnelle au large de Ganvié au Bénin",
+    category: "Voyage sur mesure", image: "/images/GANVIE.jpeg", alt: "Maisons sur pilotis et pirogues au large de Ganvié",
     description: "Un format de huit jours présenté par l’agence, à composer autour de vos envies. Culture, paysages d’eau et rencontres : donnez à votre première découverte du Bénin votre propre couleur.",
     highlights: ["Un séjour personnalisable", "Un rythme défini ensemble", "Une découverte en couple, en famille ou entre amis", "Un devis détaillé avant toute confirmation"],
     note: "Le format de 8 jours figure sur le site existant. L’itinéraire détaillé, les hébergements, les repas et les transports ne sont pas encore confirmés et feront l’objet d’une proposition personnalisée.",

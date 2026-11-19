@@ -166,7 +166,7 @@ export function ExperienceShowcase() {
       <Reveal className="journey-intro-aside" delay={100}><p>Quatre façons de rencontrer un pays.<br/>Une seule invitation : vous laisser surprendre.</p><span><ArrowDown size={14}/>FAITES DÉFILER, LAISSEZ-VOUS EMPORTER</span></Reveal>
     </div>
     <div className="container journey-navigation">
-      <nav aria-label="Chapitres des expériences béninoises">{journeyChapters.map((chapter, index) => <a ref={element => { navigation.current[index] = element; }} key={chapter.id} href={`#experience-panel-${index}`} aria-label={chapter.navigationLabel} aria-controls={`experience-panel-${index}`} aria-current={active === index ? "step" : undefined} className={active === index ? "active" : ""} onClick={event => navigate(event, index)} onKeyDown={event => keyboard(event, index)}><span>{chapter.number}</span>{chapter.shortLabel}<i/></a>)}</nav>
+      <nav aria-label="Chapitres des expériences béninoises">{journeyChapters.map((chapter, index) => <a ref={element => { navigation.current[index] = element; }} key={chapter.id} href={`#experience-panel-${index}`} aria-label={chapter.navigationLabel} aria-controls={`experience-panel-${index}`} aria-current={active === index ? "step" : undefined} className={active === index ? "active" : ""} onClick={event => navigate(event, index)} onKeyDown={event => keyboard(event, index)}><span>{chapter.number}</span>{chapter.shortLabel}</a>)}</nav>
       <button className="journey-motion-toggle" onClick={() => setPhotosPaused(value => !value)} aria-label={photosPaused ? "Relancer les photographies des expériences" : "Mettre les photographies des expériences en pause"} aria-pressed={photosPaused}>{photosPaused ? <Play size={13}/> : <Pause size={13}/>}<span>{photosPaused ? "Photos en pause" : "Photos en mouvement"}</span></button>
     </div>
     <div className="container journey-track" ref={track}>
@@ -178,7 +178,7 @@ export function ExperienceShowcase() {
             <div className="journey-card-surface">
               <div className="journey-media">{chapter.photos.map((image, imageIndex) => <div key={image.src} className={`journey-photo ${imageIndex === photo ? "is-visible" : ""}`} aria-hidden={imageIndex !== photo}><Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 92vw, 90vw"/></div>)}</div>
               <div className="journey-shade"/>
-              <div className="journey-card-top"><span><i/>{chapter.eyebrow}</span><span>CHAPITRE {chapter.number} / 04</span></div>
+              <div className="journey-card-top"><span>{chapter.eyebrow}</span><span>CHAPITRE {chapter.number} / 04</span></div>
               <div className="journey-card-copy"><h3 id={`journey-title-${index}`}><span>{chapter.verb}</span><em>{chapter.line}</em></h3><p>{chapter.description}</p><Link className="journey-card-link" href={chapter.href}>{chapter.action}<span><ArrowUpRight size={19}/></span></Link></div>
               <span className="journey-oversized-number" aria-hidden="true">{chapter.number}</span>
               <div className="journey-card-bottom"><span><MapPin size={12}/>{chapter.photos[photo].caption}</span><span>AYIFFA · LE BÉNIN DE L’INTÉRIEUR</span></div>

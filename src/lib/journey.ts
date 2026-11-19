@@ -22,7 +22,7 @@ export const journeyChapters: JourneyChapter[] = [
     href: "/destinations/ouidah", action: "Au cœur des cultures", accent: "#e4ecc1",
     photos: [
       { src: "/images/culture.jpg", alt: "Cérémonie traditionnelle à Abomey-Calavi, au Bénin", caption: "Abomey-Calavi · Bénin" },
-      { src: "/images/ouidah.jpg", alt: "Paysage et cases traditionnelles de Ouidah vus du ciel", caption: "Ouidah · Bénin" },
+      { src: "/images/ville ouidah vu du ciel.jpeg", alt: "Vue aérienne de la ville de Ouidah et de son patrimoine", caption: "Ouidah · Bénin" },
     ],
   },
   {
@@ -31,8 +31,8 @@ export const journeyChapters: JourneyChapter[] = [
     description: "À Ganvié, les chemins sont faits d’eau. Une pirogue, un paysage, une manière singulière d’habiter le lac et de découvrir le Bénin.",
     href: "/destinations/ganvie", action: "Découvrir Ganvié", accent: "#d9e9e1",
     photos: [
-      { src: "/images/ganvie.jpg", alt: "Une pirogue à la voile colorée sur le lac Nokoué près de Ganvié", caption: "Ganvié · Lac Nokoué" },
-      { src: "/images/pirogue.jpg", alt: "Une femme navigue en pirogue dans les herbes du lac Nokoué", caption: "Lac Nokoué · Bénin" },
+      { src: "/images/ganvie vu du ciel.jpeg", alt: "Vue aérienne de Ganvié avec ses maisons sur pilotis et ses pirogues", caption: "Ganvié · Lac Nokoué" },
+      { src: "/images/GANVIE.jpeg", alt: "Maisons sur pilotis et pirogues au cœur de Ganvié", caption: "Ganvié · Vie lacustre" },
     ],
   },
   {
@@ -41,7 +41,7 @@ export const journeyChapters: JourneyChapter[] = [
     description: "À Ouidah, l’histoire invite à l’écoute. Une découverte sensible des lieux de mémoire et des récits qui traversent les générations.",
     href: "/circuits/route-des-esclaves", action: "Les chemins de mémoire", accent: "#efddc3",
     photos: [
-      { src: "/images/ouidah.jpg", alt: "Une vue aérienne du paysage de Ouidah, ville de mémoire du Bénin", caption: "Ouidah · Photographie d’ambiance" },
+      { src: "/images/ouidah vu du ciel 1.jpeg", alt: "Vue aérienne de la côte et du paysage de Ouidah", caption: "Ouidah · Côte Atlantique" },
     ],
   },
   {
@@ -50,16 +50,16 @@ export const journeyChapters: JourneyChapter[] = [
     description: "Le souffle de l’Atlantique, les lumières de Grand-Popo. Et le plaisir discret de n’avoir rien à précipiter.",
     href: "/destinations/grand-popo", action: "Retrouver l’horizon", accent: "#e9e4bb",
     photos: [
-      { src: "/images/grand-popo.jpg", alt: "Le littoral de Grand-Popo entre la plage, les vagues et les cocotiers", caption: "Grand-Popo · Océan Atlantique" },
-      { src: "/images/grand-popo-palms.jpg", alt: "Des hamacs sous les cocotiers à Grand-Popo", caption: "Grand-Popo · Le temps suspendu" },
+      { src: "/images/Grand popo.jpeg", alt: "Vue aérienne de la plage et des cocotiers de Grand-Popo", caption: "Grand-Popo · Océan Atlantique" },
+      { src: "/images/plage ouidah.jpeg", alt: "Palmiers et parasols sur la plage près de Ouidah", caption: "Côte Atlantique · Bénin" },
     ],
   },
 ];
 
 export const departurePostcards = [
-  { title: "Ouidah", label: "MÉMOIRE & CULTURE", image: "/images/ouidah.jpg", alt: "Ouidah et ses cases vues du ciel", href: "/destinations/ouidah", note: "Ouidah · Bénin" },
-  { title: "Ganvié", label: "AU FIL DE L’EAU", image: "/images/ganvie.jpg", alt: "Une pirogue à voile sur le lac Nokoué près de Ganvié", href: "/destinations/ganvie", note: "Lac Nokoué · Bénin" },
+  { title: "Ouidah", label: "MÉMOIRE & CULTURE", image: "/images/ville ouidah vu du ciel.jpeg", alt: "Ouidah vu du ciel avec son patrimoine urbain", href: "/destinations/ouidah", note: "Ouidah · Bénin" },
+  { title: "Ganvié", label: "AU FIL DE L’EAU", image: "/images/ganvie vu du ciel.jpeg", alt: "Ganvié vu du ciel avec ses maisons sur pilotis", href: "/destinations/ganvie", note: "Lac Nokoué · Bénin" },
   { title: "Les rencontres", label: "LE BÉNIN VIVANT", image: "/images/culture.jpg", alt: "Une cérémonie traditionnelle à Abomey-Calavi", href: "/experiences", note: "Abomey-Calavi · Bénin" },
-  { title: "Grand-Popo", label: "L’ART DE RALENTIR", image: "/images/grand-popo-palms.jpg", alt: "Cocotiers et hamacs à Grand-Popo", href: "/destinations/grand-popo", note: "Grand-Popo · Bénin" },
-  { title: "Les lagunes", label: "NATURE & RENCONTRES", image: "/images/lagoon.jpg", alt: "Traversée en pirogue sur la lagune de Grand-Popo", href: "/circuits/gogotinkpon", note: "Image d’ambiance · Grand-Popo" },
+  { title: "Grand-Popo", label: "L’ART DE RALENTIR", image: "/images/Grand popo.jpeg", alt: "Cocotiers et parasols sur la plage de Grand-Popo", href: "/destinations/grand-popo", note: "Grand-Popo · Bénin" },
+  { title: "Les lagunes", label: "NATURE & RENCONTRES", image: "/images/GANVIE.jpeg", alt: "Maisons sur pilotis et pirogues sur le lac Nokoué", href: "/circuits/gogotinkpon", note: "Ganvié · Lac Nokoué" },
 ];

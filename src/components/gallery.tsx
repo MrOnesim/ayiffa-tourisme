@@ -4,14 +4,14 @@ import { useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Expand, X } from "lucide-react";
 
 const curated = [
-  {src:"/images/ouidah.jpg",alt:"Cases traditionnelles et paysage de Ouidah vus du ciel",place:"Ouidah · Un autre point de vue",credit:"Adedoyin ADEROMOLA / Pexels"},
-  {src:"/images/ganvie.jpg",alt:"Une pirogue à la voile colorée sur le lac Nokoué",place:"Ganvié · Au rythme du lac",credit:"Kenza Loussouarn / Pexels"},
-  {src:"/images/culture.jpg",alt:"Cérémonie traditionnelle à Abomey-Calavi",place:"Abomey-Calavi · Une culture vivante",credit:"Abdias GBETOKPANOU / Pexels"},
-  {src:"/images/pirogue.jpg",alt:"Une femme en pirogue dans les herbes du lac Nokoué",place:"Lac Nokoué · Entre ciel et eau",credit:"Kenza Loussouarn / Pexels"},
-  {src:"/images/grand-popo-palms.jpg",alt:"Cocotiers et hamacs sur le littoral de Grand-Popo",place:"Grand-Popo · Le temps suspendu",credit:"Heikki Kastemaa / Wikimedia Commons · CC BY-SA 4.0"},
-  {src:"/images/benin-road.jpg",alt:"La route au cœur de la végétation à Dassa",place:"Dassa · Prendre la route",credit:"Anthony Desrochers / Pexels"},
-  {src:"/images/lagoon.jpg",alt:"Traversée de la lagune de Grand-Popo",place:"Grand-Popo · La lagune",credit:"Heikki Kastemaa / Wikimedia Commons · CC BY-SA 4.0"},
-  {src:"/images/grand-popo.jpg",alt:"Le littoral de Grand-Popo, entre plage et cocotiers",place:"Grand-Popo · L'océan",credit:"Fawaz.tairou / Wikimedia Commons · CC BY-SA 4.0"},
+  {src:"/images/ville ouidah vu du ciel.jpeg",alt:"Vue aérienne de la ville de Ouidah",place:"Ouidah · Un autre point de vue",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/ganvie vu du ciel.jpeg",alt:"Vue aérienne de Ganvié et du lac Nokoué",place:"Ganvié · Au rythme du lac",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/deux voi vu du ciel.jpeg",alt:"Vue aérienne du littoral de Grand-Popo",place:"Grand-Popo · Entre terre et océan",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/GANVIE.jpeg",alt:"Maisons sur pilotis et pirogues à Ganvié",place:"Ganvié · La vie sur l’eau",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/Grand popo.jpeg",alt:"La plage de Grand-Popo vue du ciel",place:"Grand-Popo · Le temps suspendu",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/plage ouidah.jpeg",alt:"Cocotiers et parasols sur la côte de Ouidah",place:"Ouidah · Sur le littoral",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/ville ganvie (1).jpeg",alt:"Vue du village lacustre de Ganvié",place:"Ganvié · Les maisons sur pilotis",credit:"AYIFFA TOURISME · photographie locale"},
+  {src:"/images/ouidah vu du ciel 1.jpeg",alt:"Vue aérienne de la route et du littoral de Ouidah",place:"Ouidah · L’horizon Atlantique",credit:"AYIFFA TOURISME · photographie locale"},
 ];
 
 const recovered = [1,2,3,10,11,12,14,15,16,17,18,19,20,21,22,23,24].map(n => {
