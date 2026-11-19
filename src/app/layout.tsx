@@ -12,6 +12,7 @@ import "./visit-inspired.css";
 import "./signature.css";
 import "./atlas.css";
 import { appliedIdentity } from "@/lib/applied-identity";
+import { getServerLocale } from "@/lib/get-locale-server";
 
 const sans = Manrope({ weight: ["400", "500", "600", "700", "800"], style: "normal", subsets: ["latin", "latin-ext"], variable: "--font-sans", display: "swap" });
 const editorial = Cormorant_Garamond({ weight: "500", style: ["normal", "italic"], subsets: ["latin", "latin-ext"], variable: "--font-editorial", display: "swap" });
@@ -27,7 +28,8 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = {width:"device-width",initialScale:1,themeColor:"#163e31"};
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const locale = await getServerLocale();
   const structuredData = {"@context":"https://schema.org","@type":"TravelAgency",name:site.name,url:site.url,email:site.email,address:{"@type":"PostalAddress",addressLocality:"Ouidah",addressRegion:"Atlantique",addressCountry:"BJ"},areaServed:{"@type":"Country",name:"Bénin"},description:"Visites guidées, croisières et séjours personnalisés au Bénin."};
-  return <html lang="fr" className={`${sans.variable} ${editorial.variable}`}><body className="ayiffa-signature" data-design={appliedIdentity.id}><a href="#contenu" className="skip-link">Aller au contenu</a><CinemaProvider><LocaleProvider><Header/><main id="contenu">{children}</main><Footer/></LocaleProvider></CinemaProvider><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,"\\u003c")}}/></body></html>;
+  return <html lang={locale} className={`${sans.variable} ${editorial.variable}`}><body className="ayiffa-signature" data-design={appliedIdentity.id}><a href="#contenu" className="skip-link">Aller au contenu</a><CinemaProvider><LocaleProvider initialLocale={locale}><Header/><main id="contenu">{children}</main><Footer/></LocaleProvider></CinemaProvider><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,"\\u003c")}}/></body></html>;
 }

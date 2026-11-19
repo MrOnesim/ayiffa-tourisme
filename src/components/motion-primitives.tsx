@@ -1,16 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import Link from "next/link";
 import { Pause, Play } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { SunEmblem } from "./brand";
+
+const MotionLink = motion.create(Link);
 
 function motionAllowed() {
   return !window.matchMedia("(prefers-reduced-motion: reduce)").matches && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }
 
 export function Magnetic({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const reduceMotion = useReducedMotion();
   function move(event: PointerEvent<HTMLDivElement>) {
-    if (!motionAllowed()) return;
+    if (reduceMotion || !motionAllowed()) return;
     const bounds = event.currentTarget.getBoundingClientRect();
     event.currentTarget.style.setProperty("--magnetic-x", `${(event.clientX - bounds.left - bounds.width / 2) * .12}px`);
     event.currentTarget.style.setProperty("--magnetic-y", `${(event.clientY - bounds.top - bounds.height / 2) * .18}px`);
@@ -19,12 +24,13 @@ export function Magnetic({ children, className = "" }: { children: ReactNode; cl
     event.currentTarget.style.setProperty("--magnetic-x", "0px");
     event.currentTarget.style.setProperty("--magnetic-y", "0px");
   }
-  return <div className={`magnetic ${className}`} onPointerMove={move} onPointerLeave={reset}>{children}</div>;
+  return <motion.div className={`magnetic ${className}`} onPointerMove={move} onPointerLeave={reset} whileHover={reduceMotion ? undefined : { y: -2 }} whileTap={reduceMotion ? undefined : { scale: 0.98 }} transition={{ type: "spring", stiffness: 320, damping: 24 }}>{children}</motion.div>;
 }
 
 export function TiltFrame({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const reduceMotion = useReducedMotion();
   function move(event: PointerEvent<HTMLDivElement>) {
-    if (!motionAllowed()) return;
+    if (reduceMotion || !motionAllowed()) return;
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - .5;
     const y = (event.clientY - bounds.top) / bounds.height - .5;
@@ -35,7 +41,17 @@ export function TiltFrame({ children, className = "" }: { children: ReactNode; c
     event.currentTarget.style.setProperty("--tilt-x", "0deg");
     event.currentTarget.style.setProperty("--tilt-y", "0deg");
   }
-  return <div className={`tilt-frame ${className}`} onPointerMove={move} onPointerLeave={reset}>{children}</div>;
+  return <motion.div className={`tilt-frame ${className}`} onPointerMove={move} onPointerLeave={reset} whileHover={reduceMotion ? undefined : { y: -6 }} whileTap={reduceMotion ? undefined : { scale: 0.99 }} transition={{ type: "spring", stiffness: 300, damping: 25 }}>{children}</motion.div>;
+}
+
+export function MotionButtonLink({ href, children, className = "" }: { href: string; children: ReactNode; className?: string }) {
+  const reduceMotion = useReducedMotion();
+  return <MotionLink href={href} className={className} whileHover={reduceMotion ? undefined : { y: -3 }} whileTap={reduceMotion ? undefined : { scale: 0.98 }} transition={{ type: "spring", stiffness: 320, damping: 24 }}>{children}</MotionLink>;
+}
+
+export function MotionCard({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const reduceMotion = useReducedMotion();
+  return <motion.article className={className} whileHover={reduceMotion ? undefined : { y: -7 }} whileTap={reduceMotion ? undefined : { scale: 0.99 }} transition={{ type: "spring", stiffness: 280, damping: 25 }}>{children}</motion.article>;
 }
 
 export function WordReveal({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {

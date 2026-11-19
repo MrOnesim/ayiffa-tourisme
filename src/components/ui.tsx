@@ -6,16 +6,17 @@ import type { ReactNode } from "react";
 import type { Destination, Circuit } from "@/lib/content";
 import { useContent } from "@/lib/use-content";
 import { SunEmblem } from "./brand";
-import { TiltFrame } from "./motion-primitives";
+import { MotionButtonLink, MotionCard, TiltFrame } from "./motion-primitives";
 
 export function ButtonLink({href, children, variant = "dark", className = ""}: {href:string; children:ReactNode; variant?:"dark"|"lime"|"outline"|"light"|"terra"; className?:string}) {
-  return <Link href={href} className={`button button-${variant} ${className}`}>{children}<ArrowUpRight size={18} strokeWidth={1.7} aria-hidden="true"/></Link>;
+  return <MotionButtonLink href={href} className={`button button-${variant} ${className}`}>{children}<ArrowUpRight size={18} strokeWidth={1.7} aria-hidden="true"/></MotionButtonLink>;
 }
 export function TextLink({href,children,className=""}:{href:string;children:ReactNode;className?:string}) {
   return <Link href={href} className={`text-link ${className}`}>{children}<ArrowUpRight size={18} aria-hidden="true"/></Link>;
 }
 export function SectionHeading({label,children,description,href,linkText}:{label:string;children:ReactNode;description?:string;href?:string;linkText?:string}) {
-  return <div className="section-heading"><div><p className="eyebrow"><span/>{label}</p><h2>{children}</h2></div><div className="section-heading-aside">{description&&<p>{description}</p>}{href&&<TextLink href={href}>{linkText||"Tout découvrir"}</TextLink>}</div></div>;
+  const hasAside = Boolean(description || href);
+  return <div className={`section-heading${hasAside ? "" : " section-heading-single"}`}><div><p className="eyebrow"><span/>{label}</p><h2>{children}</h2></div>{hasAside&&<div className="section-heading-aside">{description&&<p>{description}</p>}{href&&<TextLink href={href}>{linkText||"Tout découvrir"}</TextLink>}</div>}</div>;
 }
 export function DestinationCard({destination, index=0}:{destination:Destination;index?:number}) {
   return <TiltFrame><Link href={`/destinations/${destination.slug}`} className="destination-card">
@@ -26,7 +27,7 @@ export function DestinationCard({destination, index=0}:{destination:Destination;
   </Link></TiltFrame>;
 }
 export function CircuitCard({circuit}:{circuit:Circuit}) {
-  return <article className={`circuit-card card-lift`}><Link href={`/circuits/${circuit.slug}`} className="circuit-card-image" aria-label={`Voir le circuit ${circuit.name}`}><Image src={circuit.image} alt={circuit.alt} fill sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 31vw"/><span className="duration-tag"><Clock3 size={13} aria-hidden="true"/>{circuit.duration}</span><span className="circuit-image-arrow"><ArrowUpRight size={23} aria-hidden="true"/></span></Link><div className="circuit-card-content"><p className="mini-label">{circuit.category}</p><h3><Link href={`/circuits/${circuit.slug}`}>{circuit.name}</Link></h3><p>{circuit.subtitle}</p><div className="circuit-card-footer"><span><MapPin size={13} aria-hidden="true"/>{circuit.location}<span className="dot" aria-hidden="true"/>Sur devis</span><Link href={`/circuits/${circuit.slug}`} aria-label={`Découvrir ${circuit.name}`}><ArrowRight size={19} aria-hidden="true"/></Link></div></div></article>;
+  return <MotionCard className="circuit-card"><Link href={`/circuits/${circuit.slug}`} className="circuit-card-image" aria-label={`Voir le circuit ${circuit.name}`}><Image src={circuit.image} alt={circuit.alt} fill sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 31vw"/><span className="duration-tag"><Clock3 size={13} aria-hidden="true"/>{circuit.duration}</span><span className="circuit-image-arrow"><ArrowUpRight size={23} aria-hidden="true"/></span></Link><div className="circuit-card-content"><p className="mini-label">{circuit.category}</p><h3><Link href={`/circuits/${circuit.slug}`}>{circuit.name}</Link></h3><p>{circuit.subtitle}</p><div className="circuit-card-footer"><span><MapPin size={13} aria-hidden="true"/>{circuit.location}<span className="dot" aria-hidden="true"/>Sur devis</span><Link href={`/circuits/${circuit.slug}`} aria-label={`Découvrir ${circuit.name}`}><ArrowRight size={19} aria-hidden="true"/></Link></div></div></MotionCard>;
 }
 export function Breadcrumbs({items,light=false}:{items:{label:string;href?:string}[];light?:boolean}) {
   return <nav aria-label="Fil d’Ariane" className={`breadcrumbs ${light?"breadcrumbs-light":""}`}><Link href="/">Accueil</Link>{items.map((item,index)=><span key={index}><ChevronRight size={11}/>{item.href?<Link href={item.href}>{item.label}</Link>:<span aria-current="page">{item.label}</span>}</span>)}</nav>;

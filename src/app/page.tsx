@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MapPinned, HeartHandshake, Leaf, Route, SlidersHorizontal, MessagesSquare, Quote, ArrowUpRight, ShieldCheck, Clock, Sparkles } from "lucide-react";
+import { MapPinned, HeartHandshake, Leaf, Route, SlidersHorizontal, MessagesSquare } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading, CircuitCard, TravelCTA } from "@/components/ui";
@@ -40,11 +40,11 @@ export default async function Home() {
     <section className="section container why-section"><Reveal><SectionHeading label={t.promisesEyebrow}>{t.promisesTitle}</SectionHeading></Reveal><div className="promise-grid">{promises.map(({Icon,title},index) => <Reveal key={title} delay={index * 70}><div className="promise"><Icon size={32} strokeWidth={1.15}/><span className="promise-number">0{index + 1}</span><h3>{title}</h3></div></Reveal>)}</div></section>
     <section className="section container home-gallery"><Reveal><SectionHeading label={t.galleryEyebrow} href="/galerie" linkText="Ouvrir le carnet d’images">{t.galleryTitle}</SectionHeading></Reveal><Gallery/></section>
     <Testimonials/>
-    <section className="section container trust-badges" id="confiance"><Reveal variant="soft"><p className="eyebrow"><span/>VOTRE SÉRÉNITÉ, NOTRE PRIORITÉ</p><h2>Voyagez l’esprit tranquille</h2><p>Chaque réservation est accompagnée de garanties concrètes, pour que votre voyage au Bénin se déroule sans imprévu.</p></Reveal>
+    <section className="section container trust-badges" id="confiance"><Reveal variant="soft"><p className="eyebrow"><span/>UN PROJET, EN TOUTE CLARTÉ</p><h2>Préparons votre séjour ensemble</h2><p>Nous précisons avec vous le programme, les prestations, le tarif et les conditions avant toute réservation.</p></Reveal>
       <div className="badges-grid">
-        <article className="badge"><ShieldCheck size={20} strokeWidth={1.4}/><div><h3>Paiement sécurisé</h3><p>Transactions protégées par cryptage SSL, partenaire bancaire béninois de confiance.</p></div></article>
-        <article className="badge"><Clock size={20} strokeWidth={1.4}/><div><h3>Annulation flexible</h3><p>Modifiez ou annulez votre réservation jusqu’à 15 jours avant le départ, sans frais.</p></div></article>
-        <article className="badge"><Sparkles size={20} strokeWidth={1.4}/><div><h3>Guide local certifié</h3><p>Tous nos accompagnateurs sont des guides officiels du patrimoine béninois, formés et passionnés.</p></div></article>
+        <article className="badge"><MapPinned size={20} strokeWidth={1.4} aria-hidden="true"/><div><h3>Un point de départ local</h3><p>AYIFFA TOURISME est ancrée à Ouidah et propose de découvrir les lieux du Bénin.</p></div></article>
+        <article className="badge"><SlidersHorizontal size={20} strokeWidth={1.4} aria-hidden="true"/><div><h3>Un itinéraire à votre mesure</h3><p>Partagez vos envies et votre rythme pour définir ensemble les étapes du séjour.</p></div></article>
+        <article className="badge"><MessagesSquare size={20} strokeWidth={1.4} aria-hidden="true"/><div><h3>Des conditions expliquées</h3><p>Le devis et les modalités sont à confirmer directement avec l’agence avant tout engagement.</p></div></article>
       </div>
     </section>
     <TravelCTA/>
