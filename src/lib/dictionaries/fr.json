@@ -1,0 +1,178 @@
+{
+  "nav": {
+    "destinations": "Destinations",
+    "circuits": "Circuits & voyages",
+    "experiences": "Expériences",
+    "services": "Services",
+    "about": "À propos",
+    "contact": "Contact",
+    "gallery": "Galerie",
+    "more": "Plus"
+  },
+  "header": {
+    "film": "Le film",
+    "cta": "Créons votre voyage",
+    "menu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "language": "Langue"
+  },
+  "footer": {
+    "tagline": "Le Bénin, intensément.",
+    "rights": "Tous droits réservés",
+    "contact": "Contact",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "credits": "Crédits"
+  },
+  "common": {
+    "discover": "Découvrir",
+    "learnMore": "En savoir plus",
+    "contactUs": "Nous contacter",
+    "readMore": "Lire la suite",
+    "back": "Retour",
+    "loading": "Chargement…",
+    "error": "Une erreur est survenue",
+    "notFound": "Page introuvable",
+    "home": "Accueil"
+  },
+  "home": {
+    "heroEyebrow": "AYIFFA TOURISME · BÉNIN",
+    "heroTitle": "Le Bénin, intensément.",
+    "heroSubtitle": "Des lieux qui émerveillent. Des rencontres qui restent.",
+    "trustLocal": "Une agence locale, ancrée à Ouidah",
+    "trustCustom": "Des voyages à votre image",
+    "trustAuthentic": "Des rencontres authentiques",
+    "trustSlow": "Le plaisir de prendre son temps",
+    "destinationsTitle": "D'abord, un regard. Puis, l'envie de partir.",
+    "destinationsSubtitle": "L'eau, la mémoire, les rencontres ou l'océan. Quel Bénin vous appelle ?",
+    "ctaTitle": "Votre prochain grand souvenir commence ici.",
+    "ctaSubtitle": "Une envie, une idée, un rêve de Bénin. Parlons-en.",
+    "ctaButton": "Imaginons votre voyage"
+  },
+  "contact": {
+    "title": "Tout commence par une envie.",
+    "description": "Un rêve bien précis ou simplement l'envie de partir ? Racontez-nous.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse e-mail",
+    "phone": "Téléphone",
+    "destination": "Votre destination",
+    "startDate": "Date envisagée",
+    "travellers": "Nombre de voyageurs",
+    "message": "Racontez-nous vos envies",
+    "consent": "J'accepte l'enregistrement de mes informations",
+    "submit": "Confier mon projet de voyage",
+    "success": "Merci, votre projet est enregistré.",
+    "successNote": "Votre demande a été conservée. Elle n'a pas été envoyée automatiquement à l'agence."
+  },
+  "form": {
+    "required": "obligatoire",
+    "optional": "facultatif",
+    "invalid": "Champ invalide"
+  },
+  "pages": {
+    "home": {
+      "title": "AYIFFA TOURISME — Le Bénin, intensément",
+      "description": "Découvrez le Bénin avec AYIFFA TOURISME, agence locale à Ouidah.",
+      "heroEyebrow": "AYIFFA TOURISME · BÉNIN",
+      "heroTitle": "Le Bénin, intensément.",
+      "heroSubtitle": "Des lieux qui émerveillent. Des rencontres qui restent.",
+      "trustLocal": "Une agence locale, ancrée à Ouidah",
+      "trustCustom": "Des voyages à votre image",
+      "trustAuthentic": "Des rencontres authentiques",
+      "trustSlow": "Le plaisir de prendre son temps",
+      "destinationsEyebrow": "LE BÉNIN VOUS APPELLE",
+      "destinationsTitle": "D'abord, un regard. Puis, l'envie de partir.",
+      "destinationsSubtitle": "L'eau, la mémoire, les rencontres ou l'océan. Quel Bénin vous appelle ?",
+      "experiencesEyebrow": "NOS EXPÉRIENCES",
+      "experiencesTitle": "Des instants à vivre. Des émotions à garder.",
+      "circuitsEyebrow": "DES VOYAGES QUI ONT UNE ÂME",
+      "circuitsTitle": "Laissez-vous guider. Gardez votre liberté.",
+      "circuitsSubtitle": "Quelques idées pour commencer. La suite s'écrit avec vous.",
+      "circuitsFootnote": "Chaque programme et chaque tarif sont confirmés dans un devis personnalisé.",
+      "promisesEyebrow": "NOTRE FAÇON DE VOUS ACCOMPAGNER",
+      "promisesTitle": "Le goût du voyage. Le sens de l'attention.",
+      "galleryEyebrow": "INSTANTS DU BÉNIN",
+      "galleryTitle": "Certaines émotions n'ont pas besoin de mots.",
+      "ctaEyebrow": "ET SI L'ON ÉCRIVAIT LA SUITE ENSEMBLE ?",
+      "ctaTitle": "Votre prochain grand souvenir commence ici.",
+      "ctaSubtitle": "Une envie, une idée, un rêve de Bénin. Parlons-en.",
+      "ctaButton": "Imaginons votre voyage"
+    },
+    "destinations": {
+      "title": "Destinations au Bénin",
+      "label": "NOS DESTINATIONS",
+      "titleH1": "Un pays. Mille façons de vibrer.",
+      "description": "Des cités chargées d'histoire aux lagunes paisibles, des cultures vivantes aux horizons de l'Atlantique. Trouvez le Bénin qui vous ressemble.",
+      "searchPlaceholder": "Un lieu, une envie, une découverte…",
+      "allCategories": "Toutes les envies",
+      "resultsCount": "destination à découvrir",
+      "reset": "Réinitialiser les filtres",
+      "emptyTitle": "Un autre chemin vous attend.",
+      "emptyText": "Aucune destination ne correspond à ces critères. Essayez une autre envie ou explorez toutes nos destinations.",
+      "showAll": "Voir toutes les destinations"
+    },
+    "circuits": {
+      "title": "Circuits & voyages",
+      "label": "CIRCUITS & VOYAGES",
+      "titleH1": "Laissez-vous guider. Gardez votre liberté.",
+      "description": "Des idées de voyage pour commencer. La suite s'écrit avec vous.",
+      "searchPlaceholder": "Le voyage qui vous ressemble…",
+      "allCategories": "Tous les voyages",
+      "sortBy": "Trier par",
+      "sortSelection": "Notre sélection",
+      "sortShort": "Durée croissante",
+      "sortLong": "Durée décroissante",
+      "resultsCount": "idée de voyage",
+      "emptyTitle": "Élargissons les horizons.",
+      "emptyText": "Aucun circuit ne correspond à votre recherche.",
+      "reset": "Réinitialiser la recherche"
+    },
+    "experiences": {
+      "title": "Expériences — Rencontrer le Bénin autrement",
+      "label": "NOS EXPÉRIENCES",
+      "titleH1": "Des instants à vivre. Des émotions à garder.",
+      "description": "Un voyage ne se mesure pas seulement aux kilomètres parcourus. Il se mesure aussi à ce qu'il change dans notre regard."
+    },
+    "services": {
+      "title": "Services",
+      "label": "NOS SERVICES",
+      "titleH1": "Vous avez l'envie. Donnons-lui vie.",
+      "description": "De la première conversation aux étapes de votre séjour, une approche simple : vous écouter, vous guider et préparer un voyage qui a du sens."
+    },
+    "about": {
+      "title": "À propos",
+      "label": "L'ESPRIT AYIFFA",
+      "titleH1": "Le Bénin en partage. Tout simplement.",
+      "description": "Derrière chaque voyage, il y a un lieu, une histoire et surtout des personnes."
+    },
+    "contact": {
+      "title": "Contact",
+      "label": "CRÉONS VOTRE VOYAGE",
+      "titleH1": "Tout commence par une envie.",
+      "description": "Un rêve bien précis ou simplement l'envie de partir ? Racontez-nous. La première étape est une conversation, pas un engagement."
+    },
+    "gallery": {
+      "title": "Galerie",
+      "label": "INSTANTS DU BÉNIN",
+      "titleH1": "Certaines émotions n'ont pas besoin de mots.",
+      "description": "Le Bénin en images."
+    },
+    "credits": {
+      "title": "Crédits",
+      "label": "CRÉDITS & SOURCES",
+      "titleH1": "Les regards derrière ces images.",
+      "description": "Photographies, licences et sources des médias utilisés sur ce site."
+    },
+    "legal": {
+      "title": "Mentions légales",
+      "label": "INFORMATIONS LÉGALES",
+      "titleH1": "Mentions légales."
+    },
+    "privacy": {
+      "title": "Confidentialité",
+      "label": "POLITIQUE DE CONFIDENTIALITÉ",
+      "titleH1": "Confidentialité & données."
+    }
+  }
+}
