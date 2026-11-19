@@ -5,7 +5,7 @@
 .home-departures { padding-top: 82px; padding-bottom: 60px; }
 .departure-heading { text-align: center; max-width: 850px; margin: 0 auto; }
 .departure-heading .eyebrow { justify-content: center; font-size: 8px; letter-spacing: 2px; margin-bottom: 24px; }
-.departure-heading .eyebrow > span:empty { width: 24px; }
+.departure-heading .eyebrow > span:empty { display: none; }
 .departure-heading h2 { font-size: clamp(48px, 4.7vw, 70px); line-height: 1.05; letter-spacing: -1.8px; }
 .departure-heading h2 em { color: #788866; }
 .departure-heading > p:not(.eyebrow) { color: #6e7b64; font-size: 12px; line-height: 1.9; max-width: 490px; margin: 23px auto 0; }

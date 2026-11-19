@@ -72,7 +72,7 @@
   },
   "pages": {
     "home": {
-      "title": "AYIFFA TOURISM — Benin, intensely",
+      "title": "AYIFFA TOURISM : Benin, intensely",
       "description": "Discover Benin with AYIFFA TOURISM, a local agency in Ouidah.",
       "heroEyebrow": "AYIFFA TOURISM · BENIN",
       "heroTitle": "Benin, intensely.",
@@ -89,7 +89,20 @@
       "circuitsEyebrow": "TRIPS WITH A SOUL",
       "circuitsTitle": "Let yourself be guided. Keep your freedom.",
       "circuitsSubtitle": "A few ideas to start. The rest is written with you.",
+      "circuitsLink": "Explore all trips",
       "circuitsFootnote": "Each programme and rate is confirmed in a personalised quote.",
+      "discovery": {
+        "title": "Your journey begins with a wish.",
+        "link": "Plan my journey",
+        "destinationLabel": "Your next stop",
+        "destinationPlaceholder": "Where would you like to go?",
+        "styleLabel": "How you like to travel",
+        "stylePlaceholder": "What inspires you?",
+        "travellersLabel": "Travelling with",
+        "travellerUnit": "traveller",
+        "travellerPlural": "s",
+        "submit": "Find my escape"
+      },
       "promisesEyebrow": "HOW WE ACCOMPANY YOU",
       "promisesTitle": "The taste of travel. The sense of attention.",
       "galleryEyebrow": "MOMENTS OF BENIN",
@@ -129,7 +142,7 @@
       "reset": "Reset search"
     },
     "experiences": {
-      "title": "Experiences — Meet Benin differently",
+      "title": "Experiences : Meet Benin differently",
       "label": "OUR EXPERIENCES",
       "titleH1": "Moments to live. Emotions to keep.",
       "description": "A journey is not only measured in kilometres travelled. It is also measured in what it changes in our outlook."

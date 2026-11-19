@@ -72,7 +72,7 @@
   },
   "pages": {
     "home": {
-      "title": "AYIFFA TURISMO — Benín, intensamente",
+      "title": "AYIFFA TURISMO : Benín, intensamente",
       "description": "Descubre Benín con AYIFFA TURISMO, agencia local en Ouidah.",
       "heroEyebrow": "AYIFFA TURISMO · BENÍN",
       "heroTitle": "Benín, intensamente.",
@@ -89,7 +89,20 @@
       "circuitsEyebrow": "VIAJES CON ALMA",
       "circuitsTitle": "Déjate guiar. Guarda tu libertad.",
       "circuitsSubtitle": "Algunas ideas para empezar. El resto se escribe contigo.",
+      "circuitsLink": "Explorar todos los viajes",
       "circuitsFootnote": "Cada programa y cada tarifa se confirman en un presupuesto personalizado.",
+      "discovery": {
+        "title": "Tu viaje empieza con una ilusión.",
+        "link": "Preparar mi viaje",
+        "destinationLabel": "Tu próxima escala",
+        "destinationPlaceholder": "¿Adónde te gustaría ir?",
+        "styleLabel": "Tu manera de viajar",
+        "stylePlaceholder": "¿Qué te inspira?",
+        "travellersLabel": "Acompañantes",
+        "travellerUnit": "viajero",
+        "travellerPlural": "s",
+        "submit": "Encontrar mi evasión"
+      },
       "promisesEyebrow": "CÓMO TE ACOMPAÑAMOS",
       "promisesTitle": "El gusto del viaje. El sentido de la atención.",
       "galleryEyebrow": "INSTANTES DE BENÍN",
@@ -129,7 +142,7 @@
       "reset": "Restablecer búsqueda"
     },
     "experiences": {
-      "title": "Experiencias — Encontrar Benín de otra manera",
+      "title": "Experiencias : Encontrar Benín de otra manera",
       "label": "NUESTRAS EXPERIENCIAS",
       "titleH1": "Momentos para vivir. Emociones para guardar.",
       "description": "Un viaje no se mide solo en kilómetros recorridos. También se mide en lo que cambia en nuestra mirada."

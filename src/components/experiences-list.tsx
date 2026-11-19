@@ -12,5 +12,5 @@ const descriptions = [
 
 export function ExperiencesList() {
   const { experiences } = useContent();
-  return <div className="container experiences-list">{experiences.map((experience, index) => <section className="editorial-split" key={experience.number}><Reveal className="editorial-image"><Image src={experience.image} alt={experience.alt} fill sizes="(max-width: 700px) 100vw, 45vw"/></Reveal><Reveal className="editorial-copy"><span className="experience-number">{experience.number}</span><p className="eyebrow"><span/>{experience.category}</p><h2>{experience.title}.</h2><p>{experience.text}</p><p>{descriptions[index]}</p><ButtonLink href={experience.href}>Explorer cette expérience</ButtonLink></Reveal></section>)}</div>;
+  return <div className="container experiences-list">{experiences.map((experience, index) => <section className="editorial-split" key={experience.number}><Reveal className="editorial-image"><Image src={experience.image} alt={experience.alt} fill sizes="(max-width: 700px) 100vw, 45vw"/></Reveal><Reveal className="editorial-copy"><span className="experience-number">{experience.number}</span><p className="eyebrow">{experience.category}</p><h2>{experience.title}</h2><p>{experience.text}</p><p>{descriptions[index]}</p><ButtonLink href={experience.href}>Explorer cette expérience</ButtonLink></Reveal></section>)}</div>;
 }

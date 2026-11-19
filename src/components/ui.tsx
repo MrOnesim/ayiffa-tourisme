@@ -16,7 +16,7 @@ export function TextLink({href,children,className=""}:{href:string;children:Reac
 }
 export function SectionHeading({label,children,description,href,linkText}:{label:string;children:ReactNode;description?:string;href?:string;linkText?:string}) {
   const hasAside = Boolean(description || href);
-  return <div className={`section-heading${hasAside ? "" : " section-heading-single"}`}><div><p className="eyebrow"><span/>{label}</p><h2>{children}</h2></div>{hasAside&&<div className="section-heading-aside">{description&&<p>{description}</p>}{href&&<TextLink href={href}>{linkText||"Tout découvrir"}</TextLink>}</div>}</div>;
+  return <div className={`section-heading${hasAside ? "" : " section-heading-single"}`}><div><p className="eyebrow">{label}</p><h2>{children}</h2></div>{hasAside&&<div className="section-heading-aside">{description&&<p>{description}</p>}{href&&<TextLink href={href}>{linkText||"Tout découvrir"}</TextLink>}</div>}</div>;
 }
 export function DestinationCard({destination, index=0}:{destination:Destination;index?:number}) {
   return <TiltFrame><Link href={`/destinations/${destination.slug}`} className="destination-card">
@@ -33,12 +33,12 @@ export function Breadcrumbs({items,light=false}:{items:{label:string;href?:strin
   return <nav aria-label="Fil d’Ariane" className={`breadcrumbs ${light?"breadcrumbs-light":""}`}><Link href="/">Accueil</Link>{items.map((item,index)=><span key={index}><ChevronRight size={11}/>{item.href?<Link href={item.href}>{item.label}</Link>:<span aria-current="page">{item.label}</span>}</span>)}</nav>;
 }
 export function PageIntro({label,title,description,children}:{label:string;title:ReactNode;description:string;children?:ReactNode}) {
-  return <section className="page-intro"><div className="container"><SunEmblem className="page-intro-emblem"/><Breadcrumbs items={[{label}]}/><div className="page-intro-content"><div><p className="eyebrow"><span/>{label}</p><h1>{title}</h1></div><p className="page-intro-description">{description}</p></div>{children}</div></section>;
+  return <section className="page-intro"><div className="container"><SunEmblem className="page-intro-emblem"/><Breadcrumbs items={[{label}]}/><div className="page-intro-content"><div><p className="eyebrow">{label}</p><h1>{title}</h1></div><p className="page-intro-description">{description}</p></div>{children}</div></section>;
 }
 export function TravelCTA({compact=false}:{compact?:boolean}) {
   return <section className={`travel-cta ${compact?"travel-cta-compact":""}`}><Image src="/images/grand-popo.jpg" alt="Le littoral de Grand-Popo, entre plage, cocotiers et océan Atlantique" fill sizes="100vw"/><div className="travel-cta-shade"/><div className="container travel-cta-content"><SunEmblem/><p className="eyebrow">ET SI L’ON ÉCRIVAIT LA SUITE ENSEMBLE ?</p><h2>Votre prochain grand souvenir<br/><em>commence ici.</em></h2><p>Une envie, une idée, un rêve de Bénin. Parlons-en.</p><ButtonLink href="/contact" variant="terra">Parlons de votre voyage au Bénin</ButtonLink></div></section>;
 }
 export function FAQ({limit}:{limit?:number}) {
   const { faqs } = useContent();
-  return <section className="faq-section container section" id="questions"><div><p className="eyebrow"><span/>AVANT LE DÉPART</p><h2>Vous vous demandez<br/><em>peut-être…</em></h2><p>Le voyage commence aussi<br/>par les bonnes questions.</p></div><div className="faq-list">{faqs.slice(0,limit).map((faq,index)=><details key={faq.question}><summary><span className="faq-number">0{index+1}</span>{faq.question}<span className="faq-plus">+</span></summary><p>{faq.answer}</p></details>)}</div></section>;
+  return <section className="faq-section container section" id="questions"><div><p className="eyebrow">AVANT LE DÉPART</p><h2>Vous vous demandez<br/><em>peut-être…</em></h2><p>Le voyage commence aussi<br/>par les bonnes questions.</p></div><div className="faq-list">{faqs.slice(0,limit).map((faq,index)=><details key={faq.question}><summary><span className="faq-number">0{index+1}</span>{faq.question}<span className="faq-plus">+</span></summary><p>{faq.answer}</p></details>)}</div></section>;
 }

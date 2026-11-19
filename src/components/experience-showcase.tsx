@@ -162,7 +162,7 @@ export function ExperienceShowcase() {
 
   return <section className="experience-journey" id="vivre-le-benin" ref={root} data-photo-paused={photosPaused} aria-labelledby="journey-title">
     <div className="container journey-intro">
-      <Reveal variant="soft"><p className="eyebrow"><span/>NE FAITES PAS QUE PASSER</p><h2 id="journey-title">Le Bénin ne se visite pas.<br/><em>Il se vit.</em></h2></Reveal>
+      <Reveal variant="soft"><p className="eyebrow">NE FAITES PAS QUE PASSER</p><h2 id="journey-title">Le Bénin ne se visite pas.<br/><em>Il se vit.</em></h2></Reveal>
       <Reveal className="journey-intro-aside" delay={100}><p>Quatre façons de rencontrer un pays.<br/>Une seule invitation : vous laisser surprendre.</p><span><ArrowDown size={14}/>FAITES DÉFILER, LAISSEZ-VOUS EMPORTER</span></Reveal>
     </div>
     <div className="container journey-navigation">

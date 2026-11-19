@@ -69,7 +69,7 @@ export function getDesignDirection(id: DesignDirectionId) {
 }
 export function directionBrief(direction: DesignDirection) {
   return [
-    `AYIFFA TOURISME — DIRECTION ${direction.number} : ${direction.name.toUpperCase()}`,
+    `AYIFFA TOURISME : DIRECTION ${direction.number} : ${direction.name.toUpperCase()}`,
     "Inspiration de référence. Identité désormais appliquée : Signature × Terre vivante × Ligne claire.", "",
     direction.subtitle, direction.personality, "", direction.description, "",
     "PALETTE", ...direction.palette.map(color => `${color.name} : ${color.value}`), "",

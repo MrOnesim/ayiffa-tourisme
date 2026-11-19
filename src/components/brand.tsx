@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export function Brand({ light = false }: { light?: boolean }) {
-  return <Link href="/" className={`brand ${light ? "brand-light" : ""}`} aria-label="AYIFFA TOURISME — Accueil">
+  return <Link href="/" className={`brand ${light ? "brand-light" : ""}`} aria-label="AYIFFA TOURISME, accueil">
     <svg className="brand-symbol" width="42" height="46" viewBox="0 0 42 46" fill="none" aria-hidden="true">
       <path d="M4 40V23a17 17 0 0 1 34 0v17H4Z" stroke="currentColor" strokeWidth="1.5"/>
       <path d="M9 35h24M9 39h24M10 30l11-18 11 18H10Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>

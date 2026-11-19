@@ -11,7 +11,7 @@ export function Testimonials() {
       <div className="container">
         <div className="testimonial-heading">
           <Reveal variant="rise" delay={100}>
-            <p className="eyebrow"><span/>TRANSPARENCE AVANT TOUT</p>
+            <p className="eyebrow">TRANSPARENCE AVANT TOUT</p>
           </Reveal>
           <Reveal variant="rise" delay={200}>
             <h2>Les expériences de nos voyageurs<br/><em>seront racontées ici.</em></h2>

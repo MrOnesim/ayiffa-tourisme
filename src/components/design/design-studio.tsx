@@ -75,7 +75,7 @@ export function DesignStudio({ initialDirection = "signature", initialDevice = "
   function revisitRecommendation() { choose("signature"); preview.current?.scrollIntoView({ behavior: reduced ? "instant" : "smooth", block: "start" }); }
 
   return <div className="design-studio" style={{ "--studio-accent": direction.palette[0].value } as CSSProperties}>
-    <header className="studio-topbar"><div className="studio-shell studio-topbar-inner"><Brand/><span className="studio-topbar-title"><span/>L’IDENTITÉ AYIFFA</span><Link href="/" className="studio-return">Voir le site appliqué<ArrowUpRight size={15}/></Link></div></header>
+    <header className="studio-topbar"><div className="studio-shell studio-topbar-inner"><Brand/><span className="studio-topbar-title">L’IDENTITÉ AYIFFA</span><Link href="/" className="studio-return">Voir le site appliqué<ArrowUpRight size={15}/></Link></div></header>
     <div className="studio-shell">
       <AppliedIdentityStatus/>
       <section className="studio-intro"><div><p className="studio-kicker"><Palette size={13}/>IDENTITÉ VISUELLE · AYIFFA TOURISME</p><h1>Une identité.<br/><em>Trois inspirations.</em></h1></div><div className="studio-intro-aside"><p>Les trois pistes sont réunies dans une identité cohérente.<br/>Retrouvez ici les repères qui ont guidé son application.</p><button className="studio-recommendation-link" onClick={revisitRecommendation}><Check size={15}/><span>Base de l’identité : <strong>Signature</strong></span><ArrowDown size={14}/></button><small>Les aperçus ci-dessous conservent les inspirations de départ.</small></div></section>

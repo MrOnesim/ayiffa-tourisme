@@ -4,7 +4,7 @@ import { Gallery } from "@/components/gallery";
 import { PageIntro, TravelCTA } from "@/components/ui";
 import { getServerLocale } from "@/lib/get-locale-server";
 import { getDictionary } from "@/lib/get-dictionary";
-export const metadata: Metadata = { title: "Carnet d’images — Le Bénin autrement", description: "Un carnet photographique du Bénin : Ganvié, Ouidah, Grand-Popo, Abomey-Calavi et les paysages de Dassa. Photographies documentaires et crédits accessibles.", alternates: { canonical: "/galerie" } };
+export const metadata: Metadata = { title: "Carnet d’images : Le Bénin autrement", description: "Un carnet photographique du Bénin : Ganvié, Ouidah, Grand-Popo, Abomey-Calavi et les paysages de Dassa. Photographies documentaires et crédits accessibles.", alternates: { canonical: "/galerie" } };
 export default async function GalleryPage() {
   const locale = await getServerLocale();
   const t = getDictionary(locale).pages.gallery;

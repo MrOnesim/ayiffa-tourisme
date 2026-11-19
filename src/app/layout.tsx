@@ -19,11 +19,11 @@ const editorial = Cormorant_Garamond({ weight: "500", style: ["normal", "italic"
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: {default:"AYIFFA TOURISME — Le Bénin, intensément",template:"%s | AYIFFA TOURISME"},
+  title: {default:"AYIFFA TOURISME : Le Bénin, intensément",template:"%s | AYIFFA TOURISME"},
   description:"Découvrez le Bénin avec AYIFFA TOURISME, agence locale à Ouidah. Destinations, visites guidées, croisières et voyages personnalisés, à votre rythme.",
   applicationName:"AYIFFA TOURISME",
-  openGraph:{type:"website",locale:"fr_FR",siteName:site.name,title:"AYIFFA TOURISME — Le Bénin, intensément",description:"Des lieux qui émerveillent. Des rencontres qui restent. Imaginez votre voyage au Bénin avec une agence locale.",images:[{url:"/images/ganvie.jpg",width:1880,height:1250,alt:"Une pirogue sur le lac Nokoué à Ganvié, Bénin"}]},
-  twitter:{card:"summary_large_image",title:"AYIFFA TOURISME — Le Bénin, intensément",description:"Une autre idée du voyage au Bénin.",images:["/images/ganvie.jpg"]},
+  openGraph:{type:"website",locale:"fr_FR",siteName:site.name,title:"AYIFFA TOURISME : Le Bénin, intensément",description:"Des lieux qui émerveillent. Des rencontres qui restent. Imaginez votre voyage au Bénin avec une agence locale.",images:[{url:"/images/ganvie.jpg",width:1880,height:1250,alt:"Une pirogue sur le lac Nokoué à Ganvié, Bénin"}]},
+  twitter:{card:"summary_large_image",title:"AYIFFA TOURISME : Le Bénin, intensément",description:"Une autre idée du voyage au Bénin.",images:["/images/ganvie.jpg"]},
   robots: process.env.SITE_INDEXABLE === "true" ? {index:true,follow:true} : {index:false,follow:true},
 };
 export const viewport: Viewport = {width:"device-width",initialScale:1,themeColor:"#163e31"};

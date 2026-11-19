@@ -4,7 +4,7 @@ import { isDesignDirection } from "@/lib/design-directions";
 import "./studio.css";
 
 export const metadata: Metadata = {
-  title: "Identité appliquée — Signature, vivante et claire",
+  title: "Identité appliquée : Signature, vivante et claire",
   description: "Retrouvez les inspirations réunies dans l’identité appliquée d’AYIFFA TOURISME : Signature, Terre vivante et Ligne claire.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/directions-artistiques" },

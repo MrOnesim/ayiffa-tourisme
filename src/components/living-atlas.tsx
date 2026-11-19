@@ -54,7 +54,7 @@ export function LivingAtlas() {
 
   return <section className="living-atlas" id="atlas-vivant" aria-labelledby="atlas-title">
     <div className="container">
-      <div className="atlas-heading"><div><p className="eyebrow"><span/>ATLAS VIVANT / CINQ ESCALES</p><h2 id="atlas-title">Le Bénin,<br/><em>à la carte.</em></h2></div><div><p>Sélectionnez un repère pour découvrir le lieu et ouvrir sa fiche.</p><Link href="/destinations" className="text-link">Toutes les destinations<ArrowUpRight size={17}/></Link></div></div>
+      <div className="atlas-heading"><div><p className="eyebrow">ATLAS VIVANT / CINQ ESCALES</p><h2 id="atlas-title">Le Bénin,<br/><em>à la carte.</em></h2></div><div><p>Sélectionnez un repère pour découvrir le lieu et ouvrir sa fiche.</p><Link href="/destinations" className="text-link">Toutes les destinations<ArrowUpRight size={17}/></Link></div></div>
       <div className="atlas-layout">
         <div className="atlas-map-shell">
           <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>NORD · SUD</span><span className="atlas-compass" aria-hidden="true"><span>N</span><i/></span></div>
