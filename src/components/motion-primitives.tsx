@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Pause, Play } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SunEmblem } from "./brand";
+import { useLocale } from "./locale-provider";
 
 const MotionLink = motion.create(Link);
 
@@ -63,6 +64,8 @@ export function WordReveal({ text, className = "", delay = 0 }: { text: string; 
 }
 
 export function EmotionRibbon() {
+  const { t } = useLocale();
+  const ui = t.ui;
   const [paused, setPaused] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -73,12 +76,12 @@ export function EmotionRibbon() {
     return () => observer.disconnect();
   }, []);
   return <div className="emotion-ribbon" ref={root} data-paused={paused}>
-    <p className="ribbon-caption">LE VOYAGE EST UNE ÉMOTION.</p>
+    <p className="ribbon-caption">{ui.ribbonCaption}</p>
     <div className="ribbon-viewport" aria-hidden="true"><div className="ribbon-track">
-      {[0, 1].map(copy => <div className="ribbon-copy" key={copy}><span>S’émerveiller.</span><SunEmblem/><em>Rencontrer.</em><SunEmblem/><span>Ressentir.</span><SunEmblem/></div>)}
+      {[0, 1].map(copy => <div className="ribbon-copy" key={copy}><span>{ui.ribbon1}</span><SunEmblem/><em>{ui.ribbon2}</em><SunEmblem/><span>{ui.ribbon3}</span><SunEmblem/></div>)}
     </div></div>
-    <button className="ribbon-toggle" onClick={() => setPaused(!paused)} aria-label={paused ? "Relancer le ruban animé" : "Mettre le ruban animé en pause"} aria-pressed={paused}>
-      {paused ? <Play size={13}/> : <Pause size={13}/>}<span>{paused ? "Reprendre" : "Pause"}</span>
+    <button className="ribbon-toggle" onClick={() => setPaused(!paused)} aria-label={paused ? ui.ribbonPlayAria : ui.ribbonPauseAria} aria-pressed={paused}>
+      {paused ? <Play size={13}/> : <Pause size={13}/>}<span>{paused ? ui.ribbonPlayLabel : ui.ribbonPauseLabel}</span>
     </button>
   </div>;
 }

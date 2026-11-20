@@ -4,9 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MoveHorizontal, MousePointer2 } from "lucide-react";
-import { departurePostcards } from "@/lib/journey";
+import { getLocalizedPostcards } from "@/lib/localized-data";
+import { useLocale } from "./locale-provider";
 
 export function DestinationFan() {
+  const { locale, t } = useLocale();
+  const ui = t.ui;
+  const departurePostcards = getLocalizedPostcards(locale);
   const root = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
@@ -70,11 +74,11 @@ export function DestinationFan() {
   }
 
   return <div ref={root} className="departure-fan">
-    <div ref={rail} className="departure-rail" role="group" aria-label="Cinq inspirations pour votre voyage au Bénin">
+    <div ref={rail} className="departure-rail" role="group" aria-label={ui.departuresAria}>
       {departurePostcards.map((card, index) => {
         const slot = index - (departurePostcards.length - 1) / 2;
         return <div key={card.title} className="departure-position" style={{ "--fan-slot": slot, "--fan-angle": `${slot * 4.5}deg`, "--fan-arc": `${Math.abs(slot) * 17}px`, "--fan-order": 10 - Math.abs(slot) } as CSSProperties}>
-          <Link href={card.href} className={`departure-card card-lift`} aria-label={`Explorer ${card.title}`}>
+          <Link href={card.href} className={`departure-card card-lift`} aria-label={`${ui.departureExploreAria} ${card.title}`}>
             <Image src={card.image} alt={card.alt} fill sizes="(max-width: 900px) 78vw, 260px"/>
             <div className="departure-shade"/>
             <span className="departure-label">{card.label}</span>
@@ -86,10 +90,10 @@ export function DestinationFan() {
       })}
     </div>
     <div className="departure-toolbar">
-      <span className="departure-hint"><MousePointer2 size={14}/><span className="fan-desktop-hint">Un premier regard. Une envie de départ.</span><span className="fan-mobile-hint">Glissez pour choisir votre horizon.</span></span>
-      <div className="departure-controls" aria-label="Parcourir les inspirations"><button onClick={() => go(-1)} disabled={selected === 0} aria-label="Inspiration précédente"><ArrowLeft size={18}/></button><span aria-live="polite">0{selected + 1} / 0{departurePostcards.length}</span><button onClick={() => go(1)} disabled={selected === departurePostcards.length - 1} aria-label="Inspiration suivante"><ArrowRight size={18}/></button></div>
-      <Link className="text-link" href="/destinations">Explorer toutes les destinations<ArrowUpRight size={17}/></Link>
+      <span className="departure-hint"><MousePointer2 size={14}/><span className="fan-desktop-hint">{ui.fanDesktopHint}</span><span className="fan-mobile-hint">{ui.fanMobileHint}</span></span>
+      <div className="departure-controls" aria-label={ui.departureControlsAria}><button onClick={() => go(-1)} disabled={selected === 0} aria-label={ui.departurePrev}><ArrowLeft size={18}/></button><span aria-live="polite">0{selected + 1} / 0{departurePostcards.length}</span><button onClick={() => go(1)} disabled={selected === departurePostcards.length - 1} aria-label={ui.departureNext}><ArrowRight size={18}/></button></div>
+      <Link className="text-link" href="/destinations">{ui.departureAllLink}<ArrowUpRight size={17}/></Link>
     </div>
-    <p className="departure-access-note"><MoveHorizontal size={12}/>Des découvertes à choisir, un voyage à composer.</p>
+    <p className="departure-access-note"><MoveHorizontal size={12}/>{ui.departureAccessNote}</p>
   </div>;
 }

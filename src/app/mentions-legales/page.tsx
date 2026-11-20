@@ -1,6 +1,38 @@
 import type { Metadata } from "next";
 import { Info } from "lucide-react";
 import { PageIntro } from "@/components/ui";
+import { EmLines, RichText } from "@/components/lines";
 import { site } from "@/lib/content";
-export const metadata:Metadata={title:"Mentions légales",description:"Informations légales et statut de la version de présentation indépendante d’AYIFFA TOURISME.",alternates:{canonical:"/mentions-legales"}};
-export default function LegalPage(){return <><PageIntro label="MENTIONS LÉGALES" title={<>Une présentation<br/><em>en toute transparence.</em></>} description="Cette refonte est indépendante du site historique. Les informations légales définitives devront être confirmées avant sa publication officielle."/><article className="container legal-content"><div className="notice"><Info size={18}/><div>Version de présentation : cette page est un contenu provisoire à valider, et non une attestation d’identité juridique de l’entreprise.</div></div><h2>Nom et coordonnées publics</h2><p>Nom commercial présenté : {site.name}<br/>Localisation publique : {site.address}<br/>E-mail : <a href={`mailto:${site.email}`}>{site.email}</a><br/>Téléphone public historique : +229 67 04 54 07.</p><p>Le numéro est présenté sur la refonte au format +229 01 67 04 54 07, conformément au passage national à dix chiffres. Son usage actuel et l’activation du compte WhatsApp restent à valider avec l’agence.</p><h2>Informations à compléter avant publication</h2><p>La dénomination sociale exacte, la forme juridique, l’immatriculation, l’adresse postale complète, l’identité du responsable de publication, les informations de l’hébergeur et les éventuelles obligations professionnelles devront être communiquées et validées par l’agence.</p><h2>Une refonte indépendante</h2><p>Cette version n’utilise pas l’ancien panneau d’administration et ne modifie aucune donnée du site de production. Les demandes créées ici sont conservées dans une base indépendante. Aucun paiement, réservation contractuelle ou envoi automatique à l’agence n’est effectué.</p><h2>Programmes et disponibilités</h2><p>Les destinations et les formats de circuits s’appuient sur les contenus publics du site existant. Les programmes détaillés, conditions d’accès, tarifs, disponibilités, inclusions et conditions d’annulation doivent être confirmés dans un devis par l’agence. La présence d’un lieu sur le site ne garantit ni son accessibilité ni l’organisation d’un départ.</p><h2>Voyager en sécurité</h2><p>Consultez les recommandations officielles de votre pays de résidence avant toute préparation de voyage, notamment pour les zones frontalières et le nord du Bénin. Les formalités d’entrée, les précautions sanitaires et les conditions de sécurité peuvent évoluer. Un guide ne remplace pas les conseils des autorités compétentes.</p><h2>Propriété intellectuelle</h2><p>Les photographies et leurs licences sont détaillées dans les <a href="/credits">crédits photographiques</a>. La nouvelle identité visuelle est une proposition de refonte. Les photographes et personnes représentées ne sont pas présentés comme partenaires, collaborateurs ou clients de l’agence.</p></article></>;}
+import { getServerLocale } from "@/lib/get-locale-server";
+import { getDictionary } from "@/lib/get-dictionary";
+import { getPageMetadata } from "@/lib/page-metadata";
+import { interpolate } from "@/lib/text";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata(await getServerLocale(), "legal", "/mentions-legales");
+}
+
+export default async function LegalPage() {
+  const locale = await getServerLocale();
+  const t = getDictionary(locale).legal.mentions;
+  const vars = { name: site.name, address: site.address, email: site.email };
+  return <>
+    <PageIntro label={t.label} title={<EmLines text={`${t.titleLead}\n${t.titleEm}`}/>} description={t.description}/>
+    <article className="container legal-content">
+      <div className="notice"><Info size={18}/><div>{t.notice}</div></div>
+      <h2>{t.h1}</h2>
+      <p><RichText html={interpolate(t.p1a, vars)}/></p>
+      <p>{t.p1b}</p>
+      <h2>{t.h2}</h2>
+      <p>{t.p2}</p>
+      <h2>{t.h3}</h2>
+      <p>{t.p3}</p>
+      <h2>{t.h4}</h2>
+      <p>{t.p4}</p>
+      <h2>{t.h5}</h2>
+      <p>{t.p5}</p>
+      <h2>{t.h6}</h2>
+      <p><RichText html={t.p6}/></p>
+    </article>
+  </>;
+}

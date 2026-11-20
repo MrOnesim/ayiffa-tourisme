@@ -220,9 +220,9 @@ body.ayiffa-signature {
   text-align: center;
 }
 .signature-hero .hero-eyebrow { justify-content: center; font-size: 9px; letter-spacing: 2px; }
-.signature-hero .hero-eyebrow > span:empty { width: 32px; background: #EFC51A; }
+.signature-hero .hero-eyebrow > span:empty { width: 32px; background: #C85A3A; }
 .hero.signature-hero h1 { font-size: clamp(110px, 9.2vw, 138px); line-height: .9; letter-spacing: -3.8px; margin: 27px 0 24px; }
-.hero.signature-hero h1 em { font-size: .96em; line-height: 1.03; letter-spacing: -3.2px; color: #EFC51A; }
+.hero.signature-hero h1 em { font-size: .96em; line-height: 1.03; letter-spacing: -3.2px; color: #E8A33D; }
 .signature-hero .hero-description { font-size: 15px; line-height: 1.75; margin: 0 auto; max-width: 480px; color: #F1F1E5; text-shadow: 0 2px 18px rgba(5, 28, 21, .35); }
 .signature-hero .hero-buttons { justify-content: center; column-gap: 28px; row-gap: 12px; margin-top: 32px; }
 .signature-hero .hero-buttons .button { font-size: 12px; min-height: 54px; padding: 15px 28px; gap: 28px; }
@@ -326,18 +326,18 @@ body.ayiffa-signature {
 .earth-story-postcard { position: absolute; left: -15px; bottom: 30px; width: 57%; height: 207px; border: 8px solid #F5F1E8; border-bottom-width: 32px; background: #F5F1E8; rotate: -7deg; box-shadow: 0 18px 32px #5d382223; z-index: 2; }
 .earth-story-postcard > img { object-fit: cover; }
 .earth-story-postcard > span { position: absolute; bottom: -24px; left: 0; right: 0; font-family: var(--serif); font-size: 17px; font-style: italic; text-align: center; color: #5B5247; line-height: 1.1; }
-.earth-story-seal { position: absolute; top: 50px; left: 0; width: 93px; height: 93px; border-radius: 50%; background: #EFC51A; color: #694223; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; rotate: -12deg; z-index: 3; }
+.earth-story-seal { position: absolute; top: 50px; left: 0; width: 93px; height: 93px; border-radius: 50%; background: #C85A3A; color: #FAF7EF; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; rotate: -12deg; z-index: 3; }
 .earth-story-seal > svg { width: 49px; height: 49px; }
 .earth-story-seal > span { font-size: 5px; letter-spacing: 1.4px; }
 .earth-story-pattern { position: absolute; width: 136px; height: 158px; right: -29px; bottom: 25px; rotate: 8deg; opacity: .5; background: repeating-linear-gradient(0deg,transparent 0 17px,#08783B 17px 19px), repeating-linear-gradient(90deg,transparent 0 17px,#08783B 17px 19px); }
-.earth-story-note { position: absolute; right: 25px; bottom: 15px; font-family: var(--serif); font-size: 31px; font-style: italic; line-height: 1.02; rotate: -5deg; color: #EFC51A; z-index: 3; padding: 12px 17px; background: #171717; border: 1px solid #e5d3b6; box-shadow: 0 10px 23px #67492c12; }
+.earth-story-note { position: absolute; right: 25px; bottom: 15px; font-family: var(--serif); font-size: 31px; font-style: italic; line-height: 1.02; rotate: -5deg; color: #E8A33D; z-index: 3; padding: 12px 17px; background: #171717; border: 1px solid #e5d3b6; box-shadow: 0 10px 23px #67492c12; }
 .earth-story-note em { color: #E8A33D; }
 .earth-story-credit { position: absolute; right: 0; bottom: -14px; font-size: 8px; color: #5B5247; text-align: right; }
 
 /* Clear, consistent public catalogues and trip details. */
 .ayiffa-signature .page-intro { position: relative; background: var(--primary); color: var(--neutral); padding-top: 31px; padding-bottom: 60px; }
 .ayiffa-signature .page-intro > .container { position: relative; }
-.page-intro-emblem { position: absolute; right: 0; top: 38px; width: 75px; height: 75px; color: #EFC51A; opacity: .25; pointer-events: none; }
+.page-intro-emblem { position: absolute; right: 0; top: 38px; width: 75px; height: 75px; color: #E8A33D; opacity: .25; pointer-events: none; }
 .ayiffa-signature .page-intro .breadcrumbs { font-size: 10px; margin-bottom: 46px; }
 .ayiffa-signature .page-intro h1 { max-width: 850px; }
 .ayiffa-signature .page-intro-description { font-size: 14px; line-height: 1.9; color: #B8B8B8; }

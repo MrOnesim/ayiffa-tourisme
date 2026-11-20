@@ -4,13 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, MapPin, Pause, Play } from "lucide-react";
-import { journeyChapters } from "@/lib/journey";
+import { getLocalizedJourney } from "@/lib/localized-data";
 import { Reveal } from "./reveal";
 import { useCinema } from "./cinema-provider";
+import { useLocale } from "./locale-provider";
+import { Lines } from "./lines";
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 
 export function ExperienceShowcase() {
+  const { locale, t } = useLocale();
+  const ui = t.ui;
+  const journeyChapters = getLocalizedJourney(locale);
+  const journeyLines = ui.journeyTitle.split("\n");
   const { isOpen } = useCinema();
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
@@ -27,7 +33,7 @@ export function ExperienceShowcase() {
     if (!section || !strip) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobile = window.matchMedia("(max-width: 900px)");
-    const stack = window.matchMedia("(min-width: 901px) and (min-height: 700px)");
+    const stack = window.matchMedia("(min-width: 901px) and (min-height: 480px)");
     let frame = 0;
     let visible = false;
     let current = 0;
@@ -162,12 +168,12 @@ export function ExperienceShowcase() {
 
   return <section className="experience-journey" id="vivre-le-benin" ref={root} data-photo-paused={photosPaused} aria-labelledby="journey-title">
     <div className="container journey-intro">
-      <Reveal variant="soft"><p className="eyebrow">NE FAITES PAS QUE PASSER</p><h2 id="journey-title">Le Bénin ne se visite pas.<br/><em>Il se vit.</em></h2></Reveal>
-      <Reveal className="journey-intro-aside" delay={100}><p>Quatre façons de rencontrer un pays.<br/>Une seule invitation : vous laisser surprendre.</p><span><ArrowDown size={14}/>FAITES DÉFILER, LAISSEZ-VOUS EMPORTER</span></Reveal>
+      <Reveal variant="soft"><p className="eyebrow">{ui.journeyEyebrow}</p><h2 id="journey-title">{journeyLines[0]}<br/><em>{journeyLines[1]}</em></h2></Reveal>
+      <Reveal className="journey-intro-aside" delay={100}><p><Lines text={ui.journeyAside}/></p><span><ArrowDown size={14}/>{ui.journeyScroll}</span></Reveal>
     </div>
     <div className="container journey-navigation">
-      <nav aria-label="Chapitres des expériences béninoises">{journeyChapters.map((chapter, index) => <a ref={element => { navigation.current[index] = element; }} key={chapter.id} href={`#experience-panel-${index}`} aria-label={chapter.navigationLabel} aria-controls={`experience-panel-${index}`} aria-current={active === index ? "step" : undefined} className={active === index ? "active" : ""} onClick={event => navigate(event, index)} onKeyDown={event => keyboard(event, index)}><span>{chapter.number}</span>{chapter.shortLabel}</a>)}</nav>
-      <button className="journey-motion-toggle" onClick={() => setPhotosPaused(value => !value)} aria-label={photosPaused ? "Relancer les photographies des expériences" : "Mettre les photographies des expériences en pause"} aria-pressed={photosPaused}>{photosPaused ? <Play size={13}/> : <Pause size={13}/>}<span>{photosPaused ? "Photos en pause" : "Photos en mouvement"}</span></button>
+      <nav aria-label={ui.journeyNavAria}>{journeyChapters.map((chapter, index) => <a ref={element => { navigation.current[index] = element; }} key={chapter.id} href={`#experience-panel-${index}`} aria-label={chapter.navigationLabel} aria-controls={`experience-panel-${index}`} aria-current={active === index ? "step" : undefined} className={active === index ? "active" : ""} onClick={event => navigate(event, index)} onKeyDown={event => keyboard(event, index)}><span>{chapter.number}</span>{chapter.shortLabel}</a>)}</nav>
+      <button className="journey-motion-toggle" onClick={() => setPhotosPaused(value => !value)} aria-label={photosPaused ? ui.journeyPlayAria : ui.journeyPauseAria} aria-pressed={photosPaused}>{photosPaused ? <Play size={13}/> : <Pause size={13}/>}<span>{photosPaused ? ui.journeyPause : ui.journeyMoving}</span></button>
     </div>
     <div className="container journey-track" ref={track}>
       {journeyChapters.map((chapter, index) => {
@@ -178,16 +184,16 @@ export function ExperienceShowcase() {
             <div className="journey-card-surface">
               <div className="journey-media">{chapter.photos.map((image, imageIndex) => <div key={image.src} className={`journey-photo ${imageIndex === photo ? "is-visible" : ""}`} aria-hidden={imageIndex !== photo}><Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 92vw, 90vw"/></div>)}</div>
               <div className="journey-shade"/>
-              <div className="journey-card-top"><span>{chapter.eyebrow}</span><span>CHAPITRE {chapter.number} / 04</span></div>
+              <div className="journey-card-top"><span>{chapter.eyebrow}</span><span>{ui.journeyChapterLabel} {chapter.number} / {String(journeyChapters.length).padStart(2, "0")}</span></div>
               <div className="journey-card-copy"><h3 id={`journey-title-${index}`}><span>{chapter.verb}</span><em>{chapter.line}</em></h3><p>{chapter.description}</p><Link className="journey-card-link" href={chapter.href}>{chapter.action}<span><ArrowUpRight size={19}/></span></Link></div>
               <span className="journey-oversized-number" aria-hidden="true">{chapter.number}</span>
-              <div className="journey-card-bottom"><span><MapPin size={12}/>{chapter.photos[photo].caption}</span><span>AYIFFA · LE BÉNIN DE L’INTÉRIEUR</span></div>
+              <div className="journey-card-bottom"><span><MapPin size={12}/>{chapter.photos[photo].caption}</span><span>{ui.journeyBrand}</span></div>
               <span className="journey-cover" aria-hidden="true"/>
             </div>
           </article>
         </Fragment>;
       })}
     </div>
-    <div className="container journey-outro"><p>Les plus beaux souvenirs commencent par un premier pas.</p><Link href="/experiences" className="text-link">Explorer les expériences<ArrowUpRight size={17}/></Link><div className="journey-swipe-controls"><button disabled={active === 0} onClick={() => goToChapter(active - 1)} aria-label="Chapitre précédent"><ArrowLeft size={18}/></button><span>0{active + 1} / 04</span><button disabled={active === journeyChapters.length - 1} onClick={() => goToChapter(active + 1)} aria-label="Chapitre suivant"><ArrowRight size={18}/></button></div></div>
+    <div className="container journey-outro"><p>{ui.journeyOutro}</p><Link href="/experiences" className="text-link">{ui.journeyExploreLink}<ArrowUpRight size={17}/></Link><div className="journey-swipe-controls"><button disabled={active === 0} onClick={() => goToChapter(active - 1)} aria-label={ui.journeyPrev}><ArrowLeft size={18}/></button><span>0{active + 1} / 04</span><button disabled={active === journeyChapters.length - 1} onClick={() => goToChapter(active + 1)} aria-label={ui.journeyNext}><ArrowRight size={18}/></button></div></div>
   </section>;
 }

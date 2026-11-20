@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { DesignStudio } from "@/components/design/design-studio";
 import { isDesignDirection } from "@/lib/design-directions";
+import { getServerLocale } from "@/lib/get-locale-server";
+import { getPageMetadata } from "@/lib/page-metadata";
 import "./studio.css";
 
-export const metadata: Metadata = {
-  title: "Identité appliquée : Signature, vivante et claire",
-  description: "Retrouvez les inspirations réunies dans l’identité appliquée d’AYIFFA TOURISME : Signature, Terre vivante et Ligne claire.",
-  robots: { index: false, follow: false },
-  alternates: { canonical: "/directions-artistiques" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...getPageMetadata(await getServerLocale(), "studio", "/directions-artistiques"), robots: { index: false, follow: false } };
+}
 
 export default async function DesignDirectionsPage({ searchParams }: { searchParams: Promise<{ direction?: string; format?: string }> }) {
   const params = await searchParams;

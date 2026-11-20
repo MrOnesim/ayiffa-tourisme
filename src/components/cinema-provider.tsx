@@ -5,6 +5,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Maximize2, Pause, Play, RotateCcw, X } from "lucide-react";
 import { beninFilm, formatFilmTime } from "@/lib/film";
+import { getLocalizedFilm } from "@/lib/localized-data";
+import { useLocale } from "./locale-provider";
 
 const CinemaContext = createContext<{ openFilm: (start?: number) => void; isOpen: boolean } | null>(null);
 
@@ -15,6 +17,9 @@ export function useCinema() {
 }
 
 export function CinemaProvider({ children }: { children: ReactNode }) {
+  const { locale, t } = useLocale();
+  const ui = t.ui;
+  const film = getLocalizedFilm(locale);
   const dialog = useRef<HTMLDialogElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const pathname = usePathname();
@@ -35,7 +40,7 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
     else player.addEventListener("loadedmetadata", seek, { once: true });
     dialog.current?.showModal();
     setIsOpen(true);
-    void player.play().catch(() => setMessage("Appuyez sur lecture pour commencer votre découverte."));
+    void player.play().catch(() => setMessage(ui.cinemaPlayHint));
   }, []);
 
   const closeFilm = useCallback(() => {
@@ -57,7 +62,7 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
   function togglePlayback() {
     const player = video.current;
     if (!player) return;
-    if (player.paused) void player.play().catch(() => setMessage("La lecture n’a pas démarré. Essayez les commandes du lecteur."));
+    if (player.paused) void player.play().catch(() => setMessage(ui.cinemaPlayStartError));
     else player.pause();
   }
 
@@ -66,9 +71,9 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
     if (!player) return;
     try {
       if (player.requestFullscreen) await player.requestFullscreen();
-      else setMessage("Utilisez l’icône plein écran dans les commandes de la vidéo.");
+      else setMessage(ui.cinemaFullscreenHint);
     } catch {
-      setMessage("Le plein écran n’est pas disponible dans ce cadre. Le lecteur reste utilisable ici.");
+      setMessage(ui.cinemaFullscreenUnavailable);
     }
   }
 
@@ -79,24 +84,24 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
     void player.play().catch(() => setMessage("Utilisez le bouton lecture pour reprendre."));
   }
 
-  const currentChapter = Math.max(0, beninFilm.chapters.findLastIndex(chapter => time >= chapter.start));
+  const currentChapter = Math.max(0, film.chapters.findLastIndex(chapter => time >= chapter.start));
   const value = useMemo(() => ({ openFilm, isOpen }), [openFilm, isOpen]);
 
   return <CinemaContext.Provider value={value}>
     {children}
     <dialog className="cinema-dialog" ref={dialog} aria-labelledby="cinema-title" aria-describedby="cinema-description" onCancel={event => { event.preventDefault(); closeFilm(); }} onClose={() => { video.current?.pause(); setIsOpen(false); }} onClick={event => { if (event.target === event.currentTarget) closeFilm(); }}>
       <div className="cinema-shell">
-        <div className="cinema-topbar"><div><span className="cinema-edition">AYIFFA / CARNET VISUEL N° 01</span><h2 id="cinema-title">Le Bénin, <em>intensément.</em></h2></div><button className="cinema-close" onClick={closeFilm} aria-label="Fermer le film"><span>Fermer</span><X size={21}/></button></div>
+        <div className="cinema-topbar"><div><span className="cinema-edition">{ui.cinemaEdition}</span><h2 id="cinema-title">{ui.cinemaHeadingLead} <em>{ui.cinemaHeadingEm}</em></h2></div><button className="cinema-close" onClick={closeFilm} aria-label={ui.cinemaClose}><span>{ui.cinemaClose}</span><X size={21}/></button></div>
         <div className="cinema-screen">
-          <video ref={video} className="cinema-player" controls playsInline preload="none" poster={isOpen ? beninFilm.poster : undefined} aria-label="Carnet visuel du Bénin, 22 secondes, sans dialogue" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={event => setTime(event.currentTarget.currentTime)} onError={() => { setFailed(true); setPlaying(false); }}>
-            <track kind="captions" src={beninFilm.captions} srcLang="fr" label="Description des images en français"/>
-            Votre navigateur ne prend pas en charge cette vidéo.
+          <video ref={video} className="cinema-player" controls playsInline preload="none" poster={isOpen ? beninFilm.poster : undefined} aria-label={ui.cinemaVideoAria} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={event => setTime(event.currentTarget.currentTime)} onError={() => { setFailed(true); setPlaying(false); }}>
+            <track kind="captions" src={beninFilm.captions} srcLang="fr" label={ui.cinemaCaptionLabel}/>
+            {ui.cinemaVideoUnsupported}
           </video>
-          {failed && <div className="cinema-fallback" role="alert"><p>Ces images prennent un peu de temps à nous rejoindre.</p><button className="button button-lime" onClick={() => { setFailed(false); video.current?.load(); void video.current?.play().catch(() => setFailed(true)); }}>Réessayer<RotateCcw size={16}/></button><Link href="/galerie" onClick={closeFilm}>Ouvrir le carnet photographique<ArrowUpRight size={16}/></Link></div>}
+          {failed && <div className="cinema-fallback" role="alert"><p>{ui.cinemaFail}</p><button className="button button-lime" onClick={() => { setFailed(false); video.current?.load(); void video.current?.play().catch(() => setFailed(true)); }}>{ui.cinemaRetry}<RotateCcw size={16}/></button><Link href="/galerie" onClick={closeFilm}>{ui.cinemaOpenGallery}<ArrowUpRight size={16}/></Link></div>}
         </div>
-        <div className="cinema-transport"><button onClick={togglePlayback} aria-label={playing ? "Mettre le film en pause" : "Reprendre le film"}>{playing ? <Pause size={17}/> : <Play size={17}/>}<span>{playing ? "Pause" : "Lecture"}</span></button><span className="cinema-time">{formatFilmTime(time)} / 00:22</span><span className="cinema-silent">Un instant à contempler · film muet</span><button className="cinema-fullscreen" onClick={fullscreen} aria-label="Afficher le film en plein écran"><Maximize2 size={17}/><span>Plein écran</span></button></div>
-        <div className="cinema-chapters" aria-label="Chapitres du carnet visuel">{beninFilm.chapters.map((chapter, index) => <button key={chapter.number} onClick={() => seekChapter(chapter.start)} className={currentChapter === index ? "active" : ""} aria-pressed={currentChapter === index}><span>{chapter.number}</span><span>{chapter.title}<small>{chapter.location}</small></span><span>{formatFilmTime(chapter.start)}</span></button>)}</div>
-        <div className="cinema-bottom"><p id="cinema-description">Photographies animées de Ganvié et séquence aérienne de Ouidah.<br/><Link href="/credits" onClick={closeFilm}>Auteurs & crédits du film</Link></p><Link href="/contact" className="text-link" onClick={closeFilm}>Et si vous écriviez la suite ?<ArrowUpRight size={17}/></Link></div>
+        <div className="cinema-transport"><button onClick={togglePlayback} aria-label={playing ? ui.cinemaPauseAria : ui.cinemaPlayAria}>{playing ? <Pause size={17}/> : <Play size={17}/>}<span>{playing ? ui.cinemaPauseLabel : ui.cinemaPlayLabel}</span></button><span className="cinema-time">{formatFilmTime(time)} / 00:22</span><span className="cinema-silent">{ui.cinemaSilent}</span><button className="cinema-fullscreen" onClick={fullscreen} aria-label={ui.cinemaFullscreenAria}><Maximize2 size={17}/><span>{ui.cinemaFullscreen}</span></button></div>
+        <div className="cinema-chapters" aria-label={ui.cinemaChaptersAria}>{film.chapters.map((chapter, index) => <button key={chapter.number} onClick={() => seekChapter(chapter.start)} className={currentChapter === index ? "active" : ""} aria-pressed={currentChapter === index}><span>{chapter.number}</span><span>{chapter.title}<small>{chapter.location}</small></span><span>{formatFilmTime(chapter.start)}</span></button>)}</div>
+        <div className="cinema-bottom"><p id="cinema-description">{ui.cinemaBottomDescription}<br/><Link href="/credits" onClick={closeFilm}>{ui.cinemaCreditsLink}</Link></p><Link href="/contact" className="text-link" onClick={closeFilm}>{ui.cinemaContinue}<ArrowUpRight size={17}/></Link></div>
         {message && <p className="cinema-message" role="status">{message}</p>}
       </div>
     </dialog>
