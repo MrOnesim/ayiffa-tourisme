@@ -9,24 +9,22 @@ type AtlasKeyboardEvent = {
   currentTarget: { closest: (selector: string) => Element | null };
 };
 import { ArrowUpRight, MapPin, Maximize2, MoveUpRight, X } from "lucide-react";
+import {
+  BENIN_MAP,
+  BENIN_MAP_ATTRIBUTION,
+  beninContextCities,
+  beninCountryPath,
+  beninDepartmentPaths,
+  beninNeighbourPaths,
+  projectBenin,
+} from "@/lib/benin-map";
 import { getLocalizedAtlasStops } from "@/lib/localized-data";
 import { useContent } from "@/lib/use-content";
 import { EmLines } from "./lines";
 import { useLocale } from "./locale-provider";
 
-const MAP = { x: 0, y: 0, width: 740, height: 730 };
+const MAP = { x: 0, y: 0, width: BENIN_MAP.width, height: BENIN_MAP.height };
 const viewBox = `${MAP.x} ${MAP.y} ${MAP.width} ${MAP.height}`;
-
-// Fond de carte schématique : le Bénin est un pays étroit, allongé nord-sud.
-// Les voisins sont dessinés autour, jamais par-dessus le territoire béninois.
-const mapPaths = [
-  { id: "benin", d: "M300,20 L500,20 L500,110 L485,190 L500,270 L480,350 L470,430 L455,510 L440,590 L420,650 L385,658 L350,650 L335,590 L320,510 L330,430 L315,350 L300,270 L310,190 L300,110 Z" },
-  { id: "burkina-faso", d: "M0,0 L300,0 L300,160 L0,160 Z" },
-  { id: "niger", d: "M500,0 L740,0 L740,140 L500,140 Z" },
-  { id: "ghana", d: "M0,160 L185,160 L185,650 L0,650 Z" },
-  { id: "togo", d: "M185,160 L300,160 L300,640 L185,650 Z" },
-  { id: "nigeria", d: "M500,140 L740,140 L740,670 L420,670 L440,590 L455,510 L470,430 L480,350 L500,270 L485,190 L500,110 Z" },
-];
 
 // Le SVG est centré dans son conteneur (preserveAspectRatio="meet"). Les points
 // HTML doivent suivre exactement cette zone rendue, sinon ils se décalent.
@@ -125,25 +123,36 @@ export function LivingAtlas() {
         <defs>
           <pattern id={`${idPrefix}-ocean`} patternUnits="userSpaceOnUse" width="9" height="9"><path d="M0 9L9 0" stroke="#a9c1bd" strokeWidth=".35" opacity=".35"/></pattern>
           <filter id={`${idPrefix}-shadow`} x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#15392c" floodOpacity=".13"/></filter>
+          <clipPath id={`${idPrefix}-frame`}><rect x="0" y="0" width={MAP.width} height={MAP.height}/></clipPath>
         </defs>
-        <rect x="-20" y="-20" width="780" height="780" fill="#e8f0eb" pointerEvents="none"/>
-        <rect x="-20" y="650" width="780" height="120" fill={`url(#${idPrefix}-ocean)`} pointerEvents="none"/>
-        {mapPaths.map(path => <path key={path.id} className={`map-country map-country-${path.id}`} d={path.d}/>)}
-        <text className="map-ocean-label" x="370" y="674" textAnchor="middle">{ui.atlasOceanLabel}</text>
-        <text className="map-neighbor-label" x="150" y="90">BURKINA FASO</text>
-        <text className="map-neighbor-label" x="620" y="80">NIGER</text>
-        <text className="map-neighbor-label" x="235" y="300">TOGO</text>
-        <text className="map-neighbor-label" x="95" y="350">GHANA</text>
-        <text className="map-neighbor-label" x="610" y="350">NIGERIA</text>
-        <g className="benin-focus" filter={`url(#${idPrefix}-shadow)`}><path d={mapPaths[0].d}/></g>
-        <text className="map-compass-rose" x="700" y="40" textAnchor="middle">N</text>
+        <g clipPath={`url(#${idPrefix}-frame)`}>
+          <rect x="0" y="0" width={MAP.width} height={MAP.height} fill="#e8f0eb" pointerEvents="none"/>
+          <rect x="0" y="690" width={MAP.width} height="40" fill={`url(#${idPrefix}-ocean)`} pointerEvents="none"/>
+          {Object.entries(beninNeighbourPaths).map(([key, d]) => <path key={key} className={`map-country map-country-${key}`} d={d}/>)}
+          <g className="benin-focus" filter={`url(#${idPrefix}-shadow)`}><path d={beninCountryPath}/></g>
+          {beninDepartmentPaths.map(department => <path key={department.name} className="map-department" d={department.d}/>)}
+          {beninContextCities.map(city => {
+            const point = projectBenin(city.lon, city.lat);
+            return <g key={city.name} className={`map-context-city map-context-${city.side}`}>
+              <circle cx={point.x} cy={point.y} r="3.2"/>
+              <text x={point.x + (city.side === "left" ? -9 : 9 + city.dx)} y={point.y + 3} textAnchor={city.side === "left" ? "end" : "start"}>{city.name}</text>
+            </g>;
+          })}
+          <text className="map-ocean-label" x="370" y="722" textAnchor="middle">{ui.atlasOceanLabel}</text>
+          <text className="map-neighbor-label" x="115" y="80">BURKINA FASO</text>
+          <text className="map-neighbor-label" x="625" y="80">NIGER</text>
+          <text className="map-neighbor-label" x="240" y="390">TOGO</text>
+          <text className="map-neighbor-label" x="70" y="490">GHANA</text>
+          <text className="map-neighbor-label" x="620" y="470">NIGERIA</text>
+          <text className="map-compass-rose" x="700" y="42" textAnchor="middle">N</text>
+        </g>
       </svg>
       <div className="atlas-marker-layer" style={overlay.style}>
         {atlasStops.map((item, index) => <button
           key={item.slug}
           ref={element => { markerRefs[index] = element; }}
           type="button"
-          className={`atlas-stop ${active === index ? "is-active" : ""} atlas-stop-${item.labelSide}`}
+          className={`atlas-stop atlas-stop-${item.slug} ${active === index ? "is-active" : ""} atlas-stop-${item.labelSide}`}
           aria-label={`${ui.atlasStopAria} ${item.number} : ${item.shortName}`}
           aria-pressed={active === index}
           style={markerStyle(item)}
@@ -165,7 +174,7 @@ export function LivingAtlas() {
             <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>{ui.atlasRegionTag}</span><span className="atlas-compass" aria-hidden="true"/></div>
             {renderMap("atlas", markerButtons.current, ui.atlasMapAria, mainMap)}
             <button type="button" className="atlas-expand" onClick={() => setExpanded(true)} aria-label={ui.atlasExpand}><Maximize2 size={15}/><span>{ui.atlasExpand}</span></button>
-            <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{ui.atlasFooterCredit}</span><span>{ui.atlasFooterPositions}</span></div>
+            <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{BENIN_MAP_ATTRIBUTION}</span><span>{ui.atlasFooterPositions}</span></div>
           </div>
           <div className="atlas-panel">
             <div className="atlas-panel-top"><span>{ui.atlasPanelEscale} {stop.number}</span><span>0{active + 1} / 0{atlasStops.length}</span></div>
