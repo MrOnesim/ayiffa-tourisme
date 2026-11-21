@@ -102,7 +102,8 @@
         "travellersLabel": "Mitreisende",
         "travellerUnit": "Reisende",
         "travellerPlural": "",
-        "submit": "Meine Reise finden"
+        "submit": "Meine Reise finden",
+        "shortcutLabel": "Beliebte Themen"
       },
       "promisesEyebrow": "WIE WIR SIE BEGLEITEN",
       "promisesTitle": "Der Geschmack der Reise. Der Sinn der Aufmerksamkeit.",
@@ -433,6 +434,12 @@
     "testimonialText": "Wir veröffentlichen hier Feedback von Reisenden, nachdem wir ihre Erfahrung geprüft haben und mit ihrer Zustimmung.",
     "testimonialButton": "Von meiner Reise erzählen",
     "galleryAria": "Fotogalerie von Benin",
+    "chapterRailLabel": "Deine Reise in vier Kapiteln",
+    "chapterRailHint": "Vom ersten Blick bis zur großen Abreise.",
+    "chapterRepere": "Orientieren",
+    "chapterChoisisse": "Wählen",
+    "chapterVive": "Erleben",
+    "chapterParte": "Aufbrechen",
     "reelAria": "Panoramagalerie von Benin",
     "reelKeyboard": "Mit den Pfeiltasten links und rechts durch die Galerie blättern",
     "reelPause": "Galerie-Scrollen pausieren",

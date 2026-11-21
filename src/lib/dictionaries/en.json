@@ -102,7 +102,8 @@
         "travellersLabel": "Travelling with",
         "travellerUnit": "traveller",
         "travellerPlural": "s",
-        "submit": "Find my escape"
+        "submit": "Find my escape",
+        "shortcutLabel": "Popular moods"
       },
       "promisesEyebrow": "HOW WE ACCOMPANY YOU",
       "promisesTitle": "The taste of travel. The sense of attention.",
@@ -433,6 +434,12 @@
     "testimonialText": "We will publish travellers' feedback here after verifying their experience and with their consent.",
     "testimonialButton": "Tell us about my trip",
     "galleryAria": "Photo gallery of Benin",
+    "chapterRailLabel": "Your journey in four chapters",
+    "chapterRailHint": "From the first glimpse to the moment you set off.",
+    "chapterRepere": "Locate",
+    "chapterChoisisse": "Choose",
+    "chapterVive": "Experience",
+    "chapterParte": "Set off",
     "reelAria": "Panoramic gallery of Benin",
     "reelKeyboard": "Use the left and right arrow keys to browse the gallery",
     "reelPause": "Pause gallery scrolling",

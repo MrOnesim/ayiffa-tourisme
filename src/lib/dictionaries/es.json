@@ -102,7 +102,8 @@
         "travellersLabel": "Acompañantes",
         "travellerUnit": "viajero",
         "travellerPlural": "s",
-        "submit": "Encontrar mi evasión"
+        "submit": "Encontrar mi evasión",
+        "shortcutLabel": "Gustos populares"
       },
       "promisesEyebrow": "CÓMO TE ACOMPAÑAMOS",
       "promisesTitle": "El gusto del viaje. El sentido de la atención.",
@@ -433,6 +434,12 @@
     "testimonialText": "Publicaremos aquí las opiniones de los viajeros después de verificar su experiencia y con su consentimiento.",
     "testimonialButton": "Contar mi viaje",
     "galleryAria": "Galería fotográfica de Benín",
+    "chapterRailLabel": "Tu viaje en cuatro capítulos",
+    "chapterRailHint": "De la primera mirada al gran día de la partida.",
+    "chapterRepere": "Ubicar",
+    "chapterChoisisse": "Elegir",
+    "chapterVive": "Vivir",
+    "chapterParte": "Partir",
     "reelAria": "Galería panorámica de Benín",
     "reelKeyboard": "Usa las flechas izquierda y derecha para recorrer la galería",
     "reelPause": "Pausar el desplazamiento de la galería",

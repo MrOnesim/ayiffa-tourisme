@@ -274,7 +274,7 @@ body.ayiffa-signature {
 .signature-hero .hero-horizon-nav > button.active { color: #EFC51A; }
 .signature-hero .horizon-progress { background: #EFC51A; }
 
-/* Ligne claire: a clearly labelled discovery tool and direct entry points. */
+/* Ligne claire: a four-step compass, a real grid of selectors and direct entry points. */
 .signature-discovery { position: relative; padding: 0; border: 1px solid var(--line); border-radius: 13px; background: #FBF8F1; color: var(--ink); box-shadow: 0 20px 54px #193d2e12; overflow: hidden; }
 .discovery-heading { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 16px 25px 13px; border-bottom: 1px solid var(--line); }
 .discovery-heading > div { display: flex; align-items: center; gap: 10px; }
@@ -282,16 +282,33 @@ body.ayiffa-signature {
 .discovery-heading h2 { font-family: var(--font-sans); font-size: 13px; font-weight: 500; line-height: 1.45; letter-spacing: -.1px; }
 .discovery-heading > a { display: inline-flex; align-items: center; gap: 11px; font-size: 10px; color: #526357; }
 .discovery-heading > a:hover { color: var(--accent); }
-.ayiffa-signature .discovery-container { margin-top: 24px; }
-.signature-discovery .discovery-bar { background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: 20px 22px; }
-.signature-discovery .discovery-field { padding-top: 2px; padding-bottom: 2px; }
+.ayiffa-signature .discovery-container { margin-top: 18px; }
+.signature-discovery .discovery-bar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(180px, .82fr); align-items: stretch; background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: 0; }
+.signature-discovery .discovery-field { position: relative; display: flex; align-items: center; gap: 12px; min-width: 0; padding: 15px 18px; }
+.signature-discovery .discovery-field + .discovery-field::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 1px; background: var(--line); }
+.signature-discovery .discovery-field > svg { color: var(--accent); flex-shrink: 0; opacity: .85; }
+.signature-discovery .discovery-step { font-family: var(--serif); font-size: 20px; line-height: 1; color: #aeb9a5; letter-spacing: -1px; }
+.signature-discovery .discovery-field-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
 .signature-discovery .field-caption { font-size: 8px; letter-spacing: 1px; color: #526357; }
-.signature-discovery .select-wrapper select { font-size: 12px; color: var(--ink); }
-.signature-discovery .discovery-bar > .button { border-radius: 7px; min-height: 53px; font-size: 11px; }
-.discovery-shortcuts { display: flex; align-items: center; gap: 20px; padding: 12px 27px; background: #F1E7D4; border-top: 1px solid var(--line); }
-.discovery-shortcuts > span { font-size: 9px; color: #526357; }
-.discovery-shortcuts > a { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; color: #405645; padding: 3px 0; }
-.discovery-shortcuts > a:hover { color: var(--accent); }
+.signature-discovery .select-wrapper { position: relative; display: flex; align-items: center; min-width: 0; }
+.signature-discovery .select-wrapper select { appearance: none; width: 100%; min-width: 0; border: 0; background: transparent; padding: 0 22px 0 0; font-size: 12px; font-weight: 600; color: var(--ink); cursor: pointer; }
+.signature-discovery .select-wrapper > svg { position: absolute; right: 0; pointer-events: none; color: var(--accent); }
+.signature-discovery .discovery-bar > .button { margin: 10px; border-radius: 7px; min-height: 53px; font-size: 11px; }
+.discovery-shortcuts { display: flex; align-items: center; gap: 10px; padding: 10px 27px; background: #F1E7D4; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.discovery-shortcuts > span { font-size: 9px; letter-spacing: .6px; text-transform: uppercase; color: #526357; margin-right: 4px; }
+.discovery-shortcuts > a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; font-size: 9px; color: #405645; padding: 5px 11px; border: 1px solid #d8cfb8; border-radius: 20px; background: #fbf8f1; transition: border-color .2s, color .2s, background .2s; }
+.discovery-shortcuts > a:hover { color: var(--accent); border-color: var(--accent); background: #fff; }
+
+/* Four-chapter compass: a quiet, editorial way to navigate the immersive story. */
+.ayiffa-signature .chapter-rail { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 18px 14px; border-bottom: 1px solid var(--line); }
+.chapter-rail-intro { display: inline-flex; align-items: center; gap: 9px; font-size: 10px; letter-spacing: .9px; color: #64765b; white-space: nowrap; }
+.chapter-rail-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--terracotta-soft); }
+.chapter-rail-steps { display: flex; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.chapter-rail-steps a { display: inline-flex; align-items: center; gap: 9px; min-height: 34px; padding: 8px 14px; border: 1px solid transparent; border-radius: 22px; color: #405645; transition: border-color .2s, background .2s, color .2s, transform .2s; }
+.chapter-rail-steps a:hover { border-color: var(--line); background: #fbf8f1; color: var(--accent-dark); transform: translateY(-2px); }
+.chapter-rail-number { font-family: var(--serif); font-size: 18px; line-height: 1; color: #aeb9a5; }
+.chapter-rail-label { font-size: 11px; font-weight: 600; letter-spacing: .3px; }
+.chapter-rail-steps svg { color: var(--accent); }
 .ayiffa-signature .home-circuits .circuit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ayiffa-signature .trust-strip { padding-top: 29px; padding-bottom: 27px; }
 .ayiffa-signature .trust-strip > span { font-size: 11px; color: #64765b; }
@@ -850,11 +867,13 @@ body.ayiffa-signature {
   .signature-film-caption > small { font-size: 5px; line-height: 1.7; }
   .signature-hero .hero-bottom { bottom: auto; }
   .signature-hero .hero-horizon-nav { width: 410px; }
-  .signature-discovery .discovery-bar { padding: 7px 22px; }
-  .signature-discovery .discovery-field { padding: 15px 5px; }
+  .chapter-rail { flex-wrap: wrap; }
+  .chapter-rail-steps { flex-wrap: wrap; }
+  .signature-discovery .discovery-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .signature-discovery .discovery-field { padding: 14px 13px; gap: 9px; }
+  .signature-discovery .discovery-bar > .button { grid-column: 1 / -1; margin: 0 10px 10px; }
   .discovery-heading { padding: 15px 22px; }
-  .discovery-shortcuts { padding: 12px 22px; gap: 16px; }
-  .discovery-shortcuts > span { display: none; }
+  .discovery-shortcuts { padding: 12px 22px; gap: 10px; }
   .earth-story-section { padding: 78px 0; }
   .earth-story-layout { gap: 44px; }
   .earth-story-copy h2 { font-size: 57px; letter-spacing: -2.3px; }
@@ -924,13 +943,20 @@ body.ayiffa-signature {
   .discovery-heading > div > svg { margin-top: 1px; width: 16px; height: 16px; }
   .discovery-heading h2 { font-size: 12px; line-height: 1.5; }
   .discovery-heading > a { display: none; }
-  .signature-discovery .discovery-bar { padding: 0 18px; }
-  .signature-discovery .discovery-field { padding: 15px 0; }
-  .signature-discovery .field-caption { font-size: 7px; letter-spacing: .9px; }
-  .signature-discovery .select-wrapper select { font-size: 12px; }
-  .signature-discovery .discovery-bar > .button { margin: 14px 0; min-height: 46px; padding: 12px; gap: 9px; font-size: 9px; }
-  .discovery-shortcuts { flex-wrap: wrap; gap: 8px 14px; padding: 12px 18px; }
-  .discovery-shortcuts > a { font-size: 8px; gap: 4px; }
+  .ayiffa-signature .chapter-rail { flex-direction: column; align-items: flex-start; gap: 10px; padding-block: 14px 12px; }
+  .chapter-rail-intro { white-space: normal; }
+  .chapter-rail-steps { flex-wrap: nowrap; width: 100%; overflow-x: auto; padding-bottom: 3px; scrollbar-width: none; }
+  .chapter-rail-steps::-webkit-scrollbar { display: none; }
+  .chapter-rail-steps a { flex: 0 0 auto; padding-inline: 11px; gap: 7px; }
+  .signature-discovery .discovery-bar { grid-template-columns: minmax(0, 1fr); }
+  .signature-discovery .discovery-field { padding: 13px 18px; }
+  .signature-discovery .discovery-field + .discovery-field::before { left: 18px; right: 18px; top: 0; bottom: auto; width: auto; height: 1px; }
+  .signature-discovery .field-caption { font-size: 8px; letter-spacing: .9px; }
+  .signature-discovery .select-wrapper select { font-size: 13px; }
+  .signature-discovery .discovery-bar > .button { margin: 4px 12px 12px; min-height: 48px; padding: 12px; gap: 9px; font-size: 10px; }
+  .discovery-shortcuts { flex-wrap: wrap; gap: 8px 10px; padding: 12px 18px; }
+  .discovery-shortcuts > span { flex-basis: 100%; }
+  .discovery-shortcuts > a { font-size: 9px; gap: 4px; }
   .discovery-shortcuts > a > svg { width: 11px; height: 11px; }
   .ayiffa-signature .trust-strip > span { font-size: 9px; line-height: 1.7; }
   .ayiffa-signature .departure-heading .eyebrow { font-size: 7px; }
@@ -1048,8 +1074,10 @@ body.ayiffa-signature {
   .signature-hero .hero-horizon-nav > button { font-size: 7px; gap: 7px; }
   .signature-hero .hero-place strong { font-size: 8px; }
   .signature-hero .hero-place small { font-size: 6px; }
-  .signature-discovery .discovery-bar > .button { font-size: 8px; padding-inline: 10px; gap: 7px; }
-  .signature-discovery .select-wrapper select { font-size: 11px; }
+  .signature-discovery .discovery-bar > .button { font-size: 9px; padding-inline: 10px; gap: 7px; }
+  .signature-discovery .select-wrapper select { font-size: 12px; }
+  .chapter-rail-number { font-size: 16px; }
+  .chapter-rail-label { font-size: 10px; }
 }
 
 /* === Animation layer === */

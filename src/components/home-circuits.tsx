@@ -12,7 +12,7 @@ export function HomeCircuits() {
   const t = getDictionary(locale).pages.home;
   const featured = circuits.filter(circuit => circuit.days >= 8).sort((a, b) => a.days - b.days).slice(0, 4);
   return (
-    <section className="section section-sage home-circuits">
+    <section className="section section-sage home-circuits" id="circuits">
       <div className="container">
         <Reveal>
           <SectionHeading

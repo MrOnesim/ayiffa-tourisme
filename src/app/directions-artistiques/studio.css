@@ -188,7 +188,7 @@ body:has(.design-studio) .floating-contact { display: none; }
 .direction-palette button > span { display: block; height: 37px; border-radius: 4px; border: 1px solid #1839270d; transition: transform .25s; }
 .direction-palette button:hover > span { transform: translateY(-3px); }
 .direction-palette strong { display: block; font-size: 7px; font-weight: 500; margin-top: 8px; color: #6d7d60; }
-.direction-palette small { display: block; font-family: ui-monospace,monospace; font-size: 6px; color: #9aa38e; margin-top: 2px; letter-spacing: -.2px; }
+.direction-palette small { display: block; font-family: var(--font-body); font-size: 6px; font-variant-numeric: tabular-nums; color: #9aa38e; margin-top: 2px; letter-spacing: .2px; }
 .direction-typography { padding-top: 21px; margin-top: 20px; border-top: 1px solid #252525; }
 .direction-typography > span { display: block; font-family: var(--serif); font-size: 43px; line-height: 1.1; letter-spacing: -1.5px; margin: 12px 0; }
 .direction-typography > p { font-size: 8px; color: #6c7b60; line-height: 1.7; }
