@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SunEmblem } from "./brand";
@@ -61,6 +62,101 @@ export function WordReveal({ text, className = "", delay = 0 }: { text: string; 
       <span className="word-inner" style={{ "--word-delay": `${delay + index * 90}ms` } as CSSProperties}>{word}</span>{" "}
     </span>)}
   </span>;
+}
+
+export type CursorPreviewItem = {
+  label: string;
+  href: string;
+  image: string;
+  alt: string;
+  region?: string;
+};
+
+export function CursorImagePreview({ items }: { items: CursorPreviewItem[] }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const targetPos = useRef({ x: 0, y: 0 });
+  const currentPos = useRef({ x: 0, y: 0 });
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  // Detect coarse pointer (touch/mobile) — disable effect
+  const isCoarse = useRef(false);
+  useEffect(() => {
+    isCoarse.current = window.matchMedia("(pointer: coarse)").matches;
+  }, []);
+
+  // The easing loop only runs while a preview is visible.
+  useEffect(() => {
+    if (activeIndex === null) return;
+    let frame = 0;
+    const tick = () => {
+      const lerpFactor = reduceMotion ? 1 : 0.1;
+      currentPos.current.x += (targetPos.current.x - currentPos.current.x) * lerpFactor;
+      currentPos.current.y += (targetPos.current.y - currentPos.current.y) * lerpFactor;
+      if (cardRef.current) {
+        cardRef.current.style.left = `${currentPos.current.x}px`;
+        cardRef.current.style.top = `${currentPos.current.y}px`;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [activeIndex, reduceMotion]);
+
+  function handleMouseMove(e: React.MouseEvent) {
+    targetPos.current = { x: e.clientX, y: e.clientY };
+  }
+
+  function handleMouseEnter(index: number) {
+    if (isCoarse.current) return;
+    currentPos.current = { ...targetPos.current };
+    setActiveIndex(index);
+  }
+
+  function handleMouseLeave() {
+    setActiveIndex(null);
+  }
+
+  const isVisible = activeIndex !== null;
+  const activeItem = activeIndex !== null ? items[activeIndex] : null;
+
+  return (
+    <div onMouseMove={handleMouseMove}>
+      <ul className="cursor-preview-list" role="list">
+        {items.map((item, i) => (
+          <li key={item.href} className="cursor-preview-item">
+            <Link
+              href={item.href}
+              className="cursor-item-link"
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span className="cursor-item-num">0{i + 1}</span>
+              <span className="cursor-item-label">{item.label}</span>
+              {item.region && <span className="cursor-item-region">{item.region}</span>}
+              <span className="cursor-item-arrow" aria-hidden="true">↗</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <div
+        ref={cardRef}
+        className={`cursor-floating-card${isVisible ? " is-visible" : ""}`}
+        aria-hidden="true"
+      >
+        {activeItem && (
+          <Image
+            src={activeItem.image}
+            alt={activeItem.alt}
+            fill
+            sizes="280px"
+            style={{ objectFit: "cover" }}
+            priority={false}
+          />
+        )}
+      </div>
+    </div>
+  );
 }
 
 export function EmotionRibbon() {

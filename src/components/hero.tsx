@@ -21,12 +21,42 @@ export function Hero() {
   const ui = t.ui;
   const hero = useRef<HTMLElement>(null);
   const heroVideo = useRef<HTMLVideoElement>(null);
+  const scrollContainer = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const [playing, setPlaying] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
 
   useEffect(() => {
     if (reduceMotion) heroVideo.current?.pause();
+  }, [reduceMotion]);
+
+  // Scroll-driven Hero Unfold — CSS neutralises it on mobile and reduced-motion.
+  // The frame is throttled and drives clip-path only: no layout shift, no jitter.
+  useEffect(() => {
+    if (reduceMotion) return;
+    const container = scrollContainer.current;
+    if (!container) return;
+
+    let frame: number | null = null;
+    function update() {
+      frame = null;
+      const threshold = window.innerHeight * 0.6; // 60vh
+      const progress = Math.min(1, Math.max(0, window.scrollY / threshold));
+      container!.style.setProperty("--hero-expand", String(progress));
+    }
+    function onScroll() {
+      if (frame === null) frame = requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update(); // initialise
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
   }, [reduceMotion]);
 
   function toggleVideo() {
@@ -37,6 +67,7 @@ export function Hero() {
   }
 
   return <>
+    <div className="hero-scroll-container" ref={scrollContainer}>
     <section className="hero cinematic-hero signature-hero" ref={hero} aria-label={`${t.common.discover} ${ui.benin}`}>
       {slides.map((slide, index) => <motion.div key={slide.image} className={`hero-image shimmer-container ${index === 0 ? "hero-image-active" : ""}`} aria-hidden={index !== 0} inert={index !== 0} initial={false} animate={{ opacity: index === 0 ? 1 : 0 }} transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeOut" }}>
         <Image src={slide.image} alt={ui.heroImageAlt} fill sizes="100vw" preload={index === 0} loading={index === 0 ? undefined : "lazy"} quality={85}/>
@@ -60,6 +91,7 @@ export function Hero() {
         </div>
         </div>
     </section>
+    </div>
 
   </>;
 }

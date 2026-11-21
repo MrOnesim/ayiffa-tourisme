@@ -7,6 +7,7 @@ import { ExperienceShowcase } from "@/components/experience-showcase";
 import { DestinationFan } from "@/components/destination-fan";
 import { Gallery } from "@/components/gallery";
 import { EarthStory } from "@/components/earth-story";
+import { HorizontalReel } from "@/components/horizontal-reel";
 import { HomeCircuits } from "@/components/home-circuits";
 import { TripDiscovery } from "@/components/trip-discovery";
 import { LivingAtlas } from "@/components/living-atlas";
@@ -28,6 +29,7 @@ export default async function Home() {
     <HomeCircuits/>
     <ExperienceShowcase/>
     <EarthStory/>
+    <HorizontalReel/>
     <section className="section container home-gallery"><Reveal><SectionHeading label={t.galleryEyebrow} href="/galerie" linkText={dict.ui.galleryOpenLink}>{t.galleryTitle}</SectionHeading></Reveal><Gallery/></section>
     <TravelCTA/>
   </>;

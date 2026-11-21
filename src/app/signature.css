@@ -1588,3 +1588,689 @@ body.ayiffa-signature {
   .ayiffa-signature .form-grid { grid-template-columns: minmax(0, 1fr); }
   .ayiffa-signature .form-full { grid-column: auto; }
 }
+
+/* ─── Scroll-driven Hero Unfold ────────────────────────────────────────────── */
+/* The hero "postcard" starts with elegant ivory margins that dissolve as the   */
+/* visitor scrolls, revealing a cinematic full-bleed image.                     */
+
+.hero-scroll-container {
+  --hero-expand: 0;
+  position: relative;
+  padding: 0;
+  background: var(--neutral, #F5F1E8);
+  /* No transition — driven directly by scroll for real-time feel */
+}
+
+/* The ivory frame is drawn by clip-path instead of padding: the hero keeps its
+   full size, so nothing below it reflows while the visitor scrolls. */
+.hero-scroll-container .cinematic-hero {
+  clip-path: inset(calc(24px * (1 - var(--hero-expand, 0))) round calc(16px * (1 - var(--hero-expand, 0))));
+  will-change: clip-path;
+}
+.hero-scroll-container .hero-video-control {
+  bottom: calc(24px + 24px * (1 - var(--hero-expand, 0)));
+  right: calc(24px + 24px * (1 - var(--hero-expand, 0)));
+}
+
+/* Reduced-motion: full-bleed, no animation */
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-container .cinematic-hero { clip-path: none !important; will-change: auto; }
+  .hero-scroll-container .hero-video-control { bottom: 24px; right: 24px; }
+}
+
+/* Mobile (<700px): full-bleed straight away */
+@media (max-width: 699px) {
+  .hero-scroll-container .cinematic-hero { clip-path: none !important; will-change: auto; }
+  .hero-scroll-container .hero-video-control { bottom: 16px; right: 16px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   Horizontal Reel — Pinned Scroll Gallery
+   ═══════════════════════════════════════════════════════ */
+
+.reel-section {
+  position: relative;
+  /* --reel-progress is set by the component: 0 at the first slide, 1 at the last. */
+  --reel-progress: 0;
+}
+
+/* Wrapper occupies N*100vh to give scroll "room" */
+.reel-wrapper {
+  position: relative;
+}
+
+/* Sticky viewport-height panel */
+.reel-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  outline: none;
+}
+.reel-sticky:focus-visible {
+  outline: 2px solid #E8A33D;
+  outline-offset: -6px;
+}
+
+/* Atmosphere: soft vignette and a fine grain for a printed, premium finish. */
+.reel-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.reel-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 42%, transparent 42%, rgba(4, 18, 14, .5) 100%),
+    linear-gradient(to top, rgba(4, 18, 14, .55), transparent 45%);
+}
+.reel-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .09;
+  background-image: repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,.22) 0 1px, transparent 1px 3px);
+  background-size: 7px 7px;
+}
+
+/* Horizontal flex track */
+.reel-track {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  height: 100svh;
+  will-change: transform;
+  transition: none;
+}
+
+/* Individual panoramic slide */
+.reel-slide {
+  flex: 0 0 100vw;
+  height: 100svh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Caption */
+.reel-slide-caption {
+  position: absolute;
+  bottom: 64px;
+  left: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #F5F1E8;
+  z-index: 2;
+}
+.reel-caption-rule {
+  display: block;
+  width: 56px;
+  height: 1px;
+  background: #E8A33D;
+}
+
+.reel-caption-label {
+  font-size: 12px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  font-family: var(--font-body, sans-serif);
+  margin: 0;
+  text-shadow: 0 1px 8px rgba(0,0,0,.55);
+}
+
+/* Scroll hint — fades as soon as the visitor starts moving. */
+.reel-hint {
+  position: absolute;
+  z-index: 2;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(245,241,232,.72);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: clamp(0, calc(1 - var(--reel-progress, 0) * 6), 1);
+  text-shadow: 0 1px 8px rgba(0,0,0,.5);
+}
+
+/* Counter bottom-right */
+.reel-counter {
+  position: absolute;
+  bottom: 64px;
+  right: 72px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(245,241,232,.7);
+  font-family: var(--serif, Georgia, serif);
+  z-index: 2;
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0,0,0,.4);
+}
+
+.reel-counter-current {
+  font-size: 20px;
+  color: #F5F1E8;
+}
+
+/* Amber progress bar along the bottom edge */
+.reel-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #E8A33D;
+  box-shadow: 0 0 14px rgba(232,163,61,.6);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Pause / Play button */
+.reel-pause-btn {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(14,42,35,.55);
+  color: #F5F1E8;
+  border: 1px solid rgba(245,241,232,.2);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background .2s;
+}
+
+.reel-pause-btn:hover {
+  background: rgba(14,42,35,.85);
+}
+
+/* ── Reduced-motion grid fallback ── */
+.reel-reduced-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+.reel-reduced-item {
+  position: relative;
+  height: clamp(240px, 35vw, 480px);
+  overflow: hidden;
+  margin: 0;
+}
+
+/* ── Mobile scroll-snap carousel ── */
+.reel-mobile {
+  display: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.reel-mobile::-webkit-scrollbar { display: none; }
+
+.reel-mobile-slide {
+  flex: 0 0 100vw;
+  height: 70svh;
+  position: relative;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 900px) {
+  /* hide desktop reel, show mobile carousel */
+  .reel-desktop { display: none; }
+
+  .reel-mobile {
+    display: flex;
+  }
+  .reel-slide-caption { left: 28px; bottom: 44px; gap: 10px; }
+  .reel-counter { right: 28px; bottom: 44px; }
+  .reel-caption-rule { width: 40px; }
+}
+
+/* Reduced-motion: hide desktop reel, show grid */
+@media (prefers-reduced-motion: reduce) {
+  .reel-desktop { display: none; }
+  .reel-mobile  { display: none; }
+  .reel-reduced-grid { display: grid; }
+
+  .reel-reduced-item { opacity: 1 !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   CIRCUIT PINNED — Split-Screen Sticky Journey
+   Style: Relais & Châteaux / Apple — cinematic crossfade
+   ══════════════════════════════════════════════════════ */
+
+.circuit-pinned-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ── Left column ── */
+.circuit-pinned-left {
+  overflow: visible;
+}
+
+.circuit-pinned-item {
+  padding: 48px 0;
+  border-top: 1px solid var(--line, rgba(14,42,35,.12));
+  transition: opacity 0.4s ease;
+}
+
+.circuit-pinned-item:last-child {
+  border-bottom: 1px solid var(--line, rgba(14,42,35,.12));
+}
+
+/* The image card is mobile-only: desktop uses the sticky crossfade panel. */
+.circuit-pinned-mobile-media { display: none; }
+
+.circuit-pinned-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted, #6b7a71);
+  margin-bottom: 14px;
+}
+
+.circuit-pinned-title {
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: var(--forest, #0E2A23);
+  line-height: 1.2;
+  margin-bottom: 10px;
+  transition: color 0.4s ease;
+}
+
+.circuit-pinned-item.is-active .circuit-pinned-title {
+  color: var(--accent, #C85A3A);
+}
+
+.circuit-pinned-subtitle {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted, #6b7a71);
+  margin-bottom: 16px;
+}
+
+.circuit-pinned-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--body, #2c3d35);
+  margin-bottom: 20px;
+  max-width: 480px;
+}
+
+.circuit-pinned-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.circuit-pinned-highlights li {
+  font-size: 13px;
+  color: var(--muted, #6b7a71);
+  padding-left: 16px;
+  position: relative;
+}
+
+.circuit-pinned-highlights li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent, #C85A3A);
+  font-size: 11px;
+}
+
+.circuit-pinned-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forest, #0E2A23);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: color 0.3s ease, gap 0.3s ease;
+}
+
+.circuit-pinned-cta:hover {
+  color: var(--accent, #C85A3A);
+  gap: 12px;
+}
+
+.circuit-pinned-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.circuit-pinned-cta:hover .circuit-pinned-arrow {
+  transform: translate(4px, -2px);
+}
+
+/* ── Right column: sticky panel ── */
+.circuit-pinned-right {
+  position: sticky;
+  top: 108px;
+  height: calc(100vh - 160px);
+  min-height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--forest, #0E2A23);
+}
+
+/* Image stack — absolute, crossfade */
+.circuit-pinned-images {
+  position: absolute;
+  inset: 0;
+}
+
+.circuit-pinned-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(.22, 1, .36, 1);
+}
+
+.circuit-pinned-image.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circuit-pinned-image {
+    transition: none;
+  }
+}
+
+.circuit-pinned-img {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Caption overlay */
+.circuit-pinned-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 32px 36px;
+  background: linear-gradient(to top, rgba(14,42,35,.85) 0%, transparent 100%);
+  color: var(--ivory, #F5F1E8);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.circuit-pinned-caption-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,241,232,.65);
+  margin-bottom: 8px;
+}
+
+.circuit-pinned-caption-name {
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+}
+
+.circuit-pinned-caption-link {
+  pointer-events: all;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber, #E8A33D);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232,163,61,.4);
+  padding-bottom: 2px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.circuit-pinned-caption-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,.4);
+}
+
+/* ── Mobile fallback: simple vertical list, hide sticky panel ── */
+@media (max-width: 900px) {
+  .circuit-pinned-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .circuit-pinned-right {
+    display: none;
+  }
+
+  .circuit-pinned-item {
+    padding: 36px 0;
+  }
+
+  .circuit-pinned-title {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+
+  /* Premium image card replaces the hidden sticky panel on small screens. */
+  .circuit-pinned-mobile-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--forest, #0E2A23);
+  }
+  .circuit-pinned-mobile-index {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    font-family: var(--serif, Georgia, serif);
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: rgba(245,241,232,.85);
+    text-shadow: 0 1px 8px rgba(0,0,0,.5);
+  }
+  .circuit-pinned-mobile-duration {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    padding: 7px 12px;
+    border-radius: 100px;
+    background: rgba(14,42,35,.72);
+    backdrop-filter: blur(6px);
+    color: #F5F1E8;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+}
+
+/* ============================================================
+   MAGNETIC HOVER CARD PREVIEW — Destinations hover list
+   ============================================================ */
+
+/* Section wrapper */
+.ayiffa-signature .home-destinations-hover {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.ayiffa-signature .home-destinations-hover .eyebrow {
+  margin-bottom: 16px;
+  color: var(--accent-dark);
+}
+.ayiffa-signature .home-destinations-hover h2 {
+  font-size: clamp(32px, 4.5vw, 56px);
+  color: var(--primary);
+  margin-bottom: 48px;
+}
+
+/* Show/hide desktop vs mobile */
+.destinations-hover-desktop { display: block; }
+.destinations-hover-mobile  { display: none; }
+
+/* LIST */
+.cursor-preview-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+/* Each item row */
+.cursor-preview-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.cursor-item-link {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  width: 100%;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: clamp(28px, 4vw, 52px);
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  transition: color 0.2s ease;
+  cursor: none;
+}
+
+.cursor-item-link:hover {
+  color: var(--accent);
+}
+
+.cursor-item-num {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-weight: 400;
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.cursor-item-label {
+  flex: 1;
+}
+
+.cursor-item-region {
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.cursor-item-arrow {
+  font-size: 20px;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.25s ease;
+  display: inline-block;
+}
+
+.cursor-item-link:hover .cursor-item-arrow {
+  transform: translate(4px, -4px);
+  color: var(--accent);
+}
+
+/* FLOATING CARD */
+.cursor-floating-card {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 260px;
+  height: 340px;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translate(-50%, -60%);
+  box-shadow: 0 20px 60px rgba(14, 42, 35, 0.25);
+}
+
+.cursor-floating-card.is-visible {
+  opacity: 1;
+}
+
+/* prefers-reduced-motion: instant transitions, no floating */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-floating-card {
+    transition: opacity 0.01s;
+  }
+  .cursor-item-link,
+  .cursor-item-arrow {
+    transition: none;
+  }
+}
+
+/* Mobile: hide desktop effect, show simple list */
+@media (max-width: 900px) {
+  .destinations-hover-desktop { display: none !important; }
+  .destinations-hover-mobile  { display: block; list-style: none; padding: 0; margin: 0; }
+
+  .destinations-hover-mobile li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .destinations-mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: clamp(22px, 5.5vw, 36px);
+    font-family: var(--serif);
+    font-weight: 400;
+    transition: color 0.2s ease;
+  }
+
+  .destinations-mobile-link:hover {
+    color: var(--accent);
+  }
+
+  .destinations-mobile-region {
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: var(--font-body);
+    flex: 1;
+    text-align: right;
+  }
+}
