@@ -425,7 +425,7 @@ body:has(.design-studio) .floating-contact { display: none; }
   .studio-preview-name { font-size: 6px; letter-spacing: .7px; gap: 6px; }
   .studio-preview-name > i { display: none; }
   .studio-device-switch { padding: 2px; border-radius: 5px; }
-  .studio-device-switch > button { font-size: 7px; min-height: 29px; padding: 6px 8px; gap: 5px; }
+  .studio-device-switch > button { font-size: 7px; min-height: 32px; padding: 6px 8px; gap: 5px; }
   .studio-device-switch svg { width: 13px; height: 13px; }
   .studio-motion-toggle { padding-left: 3px; }
   .studio-motion-toggle > span { display: none; }

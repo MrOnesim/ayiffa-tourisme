@@ -142,7 +142,7 @@
   .home-departures { padding-top: 63px; padding-bottom: 45px; }
   .departure-heading h2 { font-size: clamp(44px, 6.4vw, 60px); }
   .departure-fan { margin-top: 33px; }
-  .departure-rail { display: flex; gap: 17px; height: auto; width: calc(100% + 64px); margin-left: -32px; padding: 15px 32px 28px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: 32px; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .departure-rail { display: flex; gap: 17px; height: auto; width: calc(100% + 40px); margin-left: -20px; padding: 15px 20px 28px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; overscroll-behavior-x: contain; }
   .departure-rail::-webkit-scrollbar { display: none; }
   .departure-position { position: relative; top: auto; left: auto; width: auto; height: 380px; flex: 0 0 300px; transform: none; z-index: auto; scroll-snap-align: start; scroll-snap-stop: always; }
   .departure-card { transform: none; border-width: 4px; border-radius: 11px; box-shadow: 0 9px 22px #17382418; }
