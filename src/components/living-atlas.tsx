@@ -188,7 +188,7 @@ export function LivingAtlas() {
             <div className="atlas-map-shell">{renderMap("atlas-lg", largeMarkerButtons.current, ui.atlasExpandedMapAria, largeMap)}</div>
           </div>
           <aside className="atlas-dialog-side">
-            <p className="atlas-dialog-hint">{ui.atlasIntro}</p>
+            <p className="atlas-dialog-hint">{ui.atlasDialogHint}</p>
             <div className="atlas-dialog-stops" role="group" aria-label={ui.atlasChooseStop}>
               {atlasStops.map((item, index) => <button key={item.slug} type="button" className={`atlas-dialog-stop ${active === index ? "is-active" : ""}`} aria-pressed={active === index} onClick={() => setActive(index)}><span>{item.number}</span><strong>{item.shortName}</strong><small>{item.region}</small></button>)}
             </div>
