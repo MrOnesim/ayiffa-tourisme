@@ -174,7 +174,7 @@ export function LivingAtlas() {
             <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>{ui.atlasRegionTag}</span><span className="atlas-compass" aria-hidden="true"/></div>
             {renderMap("atlas", markerButtons.current, ui.atlasMapAria, mainMap)}
             <button type="button" className="atlas-expand" onClick={() => setExpanded(true)} aria-label={ui.atlasExpand}><Maximize2 size={15}/><span>{ui.atlasExpand}</span></button>
-            <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{BENIN_MAP_ATTRIBUTION}</span><span>{ui.atlasFooterPositions}</span></div>
+            <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{BENIN_MAP_ATTRIBUTION}</span></div>
           </div>
           <div className="atlas-panel">
             <div className="atlas-panel-top"><span>{ui.atlasPanelEscale} {stop.number}</span><span>0{active + 1} / 0{atlasStops.length}</span></div>

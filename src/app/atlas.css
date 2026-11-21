@@ -178,3 +178,54 @@
   .atlas-stop-left { transform: translate(calc(-100% + 10px), -50%); }
   .atlas-stop-right { transform: translate(-10px, -50%); }
 }
+
+/* Readability pass: Manrope for map data, Cormorant only for large titles. */
+.atlas-heading .eyebrow { font-size: 11px; letter-spacing: 1px; }
+.atlas-heading h2 { font-weight: 700; }
+.atlas-heading > div:last-child > p { font-size: 14px; line-height: 1.75; }
+.atlas-heading .text-link { font-size: 13px; }
+.atlas-region-tag { font-size: 10px; letter-spacing: .7px; }
+.atlas-compass { font-size: 9px; }
+.map-compass-rose { font-family: var(--font-sans); font-weight: 700; }
+.atlas-stop-dot { width: 23px; height: 23px; font-size: 10px; }
+.atlas-stop-label { font-size: 12px; }
+.atlas-stop.is-active .atlas-stop-label { font-size: 13px; }
+.atlas-map-footer { font-size: 10px; letter-spacing: .3px; }
+.atlas-expand { font-size: 12px; }
+.atlas-panel-top { font-size: 11px; letter-spacing: .8px; }
+.atlas-panel-category { font-size: 11px; }
+.atlas-panel-region { font-size: 12px; }
+.atlas-panel-content h3 { font-size: 42px; font-weight: 600; }
+.atlas-panel-content > p { font-size: 14px; line-height: 1.75; }
+.atlas-panel-content > small { font-size: 10px; }
+.atlas-panel-content .button { font-size: 12px; }
+.atlas-panel-list > button { font-size: 11px; }
+.atlas-panel-list > button > span { font-family: var(--font-sans); font-size: 11px; font-weight: 700; }
+.atlas-dialog-head .eyebrow { font-size: 11px; }
+.atlas-dialog-head h2 { font-weight: 600; }
+.atlas-dialog-hint { font-size: 13px; }
+.atlas-dialog-stop > span { font-family: var(--font-sans); font-size: 11px; font-weight: 700; }
+.atlas-dialog-stop > strong { font-size: 13px; }
+.atlas-dialog-stop > small { font-size: 11px; }
+.atlas-dialog-detail h3 { font-weight: 600; }
+.atlas-dialog-detail > p { font-size: 14px; }
+.atlas-dialog-detail .button { font-size: 12px; }
+@media (max-width: 700px) {
+  .atlas-heading .eyebrow { font-size: 10px; }
+  .atlas-heading > div:last-child > p { font-size: 13px; }
+  .atlas-region-tag { font-size: 9px; }
+  .atlas-compass > span { font-size: 8px; }
+  .atlas-stop-label { font-size: 10px; }
+  .atlas-stop.is-active .atlas-stop-label { font-size: 11px; }
+  .atlas-map-footer { font-size: 9px; }
+  .atlas-panel-top { font-size: 10px; }
+  .atlas-panel-content > p { font-size: 13px; }
+  .atlas-panel-content > small { font-size: 10px; }
+  .atlas-panel-content .button { font-size: 11px; }
+  .atlas-panel-list > button { font-size: 10px; }
+  .atlas-dialog-stop > small { font-size: 10px; }
+}
+@media (max-width: 380px) {
+  .atlas-panel-content > p { font-size: 12px; }
+  .atlas-panel-list > button { font-size: 9px; }
+}

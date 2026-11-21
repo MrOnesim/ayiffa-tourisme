@@ -18,7 +18,7 @@ export const journeyChapters: JourneyChapter[] = [
   {
     id: "rencontres", number: "01", shortLabel: "Rencontrer", navigationLabel: "Rencontrer une culture vivante",
     eyebrow: "CULTURES VIVANTES", verb: "Rencontrer.", line: "Un autre regard.",
-    description: "Écouter les récits d’un guide, comprendre les lieux et leurs traditions. Le plus beau du Bénin commence souvent par une rencontre.",
+    description: "Les récits d’un guide donnent vie aux lieux.",
     href: "/destinations/ouidah", action: "Au cœur des cultures", accent: "#e4ecc1",
     photos: [
       { src: "/images/culture.jpg", alt: "Cérémonie traditionnelle à Abomey-Calavi, au Bénin", caption: "Abomey-Calavi · Bénin" },
@@ -28,7 +28,7 @@ export const journeyChapters: JourneyChapter[] = [
   {
     id: "lagunes", number: "02", shortLabel: "Explorer", navigationLabel: "Suivre le rythme de l’eau",
     eyebrow: "PIROGUES & LAGUNES", verb: "Explorer.", line: "Au rythme de l’eau.",
-    description: "À Ganvié, les chemins sont faits d’eau. Une pirogue, un paysage, une manière singulière d’habiter le lac et de découvrir le Bénin.",
+    description: "À Ganvié, les chemins sont faits d’eau.",
     href: "/destinations/ganvie", action: "Découvrir Ganvié", accent: "#d9e9e1",
     photos: [
       { src: "/images/ganvie vu du ciel.jpeg", alt: "Vue aérienne de Ganvié avec ses maisons sur pilotis et ses pirogues", caption: "Ganvié · Lac Nokoué" },
@@ -38,7 +38,7 @@ export const journeyChapters: JourneyChapter[] = [
   {
     id: "memoire", number: "03", shortLabel: "Comprendre", navigationLabel: "Comprendre les histoires de Ouidah",
     eyebrow: "HISTOIRE & PATRIMOINE", verb: "Se souvenir.", line: "Pour mieux comprendre.",
-    description: "À Ouidah, l’histoire invite à l’écoute. Une découverte sensible des lieux de mémoire et des récits qui traversent les générations.",
+    description: "À Ouidah, l’histoire invite à l’écoute.",
     href: "/circuits/route-des-esclaves", action: "Les chemins de mémoire", accent: "#efddc3",
     photos: [
       { src: "/images/ouidah vu du ciel 1.jpeg", alt: "Vue aérienne de la côte et du paysage de Ouidah", caption: "Ouidah · Côte Atlantique" },
@@ -47,7 +47,7 @@ export const journeyChapters: JourneyChapter[] = [
   {
     id: "littoral", number: "04", shortLabel: "Ralentir", navigationLabel: "S’offrir le luxe de ralentir",
     eyebrow: "LE LUXE DU TEMPS", verb: "Ralentir.", line: "Tout simplement.",
-    description: "Le souffle de l’Atlantique, les lumières de Grand-Popo. Et le plaisir discret de n’avoir rien à précipiter.",
+    description: "Grand-Popo : le luxe de ralentir.",
     href: "/destinations/grand-popo", action: "Retrouver l’horizon", accent: "#e9e4bb",
     photos: [
       { src: "/images/Grand popo.jpeg", alt: "Vue aérienne de la plage et des cocotiers de Grand-Popo", caption: "Grand-Popo · Océan Atlantique" },

@@ -11,13 +11,14 @@ import "./cinematic.css";
 import "./visit-inspired.css";
 import "./signature.css";
 import "./atlas.css";
+import "./readability.css";
 import { appliedIdentity } from "@/lib/applied-identity";
 import { getServerLocale } from "@/lib/get-locale-server";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getRootMetadata } from "@/lib/page-metadata";
 
 const sans = Manrope({ weight: ["400", "500", "600", "700", "800"], style: "normal", subsets: ["latin", "latin-ext"], variable: "--font-sans", display: "swap" });
-const editorial = Cormorant_Garamond({ weight: "500", style: ["normal", "italic"], subsets: ["latin", "latin-ext"], variable: "--font-editorial", display: "swap" });
+const editorial = Cormorant_Garamond({ weight: ["600", "700"], style: ["normal", "italic"], subsets: ["latin", "latin-ext"], variable: "--font-editorial", display: "swap" });
 
 export async function generateMetadata(): Promise<Metadata> {
   return getRootMetadata(await getServerLocale());

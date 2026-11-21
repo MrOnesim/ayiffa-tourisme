@@ -1,0 +1,248 @@
+/* ============================================================
+   FINAL READABILITY LAYER
+   Imported after every other stylesheet.
+
+   Rules:
+   - Manrope carries all useful text, never below 12px.
+   - Cormorant Garamond is reserved for display type >= 32px.
+   - One title + one line + one action per component.
+   ============================================================ */
+
+body.ayiffa-signature { --muted: #51604f; }
+
+body.ayiffa-signature :is(h1, h2, h3, h4) { font-weight: 600; }
+
+/* The readable floor. These are interface labels, not decoration. */
+body.ayiffa-signature .eyebrow,
+body.ayiffa-signature .mini-label,
+body.ayiffa-signature .field-caption,
+body.ayiffa-signature .chapter-rail-intro,
+body.ayiffa-signature .chapter-rail-label,
+body.ayiffa-signature .trust-strip > span,
+body.ayiffa-signature .departure-label,
+body.ayiffa-signature .departure-number,
+body.ayiffa-signature .departure-controls > span,
+body.ayiffa-signature .circuit-pinned-eyebrow,
+body.ayiffa-signature .circuit-pinned-caption-eyebrow,
+body.ayiffa-signature .circuit-pinned-caption-link,
+body.ayiffa-signature .circuit-pinned-mobile-duration,
+body.ayiffa-signature .duration-tag,
+body.ayiffa-signature .gallery-label,
+body.ayiffa-signature .footer-place,
+body.ayiffa-signature .footer-bottom,
+body.ayiffa-signature .footer-bottom a,
+body.ayiffa-signature .footer-signature,
+body.ayiffa-signature .floating-contact,
+body.ayiffa-signature .journey-swipe-controls > span,
+body.ayiffa-signature .journey-card-top > span,
+body.ayiffa-signature .journey-card-bottom > span,
+body.ayiffa-signature .journey-motion-toggle,
+body.ayiffa-signature .journey-intro-aside > span,
+body.ayiffa-signature .journey-navigation nav > a > span,
+body.ayiffa-signature .ribbon-caption,
+body.ayiffa-signature .ribbon-toggle,
+body.ayiffa-signature .earth-story-place,
+body.ayiffa-signature .earth-story-credit,
+body.ayiffa-signature .earth-story-seal > span,
+body.ayiffa-signature .destination-tag,
+body.ayiffa-signature .atlas-region-tag,
+body.ayiffa-signature .atlas-compass,
+body.ayiffa-signature .atlas-compass > span,
+body.ayiffa-signature .atlas-map-footer,
+body.ayiffa-signature .atlas-panel-top,
+body.ayiffa-signature .atlas-panel-category,
+body.ayiffa-signature .atlas-panel-region,
+body.ayiffa-signature .atlas-panel-list > button,
+body.ayiffa-signature .atlas-panel-list > button > span,
+body.ayiffa-signature .atlas-dialog-head .eyebrow,
+body.ayiffa-signature .atlas-dialog-stop > span,
+body.ayiffa-signature .atlas-dialog-stop > small,
+body.ayiffa-signature .reel-counter,
+body.ayiffa-signature .reel-counter span,
+body.ayiffa-signature .signature-film-caption > small {
+  font-size: 12px !important;
+  letter-spacing: .6px;
+  color: #51604f;
+}
+
+body.ayiffa-signature .button,
+body.ayiffa-signature .text-link,
+body.ayiffa-signature .back-link { font-size: 13px !important; }
+
+body.ayiffa-signature :is(.section-heading-aside > p, .section-footnote) { font-size: 14px !important; }
+
+/* Navigation and brand */
+body.ayiffa-signature .signature-navigation .desktop-nav > a { font-size: 13px !important; }
+body.ayiffa-signature .signature-navigation .header-cta,
+body.ayiffa-signature .signature-navigation .header-film { font-size: 12px !important; }
+body.ayiffa-signature .brand-type { font-size: 13px !important; }
+body.ayiffa-signature .brand-type > span { font-size: 12px !important; letter-spacing: 1px; }
+body.ayiffa-signature .mobile-menu nav > a {
+  font-family: var(--font-sans) !important;
+  font-size: clamp(22px, 4vw, 30px) !important;
+  font-weight: 600 !important;
+  letter-spacing: -.5px;
+}
+body.ayiffa-signature .mobile-menu-contact { font-size: 13px !important; }
+
+/* Hero: heavier display, one clear line of copy */
+body.ayiffa-signature .hero.signature-hero h1 { font-weight: 700 !important; letter-spacing: -2.6px; }
+body.ayiffa-signature .hero.signature-hero h1 em { font-weight: 600 !important; }
+body.ayiffa-signature .signature-hero .hero-eyebrow { font-size: 12px !important; letter-spacing: 1px; }
+body.ayiffa-signature .signature-hero .hero-description { font-size: 16px !important; line-height: 1.7; max-width: 520px; }
+body.ayiffa-signature .signature-hero .hero-buttons .button { font-size: 13px !important; }
+body.ayiffa-signature .signature-film-caption {
+  font-family: var(--font-sans) !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -.2px;
+}
+
+/* Trip composer: quiet labels, no redundant section label */
+body.ayiffa-signature .discovery-heading h2 { font-size: 15px !important; font-weight: 600 !important; }
+body.ayiffa-signature .discovery-heading > a { font-size: 12px !important; }
+body.ayiffa-signature .discovery-shortcuts { grid-template-columns: minmax(0, 1fr) !important; }
+body.ayiffa-signature .discovery-shortcuts > span { display: none !important; }
+body.ayiffa-signature .shortcut-card-label { font-size: 12px !important; }
+body.ayiffa-signature .select-wrapper select { font-size: 14px !important; }
+body.ayiffa-signature .discovery-bar > .button { font-size: 13px !important; }
+
+/* Route thread: stamps speak for themselves on desktop */
+body.ayiffa-signature .chapter-rail { justify-content: center; }
+body.ayiffa-signature .chapter-rail-label { font-weight: 600 !important; }
+body.ayiffa-signature .trust-strip > span { font-size: 13px !important; }
+@media (min-width: 1001px) {
+  body.ayiffa-signature .chapter-rail-intro { display: none !important; }
+}
+
+/* Inspirations: fewer captions, calmer toolbar */
+body.ayiffa-signature .departure-heading > p:not(.eyebrow) { font-size: 14px !important; }
+body.ayiffa-signature .departure-caption > span { display: none !important; }
+body.ayiffa-signature .departure-toolbar { justify-content: center; }
+body.ayiffa-signature .departure-hint,
+body.ayiffa-signature .departure-access-note { display: none !important; }
+body.ayiffa-signature .departure-toolbar .text-link { font-size: 12px !important; }
+
+/* Circuits */
+body.ayiffa-signature .circuit-card-content > p:not(.mini-label) { font-size: 14px !important; }
+body.ayiffa-signature .circuit-card-footer > span { font-size: 12px !important; }
+body.ayiffa-signature .circuit-pinned-caption-name,
+body.ayiffa-signature .circuit-pinned-title,
+body.ayiffa-signature .journey-outro p {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+}
+body.ayiffa-signature .circuit-pinned-caption-name { font-size: 15px !important; }
+body.ayiffa-signature .circuit-pinned-title { font-size: 18px !important; }
+body.ayiffa-signature .journey-outro p { font-size: 18px !important; }
+
+/* Terre vivante: one paragraph, display serif only */
+body.ayiffa-signature .earth-story-copy h2 { font-weight: 700 !important; }
+body.ayiffa-signature .earth-story-copy .earth-story-lead { font-size: 34px !important; font-weight: 600 !important; color: #4a3425; }
+body.ayiffa-signature .earth-story-copy > p:not(.eyebrow):not(.earth-story-lead) {
+  font-size: 15px !important;
+  line-height: 1.85;
+  color: #4c4438;
+}
+body.ayiffa-signature .earth-story-postcard > span {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+body.ayiffa-signature .earth-story-note {
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.3;
+}
+
+/* Journeys, film ribbon and gallery */
+body.ayiffa-signature .journey-navigation nav > a { font-size: 12px !important; }
+body.ayiffa-signature .journey-card-copy p,
+body.ayiffa-signature .journey-intro-aside p,
+body.ayiffa-signature .journey-intro-aside p span { font-size: 12px !important; }
+body.ayiffa-signature .journey-card-link { font-size: 12px !important; }
+body.ayiffa-signature .journey-outro .text-link { font-size: 12px !important; }
+body.ayiffa-signature .reel-counter,
+body.ayiffa-signature .reel-counter span {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+}
+
+/* Catalogues, detail pages, forms and legal copy */
+body.ayiffa-signature .search-input input,
+body.ayiffa-signature .filter-chip,
+body.ayiffa-signature .results-bar { font-size: 13px !important; }
+body.ayiffa-signature .catalogue-note { font-size: 12px !important; }
+body.ayiffa-signature .destination-card-bottom p { font-size: 12px !important; }
+body.ayiffa-signature .detail-body > section > p:not(.eyebrow):not(.lead-text),
+body.ayiffa-signature .detail-body .itinerary-step p { font-size: 15px !important; }
+body.ayiffa-signature .highlight-list li { font-size: 14px !important; }
+body.ayiffa-signature .trip-facts > span { font-size: 13px !important; }
+body.ayiffa-signature .itinerary-step > span { font-size: 12px !important; }
+body.ayiffa-signature .form-field > label { font-size: 13px !important; }
+body.ayiffa-signature .signature-form .form-card-heading p,
+body.ayiffa-signature .field-error,
+body.ayiffa-signature .form-character-count,
+body.ayiffa-signature .signature-form .form-bottom-note,
+body.ayiffa-signature .signature-form .form-checkbox { font-size: 12px !important; }
+body.ayiffa-signature .legal-content p,
+body.ayiffa-signature .legal-content li { font-size: 14px !important; }
+body.ayiffa-signature .credit-row p { font-size: 12px !important; }
+
+/* Closing section and footer */
+body.ayiffa-signature .travel-cta h2 { font-weight: 700 !important; }
+body.ayiffa-signature .travel-cta-content > p:not(.eyebrow) { font-size: 14px !important; }
+body.ayiffa-signature .footer-brand > p { font-size: 13px !important; }
+body.ayiffa-signature .footer-column h2 {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+body.ayiffa-signature .footer-column > a,
+body.ayiffa-signature .footer-column > span { font-size: 12px !important; }
+
+/* Atlas: map data stays Manrope and readable at every breakpoint */
+body.ayiffa-signature .atlas-heading .eyebrow { font-size: 12px !important; letter-spacing: .6px; }
+body.ayiffa-signature .atlas-heading > div:last-child > p { font-size: 14px !important; line-height: 1.75; }
+body.ayiffa-signature .atlas-heading .text-link { font-size: 13px !important; }
+body.ayiffa-signature .atlas-region-tag { font-size: 12px !important; letter-spacing: .4px; }
+body.ayiffa-signature .map-context-city text { font-size: 12px !important; font-weight: 600 !important; }
+body.ayiffa-signature .map-ocean-label { font-size: 12px !important; letter-spacing: 2px; }
+body.ayiffa-signature .map-neighbor-label { font-size: 12px !important; letter-spacing: 1.5px; }
+body.ayiffa-signature .map-compass-rose {
+  font-family: var(--font-sans) !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+}
+body.ayiffa-signature .atlas-stop-dot { width: 26px; height: 26px; font-size: 12px !important; }
+body.ayiffa-signature .atlas-stop-label { font-size: 12px !important; }
+body.ayiffa-signature .atlas-stop-ganvie .atlas-stop-label { transform: translateY(-26px) !important; }
+body.ayiffa-signature .atlas-stop.is-active .atlas-stop-label { font-size: 13px !important; }
+body.ayiffa-signature .atlas-expand { font-size: 12px !important; }
+body.ayiffa-signature .atlas-panel-content h3 { font-size: 42px !important; font-weight: 600 !important; }
+body.ayiffa-signature .atlas-panel-content > p { font-size: 14px !important; line-height: 1.75; }
+body.ayiffa-signature .atlas-panel-content .button { font-size: 12px !important; min-height: 44px; }
+body.ayiffa-signature .atlas-dialog-hint { font-size: 13px !important; }
+body.ayiffa-signature .atlas-dialog-stop > strong { font-size: 13px !important; }
+body.ayiffa-signature .atlas-dialog-detail h3 { font-weight: 600 !important; }
+body.ayiffa-signature .atlas-dialog-detail > p { font-size: 14px !important; }
+body.ayiffa-signature .atlas-dialog-detail .button { font-size: 12px !important; }
+
+@media (max-width: 700px) {
+  body.ayiffa-signature .signature-hero .hero-description { font-size: 15px !important; }
+  body.ayiffa-signature .signature-hero .hero-buttons .button { font-size: 12px !important; }
+  body.ayiffa-signature .signature-film-caption { font-size: 17px !important; }
+  body.ayiffa-signature .earth-story-copy > p:not(.eyebrow):not(.earth-story-lead) { font-size: 14px !important; }
+  body.ayiffa-signature .travel-cta-content > p:not(.eyebrow) { font-size: 13px !important; }
+  body.ayiffa-signature .map-context-city text { font-size: 14px !important; }
+  body.ayiffa-signature .map-neighbor-label { font-size: 13px !important; }
+  body.ayiffa-signature .atlas-stop-dot { width: 24px; height: 24px; }
+  body.ayiffa-signature .atlas-panel-content h3 { font-size: 35px !important; }
+  body.ayiffa-signature .atlas-panel-content > p { font-size: 13px !important; }
+}
+
+@media (max-width: 380px) {
+  body.ayiffa-signature .signature-hero .hero-description { font-size: 14px !important; }
+  body.ayiffa-signature .signature-hero .hero-buttons .button { font-size: 12px !important; }
+}
