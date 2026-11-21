@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { Quote, ArrowUpRight, Mail } from "lucide-react";
-import { site } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import { useLocale } from "./locale-provider";
 import { EmLines } from "./lines";
 import { Reveal } from "./reveal";
 
 export function Testimonials() {
   const { t } = useLocale();
+  const { site } = useContent();
   const ui = t.ui;
   return (
     <section className="section home-testimonials" id="temoignages">
@@ -26,7 +27,7 @@ export function Testimonials() {
           <Quote size={34} strokeWidth={1.1} className="testimonial-quote-icon"/>
           <h3>{ui.testimonialNone}</h3>
           <p>{ui.testimonialText}</p>
-          <Link href={`mailto:${site.email}?subject=Mon%20exp%C3%A9rience%20avec%20AYIFFA%20TOURISME`} className="button button-terra">
+          <Link href={`mailto:${site.email}?subject=${encodeURIComponent(ui.testimonialSubject)}`} className="button button-terra">
             <Mail size={17}/>{ui.testimonialButton}<ArrowUpRight size={17}/>
           </Link>
           </div>

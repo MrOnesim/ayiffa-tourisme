@@ -189,12 +189,14 @@ export function getLocalizedAtlasStops(locale: Locale): AtlasStop[] {
 }
 
 type FilmText = {
+  captions: string;
   title: string; subtitle: string; description: string;
   chapters: { title: string; location: string }[];
   sources: { type: string }[];
 };
 const filmText: Record<Translation, FilmText> = {
   en: {
+    captions: "/videos/benin-carnet-en.vtt",
     title: "Benin, intensely", subtitle: "A visual notebook by AYIFFA",
     description: "A silent montage of animated photographs of Ganvié and a real aerial sequence of Ouidah. Water landscapes, a city in motion, another idea of Benin.",
     chapters: [
@@ -209,6 +211,7 @@ const filmText: Record<Translation, FilmText> = {
     ],
   },
   es: {
+    captions: "/videos/benin-carnet-es.vtt",
     title: "Benín, intensamente", subtitle: "Un cuaderno visual de AYIFFA",
     description: "Un montaje sin sonido de fotografías animadas de Ganvié y una secuencia aérea real de Ouidah. Paisajes de agua, una ciudad en movimiento, otra forma de ver Benín.",
     chapters: [
@@ -223,6 +226,7 @@ const filmText: Record<Translation, FilmText> = {
     ],
   },
   de: {
+    captions: "/videos/benin-carnet-de.vtt",
     title: "Benin, intensiv", subtitle: "Ein visuelles Notebook von AYIFFA",
     description: "Ein stummer Schnitt aus animierten Fotografien von Ganvié und einer echten Luftaufnahme von Ouidah. Wasserlandschaften, eine Stadt in Bewegung, eine andere Art, Benin zu sehen.",
     chapters: [
@@ -239,10 +243,12 @@ const filmText: Record<Translation, FilmText> = {
 };
 
 export function getLocalizedFilm(locale: Locale) {
-  if (locale === "fr") return beninFilm;
+  if (locale === "fr") return { ...beninFilm, captionsLang: "fr" as const };
   const text = filmText[locale];
   return {
     ...beninFilm,
+    captions: text.captions,
+    captionsLang: locale,
     title: text.title,
     subtitle: text.subtitle,
     description: text.description,

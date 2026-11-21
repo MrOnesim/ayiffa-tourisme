@@ -6,34 +6,18 @@ import { useContent } from "@/lib/use-content";
 import { useLocale } from "@/components/locale-provider";
 import { getDictionary } from "@/lib/get-dictionary";
 
-const interestsByLocale = {
-  fr: [
-    { value: "Culture & patrimoine", label: "Culture & patrimoine" },
-    { value: "Au fil de l’eau", label: "Au fil de l’eau" },
-    { value: "Évasion & nature", label: "Évasion & nature" },
-  ],
-  en: [
-    { value: "Culture & patrimoine", label: "Culture & heritage" },
-    { value: "Au fil de l’eau", label: "Along the water" },
-    { value: "Évasion & nature", label: "Nature escape" },
-  ],
-  es: [
-    { value: "Culture & patrimoine", label: "Cultura y patrimonio" },
-    { value: "Au fil de l’eau", label: "Al ritmo del agua" },
-    { value: "Évasion & nature", label: "Naturaleza y evasión" },
-  ],
-  de: [
-    { value: "Culture & patrimoine", label: "Kultur & Erbe" },
-    { value: "Au fil de l’eau", label: "Am Wasser" },
-    { value: "Évasion & nature", label: "Natur & Erholung" },
-  ],
-} as const;
+// Use the localized categories themselves as option values so the query string
+// always matches the destinations catalogue, whatever the active language.
+const interestSlugs = ["ouidah", "ganvie", "grand-popo"] as const;
 
 export function TripDiscovery() {
   const { destinations } = useContent();
   const { locale } = useLocale();
   const t = getDictionary(locale).pages.home.discovery;
-  const interests = interestsByLocale[locale];
+  const interests = interestSlugs
+    .map(slug => destinations.find(destination => destination.slug === slug)?.category)
+    .filter((category): category is string => Boolean(category))
+    .map(category => ({ value: category, label: category }));
   return <section className="container discovery-container signature-discovery" aria-labelledby="discovery-title">
     <div className="discovery-heading"><div><Compass size={18} strokeWidth={1.4}/><h2 id="discovery-title">{t.title}</h2></div><Link href="/contact">{t.link}<ArrowUpRight size={15}/></Link></div>
     <form action="/destinations" className="discovery-bar" aria-label={t.title}>

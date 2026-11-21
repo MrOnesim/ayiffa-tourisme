@@ -81,7 +81,7 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
     const player = video.current;
     if (!player || player.readyState < 1) return;
     player.currentTime = start;
-    void player.play().catch(() => setMessage("Utilisez le bouton lecture pour reprendre."));
+    void player.play().catch(() => setMessage(ui.cinemaResume));
   }
 
   const currentChapter = Math.max(0, film.chapters.findLastIndex(chapter => time >= chapter.start));
@@ -94,7 +94,7 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
         <div className="cinema-topbar"><div><span className="cinema-edition">{ui.cinemaEdition}</span><h2 id="cinema-title">{ui.cinemaHeadingLead} <em>{ui.cinemaHeadingEm}</em></h2></div><button className="cinema-close" onClick={closeFilm} aria-label={ui.cinemaClose}><span>{ui.cinemaClose}</span><X size={21}/></button></div>
         <div className="cinema-screen">
           <video ref={video} className="cinema-player" controls playsInline preload="none" poster={isOpen ? beninFilm.poster : undefined} aria-label={ui.cinemaVideoAria} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={event => setTime(event.currentTarget.currentTime)} onError={() => { setFailed(true); setPlaying(false); }}>
-            <track kind="captions" src={beninFilm.captions} srcLang="fr" label={ui.cinemaCaptionLabel}/>
+            <track kind="captions" src={film.captions} srcLang={film.captionsLang} label={ui.cinemaCaptionLabel}/>
             {ui.cinemaVideoUnsupported}
           </video>
           {failed && <div className="cinema-fallback" role="alert"><p>{ui.cinemaFail}</p><button className="button button-lime" onClick={() => { setFailed(false); video.current?.load(); void video.current?.play().catch(() => setFailed(true)); }}>{ui.cinemaRetry}<RotateCcw size={16}/></button><Link href="/galerie" onClick={closeFilm}>{ui.cinemaOpenGallery}<ArrowUpRight size={16}/></Link></div>}

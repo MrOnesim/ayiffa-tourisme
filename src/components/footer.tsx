@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 import { Brand } from "./brand";
-import { site } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import { useLocale } from "./locale-provider";
 import { Lines } from "./lines";
 
 export function Footer() {
   const { t } = useLocale();
+  const { site } = useContent();
   const ui = t.ui;
   return <>
     <footer className="site-footer">

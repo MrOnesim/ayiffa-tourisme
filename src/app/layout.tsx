@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Manrope, Cormorant_Garamond } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { site } from "@/lib/content";
+import { getLocalizedContent } from "@/lib/content-locales";
 import { CinemaProvider } from "@/components/cinema-provider";
 import { LocaleProvider } from "@/components/locale-provider";
 import "./globals.css";
@@ -27,6 +27,7 @@ export const viewport: Viewport = {width:"device-width",initialScale:1,themeColo
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const locale = await getServerLocale();
   const dict = getDictionary(locale);
-  const structuredData = {"@context":"https://schema.org","@type":"TravelAgency",name:site.name,url:site.url,email:site.email,address:{"@type":"PostalAddress",addressLocality:"Ouidah",addressRegion:"Atlantique",addressCountry:"BJ"},areaServed:{"@type":"Country",name:dict.ui.benin},description:dict.seo.structuredDescription};
+  const { site } = getLocalizedContent(locale);
+  const structuredData = {"@context":"https://schema.org","@type":"TravelAgency",name:site.name,url:site.url,email:site.email,address:{"@type":"PostalAddress",addressLocality:"Ouidah",addressRegion:locale === "fr" ? "Atlantique" : locale === "es" ? "Atlántico" : locale === "de" ? "Atlantik" : "Atlantic",addressCountry:"BJ"},areaServed:{"@type":"Country",name:dict.ui.benin},description:dict.seo.structuredDescription};
   return <html lang={locale} className={`${sans.variable} ${editorial.variable}`}><body className="ayiffa-signature" data-design={appliedIdentity.id}><a href="#contenu" className="skip-link">{dict.ui.skipLink}</a><LocaleProvider initialLocale={locale}><CinemaProvider><Header/><main id="contenu">{children}</main><Footer/></CinemaProvider></LocaleProvider><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,"\\u003c")}}/></body></html>;
 }

@@ -8,52 +8,61 @@ import { AmbientVideo } from "@/components/ambient-video";
 import { useCinema } from "@/components/cinema-provider";
 import { beninFilm } from "@/lib/film";
 import { useContent } from "@/lib/use-content";
+import { useLocale } from "@/components/locale-provider";
 import type { DesignDirectionId, PreviewDevice } from "@/lib/design-directions";
 
 function PreviewHeader({ light = false }: { light?: boolean }) {
+  const { t } = useLocale();
+  const mock = t.studio.mock;
   return <div className={`mock-navigation ${light ? "mock-navigation-light" : ""}`}>
     <Brand light={light}/>
-    <nav aria-label="Navigation de l’aperçu"><Link href="/destinations">Destinations</Link><Link href="/circuits">Nos voyages</Link><Link href="/a-propos">L’agence</Link></nav>
-    <Link className="mock-navigation-cta" href="/contact">Mon voyage<ArrowUpRight size={12}/></Link>
+    <nav aria-label={mock.navAria}><Link href="/destinations">{mock.navDestinations}</Link><Link href="/circuits">{mock.navTrips}</Link><Link href="/a-propos">{mock.navAgency}</Link></nav>
+    <Link className="mock-navigation-cta" href="/contact">{mock.navCta}<ArrowUpRight size={12}/></Link>
   </div>;
 }
 
 function SignaturePreview({ animated }: { animated: boolean }) {
   const { openFilm } = useCinema();
+  const { t } = useLocale();
+  const mock = t.studio.mock;
   return <>
     <div className="mock-signature">
-      <Image className="mock-signature-image" src={beninFilm.poster} alt="Une pirogue à voile sur le lac Nokoué, au Bénin" fill sizes="(max-width: 700px) 95vw, 70vw"/>
+      <Image className="mock-signature-image" src={beninFilm.poster} alt={mock.posterAlt} fill sizes="(max-width: 700px) 95vw, 70vw"/>
       <AmbientVideo active={animated} paused={!animated} className="mock-ambient"/>
       <div className="mock-signature-shade"/>
       <PreviewHeader light/>
-      <div className="mock-signature-copy"><p className="mock-kicker">L’ESSENTIEL DU VOYAGE. L’ÂME DU BÉNIN.</p><h2>Le Bénin,<br/><em>intensément.</em></h2><p>Des lieux qui émerveillent.<br/>Des rencontres qui restent.</p><Link className="mock-action" href="/destinations">Découvrir nos destinations<ArrowUpRight size={16}/></Link></div>
-      <button className="mock-film" onClick={() => openFilm()} aria-label="Voir le film depuis la proposition Signature"><span><Play size={17} fill="currentColor"/></span><em>Le voyage commence ici.</em><small>VOIR LE FILM · 00:22</small></button>
-      <div className="mock-signature-location"><MapPin size={12}/><span>Ganvié & Ouidah, Bénin</span><span>Un autre regard sur le voyage.</span></div>
+      <div className="mock-signature-copy"><p className="mock-kicker">{mock.signatureKicker}</p><h2>{mock.signatureTitleA}<br/><em>{mock.signatureTitleB}</em></h2><p dangerouslySetInnerHTML={{ __html: mock.signatureText }}/><Link className="mock-action" href="/destinations">{mock.signatureDiscover}<ArrowUpRight size={16}/></Link></div>
+      <button className="mock-film" onClick={() => openFilm()} aria-label={mock.signatureFilmAria}><span><Play size={17} fill="currentColor"/></span><em>{mock.signatureFilmText}</em><small>{mock.signatureFilmSmall}</small></button>
+      <div className="mock-signature-location"><MapPin size={12}/><span>{mock.signatureLocation}</span><span>{mock.signatureNote}</span></div>
     </div>
-    <div className="mock-assurances"><span><Compass size={15}/>Une agence locale</span><span><SlidersHorizontal size={15}/>Un voyage à votre image</span><span><MessageCircle size={15}/>Un échange, simplement</span></div>
+    <div className="mock-assurances"><span><Compass size={15}/>{mock.assurances[0]}</span><span><SlidersHorizontal size={15}/>{mock.assurances[1]}</span><span><MessageCircle size={15}/>{mock.assurances[2]}</span></div>
   </>;
 }
 
 function EarthPreview() {
+  const { t } = useLocale();
+  const mock = t.studio.mock;
   return <div className="mock-earth">
     <PreviewHeader/>
     <div className="mock-earth-hero">
-      <div className="mock-earth-copy"><p className="mock-kicker">DES VISAGES. DES HISTOIRES. DU VIVANT.</p><h2>VIVRE.<br/>LE BÉNIN.<br/><span>VRAIMENT.</span></h2><p>Les belles rencontres ne se programment pas toutes. Mais le voyage commence ici.</p><Link className="mock-action" href="/experiences">Rencontrer le Bénin<ArrowUpRight size={17}/></Link></div>
-      <div className="mock-earth-art"><span className="mock-earth-pattern" aria-hidden="true"/><div className="mock-earth-portrait"><Image src="/images/ville ouidah vu du ciel.jpeg" alt="Vue aérienne de la ville de Ouidah" fill sizes="(max-width: 700px) 80vw, 30vw"/></div><div className="mock-earth-postcard"><Image src="/images/ville ganvie (1).jpeg" alt="Maisons sur pilotis de Ganvié vues du ciel" fill sizes="200px"/></div><div className="mock-earth-stamp" aria-hidden="true"><SunEmblem/></div><span className="mock-earth-note">Des histoires<br/>à partager.</span></div>
+      <div className="mock-earth-copy"><p className="mock-kicker">{mock.earthKicker}</p><h2 dangerouslySetInnerHTML={{ __html: mock.earthTitle }}/><p>{mock.earthText}</p><Link className="mock-action" href="/experiences">{mock.earthCta}<ArrowUpRight size={17}/></Link></div>
+      <div className="mock-earth-art"><span className="mock-earth-pattern" aria-hidden="true"/><div className="mock-earth-portrait"><Image src="/images/ville ouidah vu du ciel.jpeg" alt={mock.earthPortraitAlt} fill sizes="(max-width: 700px) 80vw, 30vw"/></div><div className="mock-earth-postcard"><Image src="/images/ville ganvie (1).jpeg" alt={mock.earthPostcardAlt} fill sizes="200px"/></div><div className="mock-earth-stamp" aria-hidden="true"><SunEmblem/></div><span className="mock-earth-note" dangerouslySetInnerHTML={{ __html: mock.earthNote }}/></div>
     </div>
-    <div className="mock-earth-ribbon"><span>RENCONTRER.</span><span aria-hidden="true">✳</span><span>COMPRENDRE.</span><span aria-hidden="true">✳</span><span>RESSENTIR.</span></div>
+    <div className="mock-earth-ribbon"><span>{mock.earthRibbon[0]}</span><span aria-hidden="true">✳</span><span>{mock.earthRibbon[1]}</span><span aria-hidden="true">✳</span><span>{mock.earthRibbon[2]}</span></div>
   </div>;
 }
 
 function ClarityPreview() {
   const { destinations } = useContent();
+  const { t } = useLocale();
+  const mock = t.studio.mock;
   return <div className="mock-clarity">
     <PreviewHeader/>
     <div className="mock-clarity-hero">
-      <div className="mock-clarity-copy"><span className="mock-local">AGENCE LOCALE · OUIDAH</span><h2>Votre voyage.<br/>À votre mesure.</h2><p>Des étapes choisies, un rythme qui vous ressemble. Commençons par ce qui vous fait envie.</p><form action="/destinations" className="mock-search"><MapPin size={17}/><label><span>VOTRE PROCHAINE ESCALE</span><select name="destination" defaultValue="" aria-label="Destination dans la proposition Ligne claire"><option value="">Toutes les destinations</option>{destinations.map(destination => <option key={destination.slug} value={destination.slug}>{destination.name}</option>)}</select></label><button type="submit" aria-label="Explorer la destination de l’aperçu"><ArrowRight size={20}/></button></form><Link className="mock-clarity-link" href="/contact">Parlons de votre projet<ArrowUpRight size={15}/></Link></div>
-      <div className="mock-clarity-photo"><Image src="/images/deux voi vu du ciel.jpeg" alt="La plage de Grand-Popo vue du ciel" fill sizes="(max-width: 700px) 85vw, 30vw"/><span className="mock-clarity-location"><MapPin size={13}/><span>Grand-Popo<small>L’océan pour horizon.</small></span></span><span className="mock-clarity-note"><Sparkles size={13}/>À votre rythme.</span></div>
+      <div className="mock-clarity-copy"><span className="mock-local">{mock.clarityLocal}</span><h2 dangerouslySetInnerHTML={{ __html: mock.clarityTitle }}/><p>{mock.clarityText}</p><form action="/destinations" className="mock-search"><MapPin size={17}/><label><span>{mock.claritySearchLabel}</span><select name="destination" defaultValue="" aria-label={mock.clarityDestinationAria}><option value="">{mock.clarityAll}</option>{destinations.map(destination => <option key={destination.slug} value={destination.slug}>{destination.name}</option>)}</select></label><button type="submit" aria-label={mock.clarityExploreAria}><ArrowRight size={20}/></button></form><Link className="mock-clarity-link" href="/contact">{mock.clarityCta}<ArrowUpRight size={15}/></Link></div>
+      <div className="mock-clarity-photo"><Image src="/images/deux voi vu du ciel.jpeg" alt={mock.clarityPhotoAlt} fill sizes="(max-width: 700px) 85vw, 30vw"/><span className="mock-clarity-location"><MapPin size={13}/><span>{mock.clarityLocation}<small>{mock.clarityLocationNote}</small></span></span><span className="mock-clarity-note"><Sparkles size={13}/>{mock.clarityNote}</span></div>
     </div>
-    <div className="mock-clarity-benefits"><span><Compass size={18}/><strong>Le regard local.</strong></span><span><SlidersHorizontal size={18}/><strong>La liberté du sur-mesure.</strong></span><span><MessageCircle size={18}/><strong>Un contact direct.</strong></span></div>
+    <div className="mock-clarity-benefits"><span><Compass size={18}/><strong>{mock.benefits[0]}</strong></span><span><SlidersHorizontal size={18}/><strong>{mock.benefits[1]}</strong></span><span><MessageCircle size={18}/><strong>{mock.benefits[2]}</strong></span></div>
   </div>;
 }
 

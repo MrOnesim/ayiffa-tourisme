@@ -3,7 +3,7 @@ import { Mail, MessageCircle, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { PageIntro, TravelCTA } from "@/components/ui";
 import { TravelForm } from "@/components/travel-form";
-import { site } from "@/lib/content";
+import { getLocalizedContent } from "@/lib/content-locales";
 import { EmLines } from "@/components/lines";
 import { getServerLocale } from "@/lib/get-locale-server";
 import { getDictionary } from "@/lib/get-dictionary";
@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> { return getPageMeta
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ destination?: string; voyageurs?: string; startDate?: string }> }) {
   const params = await searchParams;
   const locale = await getServerLocale();
+  const { site } = getLocalizedContent(locale);
   const dict = getDictionary(locale);
   const t = dict.pages.contact;
   const ui = dict.ui;

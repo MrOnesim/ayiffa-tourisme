@@ -92,7 +92,7 @@ export const circuits: Circuit[] = [
     steps: [{title: "Rejoindre Gogotinkpon", text: "Le transport et le lieu de départ sont définis dans votre devis personnalisé."}, {title: "Explorer la mangrove", text: "Un parcours en pirogue dans les paysages locaux, selon les conditions de navigation."}, {title: "Découvrir les savoir-faire locaux", text: "La présentation de l’agence évoque des rencontres et des dégustations. Leur organisation est confirmée avant le voyage."}]
   },
   {
-    slug: "benin-huit-jours", name: "Le Bénin, tout simplement", subtitle: "Huit jours pour s’émerveiller", location: "Bénin", duration: "8 jours", days: 8,
+    slug: "benin-huit-jours", name: "Circuit de 8 jours", subtitle: "Le Bénin, tout simplement", location: "Bénin", duration: "8 jours", days: 8,
     category: "Voyage sur mesure", image: "/images/GANVIE.jpeg", alt: "Maisons sur pilotis et pirogues au large de Ganvié",
     description: "Un format de huit jours présenté par l’agence, à composer autour de vos envies. Culture, paysages d’eau et rencontres : donnez à votre première découverte du Bénin votre propre couleur.",
     highlights: ["Un séjour personnalisable", "Un rythme défini ensemble", "Une découverte en couple, en famille ou entre amis", "Un devis détaillé avant toute confirmation"],
@@ -100,12 +100,28 @@ export const circuits: Circuit[] = [
     steps: [{title: "Vos envies, notre point de départ", text: "Partagez vos centres d’intérêt, vos dates et votre rythme idéal."}, {title: "Un itinéraire préparé ensemble", text: "L’équipe propose les étapes et vérifie leur faisabilité pour la période choisie."}, {title: "Une proposition transparente", text: "Le programme et toutes les prestations sont détaillés dans le devis à valider avant le départ."}]
   },
   {
-    slug: "benin-dix-jours", name: "Le Bénin en grand", subtitle: "Prendre le temps d’aller plus loin", location: "Bénin", duration: "10 jours", days: 10,
+    slug: "benin-dix-jours", name: "Circuit de 10 jours", subtitle: "Le Bénin en grand", location: "Bénin", duration: "10 jours", days: 10,
     category: "Voyage sur mesure", image: "/images/benin-road.jpg", alt: "Route à travers les paysages de Dassa au Bénin",
     description: "Le site de l’agence présente un circuit de dix jours, du nord au sud. Ce format est une base de discussion pour imaginer un séjour plus long, selon les conditions d’accès et de sécurité au moment du départ.",
     highlights: ["Dix jours à personnaliser", "Des paysages variés", "Des étapes choisies ensemble", "Une faisabilité vérifiée avant le départ"],
     note: "Le titre et la durée sont repris du site existant. Aucun départ vers le nord ou les zones déconseillées n’est garanti. L’itinéraire doit être réévalué selon les recommandations officielles et les conditions locales.",
     steps: [{title: "Imaginer votre voyage", text: "Un échange permet de comprendre votre projet et vos attentes."}, {title: "Vérifier chaque étape", text: "L’agence examine l’accès aux sites, la sécurité et les prestations disponibles avant toute proposition."}, {title: "Valider un programme sur mesure", text: "Votre devis décrit uniquement les étapes et les prestations confirmées."}]
+  },
+  {
+    slug: "benin-douze-jours", name: "Circuit de 12 jours", subtitle: "Du littoral aux collines, à votre rythme", location: "Bénin", duration: "12 jours", days: 12,
+    category: "Voyage sur mesure", image: "/images/culture.jpg", alt: "Cérémonie traditionnelle à Abomey-Calavi au Bénin",
+    description: "Un format de douze jours à composer avec l’agence : mémoire de Ouidah, paysages d’eau, rencontres et reliefs du sud selon les conditions du moment. Une proposition sur mesure, sans étape imposée.",
+    highlights: ["Un itinéraire entièrement personnalisé", "Des étapes du sud aux collines", "Rencontres et paysages", "Faisabilité vérifiée avant le départ"],
+    note: "Ce format est une base de discussion, pas un programme confirmé. Les étapes, les hébergements, les transports et les accès sont à valider selon les recommandations officielles et les conditions locales.",
+    steps: [{title: "Définir vos priorités", text: "Partagez vos envies, vos dates et le rythme que vous souhaitez."}, {title: "Composer les étapes", text: "L’équipe propose un enchaînement cohérent et vérifie l’accès à chaque site."}, {title: "Valider le programme", text: "Le devis précise uniquement les services et les étapes confirmés avant le départ."}]
+  },
+  {
+    slug: "benin-quinze-jours", name: "Circuit de 15 jours", subtitle: "Une immersion longue, sans se presser", location: "Bénin", duration: "15 jours", days: 15,
+    category: "Voyage sur mesure", image: "/images/benin-road.jpg", alt: "Route à travers les paysages de Dassa au Bénin",
+    description: "Quinze jours pour parcourir le Bénin autrement, du littoral aux paysages intérieurs. Ce format laisse le temps aux rencontres et aux pauses, à construire avec l’agence selon vos envies.",
+    highlights: ["Un séjour long et personnalisable", "Du littoral aux paysages intérieurs", "Du temps pour les rencontres", "Un devis avant toute confirmation"],
+    note: "La durée de quinze jours est proposée comme format de discussion. L’itinéraire, les hébergements et les déplacements dépendent des conditions d’accès, de sécurité et de disponibilité au moment du voyage.",
+    steps: [{title: "Esquisser le voyage", text: "Nous partons de vos centres d’intérêt et de la durée souhaitée."}, {title: "Construire l’itinéraire", text: "Les étapes sont choisies ensemble, avec une vérification de leur faisabilité."}, {title: "Confirmer les détails", text: "Hébergements, transports et activités sont précisés dans le devis final."}]
   }
 ];
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Info } from "lucide-react";
 import { PageIntro } from "@/components/ui";
 import { EmLines, RichText } from "@/components/lines";
-import { site } from "@/lib/content";
+import { getLocalizedContent } from "@/lib/content-locales";
 import { getServerLocale } from "@/lib/get-locale-server";
 import { getDictionary } from "@/lib/get-dictionary";
 import { getPageMetadata } from "@/lib/page-metadata";
@@ -14,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function LegalPage() {
   const locale = await getServerLocale();
+  const { site } = getLocalizedContent(locale);
   const t = getDictionary(locale).legal.mentions;
   const vars = { name: site.name, address: site.address, email: site.email };
   return <>

@@ -36,7 +36,7 @@ export function CircuitCard({circuit}:{circuit:Circuit}) {
 }
 export function Breadcrumbs({items,light=false}:{items:{label:string;href?:string}[];light?:boolean}) {
   const { t } = useLocale();
-  return <nav aria-label="Fil d’Ariane" className={`breadcrumbs ${light?"breadcrumbs-light":""}`}><Link href="/">{t.ui.home}</Link>{items.map((item,index)=><span key={index}><ChevronRight size={11}/>{item.href?<Link href={item.href}>{item.label}</Link>:<span aria-current="page">{item.label}</span>}</span>)}</nav>;
+  return <nav aria-label={t.ui.breadcrumbAria} className={`breadcrumbs ${light?"breadcrumbs-light":""}`}><Link href="/">{t.ui.home}</Link>{items.map((item,index)=><span key={index}><ChevronRight size={11}/>{item.href?<Link href={item.href}>{item.label}</Link>:<span aria-current="page">{item.label}</span>}</span>)}</nav>;
 }
 export function PageIntro({label,title,description,children}:{label:string;title:ReactNode;description:string;children?:ReactNode}) {
   return <section className="page-intro"><div className="container"><SunEmblem className="page-intro-emblem"/><Breadcrumbs items={[{label}]}/><div className="page-intro-content"><div><p className="eyebrow">{label}</p><h1>{title}</h1></div><p className="page-intro-description">{description}</p></div>{children}</div></section>;

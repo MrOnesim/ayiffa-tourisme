@@ -17,7 +17,8 @@ export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default async function Home() {
   const locale = await getServerLocale();
-  const t = getDictionary(locale).pages.home;
+  const dict = getDictionary(locale);
+  const t = dict.pages.home;
   return <>
     <Hero/>
     <div className="container trust-strip"><span><MapPinned size={19} strokeWidth={1.35}/>{t.trustLocal}</span><span><Route size={19} strokeWidth={1.35}/>{t.trustCustom}</span><span><HeartHandshake size={20} strokeWidth={1.35}/>{t.trustAuthentic}</span><span><Leaf size={19} strokeWidth={1.35}/>{t.trustSlow}</span></div>
@@ -27,7 +28,7 @@ export default async function Home() {
     <HomeCircuits/>
     <ExperienceShowcase/>
     <EarthStory/>
-    <section className="section container home-gallery"><Reveal><SectionHeading label={t.galleryEyebrow} href="/galerie" linkText="Ouvrir le carnet d’images">{t.galleryTitle}</SectionHeading></Reveal><Gallery/></section>
+    <section className="section container home-gallery"><Reveal><SectionHeading label={t.galleryEyebrow} href="/galerie" linkText={dict.ui.galleryOpenLink}>{t.galleryTitle}</SectionHeading></Reveal><Gallery/></section>
     <TravelCTA/>
   </>;
 }

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { ArrowUpRight, MapPin, Menu, Palette, Play, X } from "lucide-react";
 import { Brand } from "./brand";
-import { site } from "@/lib/content";
+import { useContent } from "@/lib/use-content";
 import { useCinema } from "./cinema-provider";
 import { useLocale } from "./locale-provider";
 import { locales, localeNames, localeFlags, type Locale } from "@/lib/i18n";
@@ -18,6 +18,7 @@ export function Header() {
   const menu = useRef<HTMLDialogElement>(null);
   const header = useRef<HTMLElement>(null);
   const { openFilm } = useCinema();
+  const { site } = useContent();
 const { locale, setLocale, t } = useLocale();
 const ui = t.ui;
 const navigation = [

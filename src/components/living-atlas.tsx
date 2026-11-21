@@ -130,7 +130,7 @@ export function LivingAtlas() {
         <div className="atlas-heading"><div><p className="eyebrow">{ui.atlasEyebrow}</p><h2 id="atlas-title">{atlasLines[0]}<br/><em>{atlasLines[1]}</em></h2></div><div><p>{ui.atlasIntro}</p><Link href="/destinations" className="text-link">{ui.atlasAll}<ArrowUpRight size={17}/></Link></div></div>
         <div className="atlas-layout">
           <div className="atlas-map-shell">
-            <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>NORD · SUD</span><span className="atlas-compass" aria-hidden="true"/></div>
+            <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>{ui.atlasRegionTag}</span><span className="atlas-compass" aria-hidden="true"/></div>
             {renderMap("atlas", markerButtons.current, ui.atlasMapAria)}
             <button type="button" className="atlas-expand" onClick={() => setExpanded(true)} aria-label={ui.atlasExpand}><Maximize2 size={15}/><span>{ui.atlasExpand}</span></button>
             <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{ui.atlasFooterCredit}</span><span>{ui.atlasFooterPositions}</span></div>
