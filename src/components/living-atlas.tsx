@@ -14,17 +14,47 @@ import { useContent } from "@/lib/use-content";
 import { EmLines } from "./lines";
 import { useLocale } from "./locale-provider";
 
-const MAP = { x: 15, y: -150, width: 660, height: 730 };
+const MAP = { x: 0, y: 0, width: 740, height: 730 };
 const viewBox = `${MAP.x} ${MAP.y} ${MAP.width} ${MAP.height}`;
 
+// Fond de carte schématique : le Bénin est un pays étroit, allongé nord-sud.
+// Les voisins sont dessinés autour, jamais par-dessus le territoire béninois.
 const mapPaths = [
-  { id: "benin", d: "M90.4,-130.6 L279.0,-130.6 L469.3,-130.6 L561.0,-130.6 L615.4,-91.8 L615.4,45.2 L600.2,141.8 L561.0,202.4 L615.4,298.2 L561.0,394.8 L543.4,443.6 L469.3,472.7 L377.6,463.1 L279.0,472.7 L203.6,463.1 L147.4,443.6 L90.4,347.9 L71.4,250.9 L90.4,154.5 L90.4,45.2 Z" },
-  { id: "togo", d: "M15,45.2 L90.4,45.2 L90.4,154.5 L90.4,347.9 L71.4,443.6 L52.4,472.7 L15,463.1 L15,347.9 L15,202.4 Z" },
-  { id: "nigeria", d: "M615.4,-91.8 L675,-91.8 L675,491.8 L469.3,472.7 L543.4,443.6 L561.0,394.8 L615.4,298.2 L561.0,202.4 L600.2,141.8 Z" },
-  { id: "ghana", d: "M15,45.2 L15,202.4 L15,347.9 L15,463.1 L-24,463.1 L-24,45.2 Z" },
-  { id: "burkina-faso", d: "M90.4,-130.6 L90.4,45.2 L15,45.2 L15,-130.6 L90.4,-130.6 Z" },
-  { id: "niger", d: "M561.0,-130.6 L675,-130.6 L675,-91.8 L615.4,-91.8 L561.0,-130.6 Z" },
+  { id: "benin", d: "M300,20 L500,20 L500,110 L485,190 L500,270 L480,350 L470,430 L455,510 L440,590 L420,650 L385,658 L350,650 L335,590 L320,510 L330,430 L315,350 L300,270 L310,190 L300,110 Z" },
+  { id: "burkina-faso", d: "M0,0 L300,0 L300,160 L0,160 Z" },
+  { id: "niger", d: "M500,0 L740,0 L740,140 L500,140 Z" },
+  { id: "ghana", d: "M0,160 L185,160 L185,650 L0,650 Z" },
+  { id: "togo", d: "M185,160 L300,160 L300,640 L185,650 Z" },
+  { id: "nigeria", d: "M500,140 L740,140 L740,670 L420,670 L440,590 L455,510 L470,430 L480,350 L500,270 L485,190 L500,110 Z" },
 ];
+
+// Le SVG est centré dans son conteneur (preserveAspectRatio="meet"). Les points
+// HTML doivent suivre exactement cette zone rendue, sinon ils se décalent.
+function useMapOverlay() {
+  const wrap = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<CSSProperties>({ left: 0, top: 0, width: "100%", height: "100%" });
+  useEffect(() => {
+    const element = wrap.current;
+    if (!element) return;
+    const update = () => {
+      const { width, height } = element.getBoundingClientRect();
+      if (!width || !height) return;
+      const scale = Math.min(width / MAP.width, height / MAP.height);
+      const renderedWidth = MAP.width * scale;
+      const renderedHeight = MAP.height * scale;
+      setStyle({ left: (width - renderedWidth) / 2, top: (height - renderedHeight) / 2, width: renderedWidth, height: renderedHeight });
+    };
+    update();
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", update);
+      return () => window.removeEventListener("resize", update);
+    }
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  return { wrap, style };
+}
 
 export function LivingAtlas() {
   const [active, setActive] = useState(0);
@@ -32,6 +62,8 @@ export function LivingAtlas() {
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const markerButtons = useRef<(HTMLButtonElement | null)[]>([]);
   const largeMarkerButtons = useRef<(HTMLButtonElement | null)[]>([]);
+  const mainMap = useMapOverlay();
+  const largeMap = useMapOverlay();
   const dialog = useRef<HTMLDialogElement>(null);
   const { destinations } = useContent();
   const { locale, t } = useLocale();
@@ -87,26 +119,26 @@ export function LivingAtlas() {
     top: `${((item.y - MAP.y) / MAP.height) * 100}%`,
   });
 
-  const renderMap = (idPrefix: string, markerRefs: (HTMLButtonElement | null)[], ariaLabel: string) => (
-    <div className="atlas-map-wrap">
+  const renderMap = (idPrefix: string, markerRefs: (HTMLButtonElement | null)[], ariaLabel: string, overlay: ReturnType<typeof useMapOverlay>) => (
+    <div className="atlas-map-wrap" ref={overlay.wrap}>
       <svg className="atlas-map" viewBox={viewBox} role="img" aria-label={ariaLabel}>
         <defs>
           <pattern id={`${idPrefix}-ocean`} patternUnits="userSpaceOnUse" width="9" height="9"><path d="M0 9L9 0" stroke="#a9c1bd" strokeWidth=".35" opacity=".35"/></pattern>
           <filter id={`${idPrefix}-shadow`} x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#15392c" floodOpacity=".13"/></filter>
         </defs>
-        <rect x="-100" y="-300" width="1000" height="1100" fill="#e8f0eb" pointerEvents="none"/>
-        <rect x="-100" y="410" width="1000" height="390" fill={`url(#${idPrefix}-ocean)`} pointerEvents="none"/>
+        <rect x="-20" y="-20" width="780" height="780" fill="#e8f0eb" pointerEvents="none"/>
+        <rect x="-20" y="650" width="780" height="120" fill={`url(#${idPrefix}-ocean)`} pointerEvents="none"/>
         {mapPaths.map(path => <path key={path.id} className={`map-country map-country-${path.id}`} d={path.d}/>)}
-        <text className="map-ocean-label" x="640" y="505">{ui.atlasOceanLabel}</text>
-        <text className="map-neighbor-label" x="157" y="255">GHANA</text>
-        <text className="map-neighbor-label" x="276" y="106">TOGO</text>
-        <text className="map-neighbor-label" x="536" y="195">NIGERIA</text>
-        <text className="map-neighbor-label" x="110" y="75">BURKINA FASO</text>
-        <text className="map-neighbor-label" x="519" y="-124">NIGER</text>
+        <text className="map-ocean-label" x="370" y="674" textAnchor="middle">{ui.atlasOceanLabel}</text>
+        <text className="map-neighbor-label" x="150" y="90">BURKINA FASO</text>
+        <text className="map-neighbor-label" x="620" y="80">NIGER</text>
+        <text className="map-neighbor-label" x="235" y="300">TOGO</text>
+        <text className="map-neighbor-label" x="95" y="350">GHANA</text>
+        <text className="map-neighbor-label" x="610" y="350">NIGERIA</text>
         <g className="benin-focus" filter={`url(#${idPrefix}-shadow)`}><path d={mapPaths[0].d}/></g>
-        <text className="map-compass-rose" x="457" y="-67" textAnchor="middle">N</text>
+        <text className="map-compass-rose" x="700" y="40" textAnchor="middle">N</text>
       </svg>
-      <div className="atlas-marker-layer">
+      <div className="atlas-marker-layer" style={overlay.style}>
         {atlasStops.map((item, index) => <button
           key={item.slug}
           ref={element => { markerRefs[index] = element; }}
@@ -131,7 +163,7 @@ export function LivingAtlas() {
         <div className="atlas-layout">
           <div className="atlas-map-shell">
             <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>{ui.atlasRegionTag}</span><span className="atlas-compass" aria-hidden="true"/></div>
-            {renderMap("atlas", markerButtons.current, ui.atlasMapAria)}
+            {renderMap("atlas", markerButtons.current, ui.atlasMapAria, mainMap)}
             <button type="button" className="atlas-expand" onClick={() => setExpanded(true)} aria-label={ui.atlasExpand}><Maximize2 size={15}/><span>{ui.atlasExpand}</span></button>
             <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{ui.atlasFooterCredit}</span><span>{ui.atlasFooterPositions}</span></div>
           </div>
@@ -153,7 +185,7 @@ export function LivingAtlas() {
         </div>
         <div className="atlas-dialog-body">
           <div className="atlas-dialog-map">
-            <div className="atlas-map-shell">{renderMap("atlas-lg", largeMarkerButtons.current, ui.atlasExpandedMapAria)}</div>
+            <div className="atlas-map-shell">{renderMap("atlas-lg", largeMarkerButtons.current, ui.atlasExpandedMapAria, largeMap)}</div>
           </div>
           <aside className="atlas-dialog-side">
             <p className="atlas-dialog-hint">{ui.atlasIntro}</p>
