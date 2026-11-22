@@ -27,7 +27,7 @@ function SignaturePreview({ animated }: { animated: boolean }) {
   const mock = t.studio.mock;
   return <>
     <div className="mock-signature">
-      <Image className="mock-signature-image" src={beninFilm.poster} alt={mock.posterAlt} fill sizes="(max-width: 700px) 95vw, 70vw"/>
+      <Image className="mock-signature-image" src={beninFilm.poster} alt={mock.posterAlt} fill priority sizes="(max-width: 700px) 95vw, 70vw"/>
       <AmbientVideo active={animated} paused={!animated} className="mock-ambient"/>
       <div className="mock-signature-shade"/>
       <PreviewHeader light/>

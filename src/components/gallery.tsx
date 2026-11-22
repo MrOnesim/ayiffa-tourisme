@@ -42,7 +42,7 @@ export function Gallery({full=false}:{full?:boolean}) {
   return <>
     <div className={`gallery-grid ${full?"gallery-full":""}`}>
       {photos.map((photo,index)=>      <button key={photo.src} className={`gallery-tile card-lift shimmer-container`} onClick={()=>open(index)} aria-label={`${ui.galleryEnlarge} ${photo.alt}`}>
-        <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 600px) 85vw, (max-width: 900px) 45vw, 28vw"/>
+        <Image src={photo.src} alt={photo.alt} fill priority={index===0} sizes="(max-width: 600px) 85vw, (max-width: 900px) 45vw, 28vw"/>
         <span className="shimmer-overlay" aria-hidden="true"/>
         <span className="gallery-expand"><Expand size={19}/></span><span className="gallery-label">{photo.place}</span>
       </button>)}
@@ -52,7 +52,7 @@ export function Gallery({full=false}:{full?:boolean}) {
       <div className="lightbox-layout">
         <button className="lightbox-arrow icon-button" onClick={()=>navigate(-1)} aria-label={ui.galleryPrev}><ArrowLeft/></button>
         <div className="lightbox-figure">
-          <div className="lightbox-image"><Image src={photos[active].src} alt={photos[active].alt} fill sizes="90vw" style={{objectFit:"contain"}}/></div>
+          <div className="lightbox-image" style={{position:"relative"}}><Image src={photos[active].src} alt={photos[active].alt} fill sizes="90vw" style={{objectFit:"contain"}}/></div>
           <div className="lightbox-caption"><div><h2>{photos[active].place}</h2><p>{photos[active].credit}</p></div><span>{active+1} / {photos.length}</span></div>
         </div>
         <button className="lightbox-arrow icon-button" onClick={()=>navigate(1)} aria-label={ui.galleryNext}><ArrowRight/></button>

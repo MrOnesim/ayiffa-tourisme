@@ -109,8 +109,9 @@ export function Hero() {
   return <>
     <div className="hero-scroll-container" ref={scrollContainer}>
     <section className="hero cinematic-hero signature-hero" ref={hero} aria-label={`${t.common.discover} ${ui.benin}`}>
-      {slides.map((slide, index) => <motion.div key={slide.image} className={`hero-image shimmer-container ${index === 0 ? "hero-image-active" : ""}`} aria-hidden={index !== 0} inert={index !== 0} initial={false} animate={{ opacity: index === 0 ? 1 : 0 }} transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeOut" }}>
-        <Image src={slide.image} alt={ui.heroImageAlt} fill sizes="100vw" preload={index === 0} loading={index === 0 ? undefined : "lazy"} quality={85}/>
+      {slides.map((slide, index) => <motion.div key={slide.image} className={`hero-image shimmer-container ${index === 0 ? "hero-image-active" : ""}`} aria-hidden={index !== 0} inert={index !== 0} style={{ position: "absolute", inset: 0 }} initial={false} animate={{ opacity: index === 0 ? 1 : 0 }} transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeOut" }}>
+        {/* The active slide is scaled 1.05 by the Ken Burns effect: ask for 105vw so it stays sharp and Next.js sees its true width. */}
+        <Image src={slide.image} alt={ui.heroImageAlt} fill sizes="105vw" preload={index === 0} loading={index === 0 ? undefined : "lazy"} quality={85}/>
         <span className="shimmer-overlay" aria-hidden="true"/>
         {index === 0 && <video ref={heroVideo} className={`ambient-video ${playing ? "is-ready" : ""}`} muted loop playsInline preload="none" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setUnavailable(true)}/>}
       </motion.div>)}

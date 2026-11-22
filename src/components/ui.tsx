@@ -21,18 +21,18 @@ export function SectionHeading({label,children,description,href,linkText}:{label
   const { t } = useLocale();
   return <div className={`section-heading${hasAside ? "" : " section-heading-single"}`}><div><p className="eyebrow">{label}</p><h2>{children}</h2></div>{hasAside&&<div className="section-heading-aside">{description&&<p>{description}</p>}{href&&<TextLink href={href}>{linkText||t.ui.discoverAll}</TextLink>}</div>}</div>;
 }
-export function DestinationCard({destination, index=0}:{destination:Destination;index?:number}) {
+export function DestinationCard({destination, index=0, priority=false}:{destination:Destination;index?:number;priority?:boolean}) {
   const { t } = useLocale();
   return <TiltFrame><Link href={`/destinations/${destination.slug}`} className="destination-card">
-    <Image src={destination.image} alt={destination.imageAlt} fill sizes="(max-width: 600px) 90vw, (max-width: 1000px) 46vw, 30vw"/>
+    <Image src={destination.image} alt={destination.imageAlt} fill priority={priority} sizes="(max-width: 600px) 90vw, (max-width: 1000px) 46vw, 30vw"/>
     <div className="destination-shade"/>
     <span className="destination-tag">{destination.category}</span><span className="destination-index">0{index+1}</span>
     <div className="destination-card-bottom"><div><span className="location-label"><MapPin size={13}/>{destination.region}, {t.ui.benin}</span><h3>{destination.name}</h3><p>{destination.tagline}</p></div><span className="round-arrow"><ArrowUpRight size={22} strokeWidth={1.4}/></span></div>
   </Link></TiltFrame>;
 }
-export function CircuitCard({circuit}:{circuit:Circuit}) {
+export function CircuitCard({circuit, priority=false}:{circuit:Circuit;priority?:boolean}) {
   const { t } = useLocale();
-  return <MotionCard className="circuit-card"><Link href={`/circuits/${circuit.slug}`} className="circuit-card-image" aria-label={`${t.ui.seeCircuit} ${circuit.name}`}><Image src={circuit.image} alt={circuit.alt} fill sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 31vw"/><span className="duration-tag"><Clock3 size={13} aria-hidden="true"/>{circuit.duration}</span><span className="circuit-image-arrow"><ArrowUpRight size={23} aria-hidden="true"/></span></Link><div className="circuit-card-content"><p className="mini-label">{circuit.category}</p><h3><Link href={`/circuits/${circuit.slug}`}>{circuit.name}</Link></h3><p>{circuit.subtitle}</p><div className="circuit-card-footer"><span><MapPin size={13} aria-hidden="true"/>{circuit.location} · {t.ui.onQuote}</span><Link href={`/circuits/${circuit.slug}`} aria-label={`${t.ui.discoverCircuit} ${circuit.name}`}><ArrowRight size={19} aria-hidden="true"/></Link></div></div></MotionCard>;
+  return <MotionCard className="circuit-card"><Link href={`/circuits/${circuit.slug}`} className="circuit-card-image" aria-label={`${t.ui.seeCircuit} ${circuit.name}`}><Image src={circuit.image} alt={circuit.alt} fill priority={priority} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 31vw"/><span className="duration-tag"><Clock3 size={13} aria-hidden="true"/>{circuit.duration}</span><span className="circuit-image-arrow"><ArrowUpRight size={23} aria-hidden="true"/></span></Link><div className="circuit-card-content"><p className="mini-label">{circuit.category}</p><h3><Link href={`/circuits/${circuit.slug}`}>{circuit.name}</Link></h3><p>{circuit.subtitle}</p><div className="circuit-card-footer"><span><MapPin size={13} aria-hidden="true"/>{circuit.location} · {t.ui.onQuote}</span><Link href={`/circuits/${circuit.slug}`} aria-label={`${t.ui.discoverCircuit} ${circuit.name}`}><ArrowRight size={19} aria-hidden="true"/></Link></div></div></MotionCard>;
 }
 export function Breadcrumbs({items,light=false}:{items:{label:string;href?:string}[];light?:boolean}) {
   const { t } = useLocale();

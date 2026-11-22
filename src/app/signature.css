@@ -1918,7 +1918,7 @@ body.ayiffa-signature {
 }
 
 /* The image card is mobile-only: desktop uses the sticky crossfade panel. */
-.circuit-pinned-mobile-media { display: none; }
+.circuit-pinned-mobile-media { display: none; position: relative; }
 
 .circuit-pinned-eyebrow {
   font-size: 11px;

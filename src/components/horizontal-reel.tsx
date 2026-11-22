@@ -160,7 +160,7 @@ export function HorizontalReel() {
                   alt={slide.alt}
                   fill
                   priority={i === 0}
-                  sizes="100vw"
+                  sizes="(max-width: 900px) 50vw, 100vw"
                   style={{ objectFit: "cover" }}
                 />
                 <div className="reel-slide-caption">
@@ -208,7 +208,7 @@ export function HorizontalReel() {
               alt={slide.alt}
               fill
               priority={i === 0}
-              sizes="100vw"
+              sizes="(max-width: 900px) 100vw, 50vw"
               style={{ objectFit: "cover" }}
             />
             <div className="reel-slide-caption">
