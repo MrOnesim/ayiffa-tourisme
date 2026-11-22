@@ -1,6 +1,13 @@
+// Vercel provides its own production hostname at build time. It wins over a
+// stale local value so canonical URLs always point to the live site; when a
+// custom domain is connected, Vercel exposes that domain here instead.
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const siteUrl = vercelProductionUrl ? `https://${vercelProductionUrl}` : configuredSiteUrl || "https://ayiffa-tourisme.vercel.app";
+
 export const site = {
   name: "AYIFFA TOURISME",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://ayiffa-tourisme.vercel.app",
+  url: siteUrl,
   email: "contact@ayiffatourisme.com",
   phone: "+229 01 67 04 54 07",
   phoneHref: "+2290167045407",
