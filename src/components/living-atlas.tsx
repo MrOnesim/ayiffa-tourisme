@@ -8,7 +8,7 @@ type AtlasKeyboardEvent = {
   preventDefault: () => void;
   currentTarget: { closest: (selector: string) => Element | null };
 };
-import { ArrowUpRight, MapPin, Maximize2, MoveUpRight, X } from "lucide-react";
+import { ArrowUpRight, Check, MapPin, Maximize2, MoveUpRight, Route, X } from "lucide-react";
 import {
   BENIN_MAP,
   BENIN_MAP_ATTRIBUTION,
@@ -57,6 +57,8 @@ function useMapOverlay() {
 export function LivingAtlas() {
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [composing, setComposing] = useState(false);
+  const [selectedStops, setSelectedStops] = useState<string[]>([]);
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const markerButtons = useRef<(HTMLButtonElement | null)[]>([]);
   const largeMarkerButtons = useRef<(HTMLButtonElement | null)[]>([]);
@@ -70,6 +72,14 @@ export function LivingAtlas() {
   const atlasLines = ui.atlasTitle.split("\n");
   const stop = atlasStops[active];
   const destination = destinations.find(d => d.slug === stop.slug);
+  const pickedStops = atlasStops.filter(item => selectedStops.includes(item.slug));
+  const composeHref = `/contact?escales=${encodeURIComponent(selectedStops.join(","))}`;
+
+  const toggleStop = useCallback((slug: string) => {
+    setSelectedStops(current => current.includes(slug)
+      ? current.filter(item => item !== slug)
+      : current.length >= 5 ? current : [...current, slug]);
+  }, []);
 
   useEffect(() => {
     const element = dialog.current;
@@ -152,13 +162,13 @@ export function LivingAtlas() {
           key={item.slug}
           ref={element => { markerRefs[index] = element; }}
           type="button"
-          className={`atlas-stop atlas-stop-${item.slug} ${active === index ? "is-active" : ""} atlas-stop-${item.labelSide}`}
-          aria-label={`${ui.atlasStopAria} ${item.number} : ${item.shortName}`}
-          aria-pressed={active === index}
+          className={`atlas-stop atlas-stop-${item.slug} ${active === index ? "is-active" : ""} ${composing ? "is-composing" : ""} ${selectedStops.includes(item.slug) ? "is-picked" : ""} atlas-stop-${item.labelSide}`}
+          aria-label={`${composing ? ui.atlasComposeActive : ui.atlasStopAria} ${item.number} : ${item.shortName}`}
+          aria-pressed={composing ? selectedStops.includes(item.slug) : active === index}
           style={markerStyle(item)}
           onMouseEnter={() => setActive(index)}
           onFocus={() => setActive(index)}
-          onClick={() => setActive(index)}
+          onClick={() => composing ? toggleStop(item.slug) : setActive(index)}
           onKeyDown={event => keyboard(event, index)}
         ><span className="atlas-stop-dot">{item.number}</span><span className="atlas-stop-label">{item.shortName}</span></button>)}
       </div>
@@ -171,7 +181,11 @@ export function LivingAtlas() {
         <div className="atlas-heading"><div><p className="eyebrow">{ui.atlasEyebrow}</p><h2 id="atlas-title">{atlasLines[0]}<br/><em>{atlasLines[1]}</em></h2></div><div><p>{ui.atlasIntro}</p><Link href="/destinations" className="text-link">{ui.atlasAll}<ArrowUpRight size={17}/></Link></div></div>
         <div className="atlas-layout">
           <div className="atlas-map-shell">
-            <div className="atlas-map-top"><span className="atlas-region-tag"><MapPin size={12}/>{ui.atlasRegionTag}</span><span className="atlas-compass" aria-hidden="true"/></div>
+            <div className="atlas-map-top">
+              <span className="atlas-region-tag"><MapPin size={12}/>{ui.atlasRegionTag}</span>
+              <button type="button" className={`atlas-compose-toggle ${composing ? "is-active" : ""}`} onClick={() => { setComposing(value => !value); setSelectedStops([]); }} aria-pressed={composing}><Route size={14}/><span>{composing ? ui.atlasComposeClose : ui.atlasCompose}</span></button>
+              <span className="atlas-compass" aria-hidden="true"/>
+            </div>
             {renderMap("atlas", markerButtons.current, ui.atlasMapAria, mainMap)}
             <button type="button" className="atlas-expand" onClick={() => setExpanded(true)} aria-label={ui.atlasExpand}><Maximize2 size={15}/><span>{ui.atlasExpand}</span></button>
             <div className="atlas-map-footer"><span>{ui.benin.toUpperCase()}</span><span>{BENIN_MAP_ATTRIBUTION}</span></div>
@@ -179,10 +193,21 @@ export function LivingAtlas() {
           <div className="atlas-panel">
             <div className="atlas-panel-top"><span>{ui.atlasPanelEscale} {stop.number}</span><span>0{active + 1} / 0{atlasStops.length}</span></div>
             <div className="atlas-panel-image"><Image key={stop.slug} src={destination?.image || "/images/ganvie.jpg"} alt={destination?.imageAlt || stop.name} fill sizes="(max-width: 900px) 90vw, 35vw"/><span className="atlas-panel-category">{stop.category}</span></div>
-            <div className="atlas-panel-content"><span className="atlas-panel-region"><MapPin size={13}/>{stop.region}, {ui.benin}</span><h3>{stop.name}</h3><p>{stop.description}</p>{destination?.imageNote && <small>{destination.imageNote}</small>}<Link href={`/destinations/${stop.slug}`} className="button button-terra">{ui.atlasDiscover}<ArrowUpRight size={18}/></Link></div>
+            <div className="atlas-panel-content"><span className="atlas-panel-region"><MapPin size={13}/>{stop.region}, {ui.benin}</span><h3>{stop.name}</h3><p>{stop.description}</p>{destination?.imageNote && <small>{destination.imageNote}</small>}{composing
+              ? <button type="button" className={`button button-terra atlas-pick-button ${selectedStops.includes(stop.slug) ? "is-picked" : ""}`} onClick={() => toggleStop(stop.slug)} aria-pressed={selectedStops.includes(stop.slug)}>{selectedStops.includes(stop.slug) ? <Check size={16}/> : null}{selectedStops.includes(stop.slug) ? ui.atlasRemoveStop : ui.atlasAddStop}</button>
+              : <Link href={`/destinations/${stop.slug}`} className="button button-terra">{ui.atlasDiscover}<ArrowUpRight size={18}/></Link>}</div>
             <div className="atlas-panel-list" role="group" aria-label={ui.atlasChooseStop}>{atlasStops.map((item, index) => <button key={item.slug} ref={element => { buttons.current[index] = element; }} onClick={() => select(index)} aria-pressed={active === index} className={active === index ? "is-active" : ""}><span>{item.number}</span>{item.shortName}{active === index && <MoveUpRight size={14}/>}</button>)}</div>
           </div>
         </div>
+        {composing && <div className="atlas-composer" role="group" aria-label={ui.atlasComposeActive}>
+          <p>{ui.atlasComposeHint}</p>
+          <div className="atlas-composer-stops">{pickedStops.length
+            ? pickedStops.map(item => <button key={item.slug} type="button" onClick={() => toggleStop(item.slug)} aria-label={`${ui.atlasRemoveStop} : ${item.shortName}`}>{item.shortName}<X size={13}/></button>)
+            : <span className="atlas-composer-empty">—</span>}</div>
+          <div className="atlas-composer-actions"><span className="atlas-composer-count">{pickedStops.length} {ui.atlasSelected}</span><button type="button" className="atlas-composer-clear" onClick={() => setSelectedStops([])}>{ui.atlasClear}</button>{pickedStops.length > 0
+            ? <Link href={composeHref} className="button button-terra atlas-composer-send">{ui.atlasSend}<ArrowUpRight size={16}/></Link>
+            : <button type="button" className="button button-terra atlas-composer-send" disabled>{ui.atlasSend}<ArrowUpRight size={16}/></button>}</div>
+        </div>}
       </div>
     </section>
 
@@ -199,7 +224,7 @@ export function LivingAtlas() {
           <aside className="atlas-dialog-side">
             <p className="atlas-dialog-hint">{ui.atlasDialogHint}</p>
             <div className="atlas-dialog-stops" role="group" aria-label={ui.atlasChooseStop}>
-              {atlasStops.map((item, index) => <button key={item.slug} type="button" className={`atlas-dialog-stop ${active === index ? "is-active" : ""}`} aria-pressed={active === index} onClick={() => setActive(index)}><span>{item.number}</span><strong>{item.shortName}</strong><small>{item.region}</small></button>)}
+              {atlasStops.map((item, index) => <button key={item.slug} type="button" className={`atlas-dialog-stop ${active === index ? "is-active" : ""} ${selectedStops.includes(item.slug) ? "is-picked" : ""}`} aria-pressed={composing ? selectedStops.includes(item.slug) : active === index} onClick={() => composing ? toggleStop(item.slug) : setActive(index)}><span>{item.number}</span><strong>{item.shortName}</strong><small>{item.region}</small></button>)}
             </div>
             <div className="atlas-dialog-detail">
               <span className="atlas-panel-region"><MapPin size={13}/>{stop.region}, {ui.benin}</span>

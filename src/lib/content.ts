@@ -1,6 +1,6 @@
 export const site = {
   name: "AYIFFA TOURISME",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.ayiffatourisme.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://ayiffa-tourisme.vercel.app",
   email: "contact@ayiffatourisme.com",
   phone: "+229 01 67 04 54 07",
   phoneHref: "+2290167045407",

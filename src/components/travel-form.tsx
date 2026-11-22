@@ -8,7 +8,7 @@ import { useContent } from "@/lib/use-content";
 import { useLocale } from "./locale-provider";
 import { validateTravelRequest, type FormErrors, type TravelRequestPayload } from "@/lib/validation";
 
-export function TravelForm({ initialDestination = "", initialCircuit = "", initialTravellers = 2, initialStartDate = "" }: { initialDestination?: string; initialCircuit?: string; initialTravellers?: number; initialStartDate?: string }) {
+export function TravelForm({ initialDestination = "", initialCircuit = "", initialTravellers = 2, initialStartDate = "", initialStops = [] }: { initialDestination?: string; initialCircuit?: string; initialTravellers?: number; initialStartDate?: string; initialStops?: string[] }) {
   const { destinations, circuits } = useContent();
   const { locale, t } = useLocale();
   const ui = t.ui;
@@ -22,8 +22,10 @@ export function TravelForm({ initialDestination = "", initialCircuit = "", initi
   const [pending, setPending] = useState(false);
   const [success, setSuccess] = useState<{ reference: string; data: TravelRequestPayload } | null>(null);
   const [copied, setCopied] = useState(false);
-  const [messageLength, setMessageLength] = useState(0);
   const selectedCircuit = circuits.find(circuit => circuit.slug === initialCircuit);
+  const stopNames = initialStops.map(slug => destinations.find(item => item.slug === slug)?.name).filter((name): name is string => Boolean(name));
+  const prefillMessage = stopNames.length ? `${ui.formStopsMessage} ${stopNames.join(", ")}.` : "";
+  const [messageLength, setMessageLength] = useState(prefillMessage.length);
   const destination = destinations.some(item => item.slug === initialDestination) ? initialDestination : "a-definir";
 
   useEffect(() => { if (success) successPanel.current?.focus(); }, [success]);
@@ -67,9 +69,10 @@ export function TravelForm({ initialDestination = "", initialCircuit = "", initi
   return <form ref={form} className="form-card signature-form" onSubmit={submit} noValidate aria-label={ui.submit}>
     <div className="form-card-heading"><div><span className="form-intro-tag">{ui.formEyebrow}</span><h2>{ui.formHeading}</h2><p>{ui.formRequired}</p></div><span className="form-heading-icon"><Send size={25} strokeWidth={1.3}/></span></div>
     {selectedCircuit && <div className="form-context">{ui.formInspiration} <strong>{selectedCircuit.name}</strong>, {selectedCircuit.duration}</div>}
+    {stopNames.length > 0 && <div className="form-context">{ui.atlasSelected} : <strong>{stopNames.join(" · ")}</strong></div>}
     <fieldset className="form-part" disabled={pending}><legend><span>01</span>{ui.step1}</legend><div className="form-grid"><div className="form-field"><label htmlFor="firstName">{fieldsLabels.firstName} *</label><input id="firstName" name="firstName" autoComplete="given-name" placeholder={ui.phFirstName} required maxLength={80} {...validity("firstName")}/>{errorFor("firstName")}</div><div className="form-field"><label htmlFor="lastName">{fieldsLabels.lastName} *</label><input id="lastName" name="lastName" autoComplete="family-name" placeholder={ui.phLastName} required maxLength={80} {...validity("lastName")}/>{errorFor("lastName")}</div><div className="form-field"><label htmlFor="email">{fieldsLabels.email} *</label><input id="email" name="email" type="email" autoComplete="email" spellCheck={false} placeholder={ui.phEmail} required maxLength={254} {...validity("email")}/>{errorFor("email")}</div><div className="form-field"><label htmlFor="phone">{fieldsLabels.phone} <span>({t.form.optional})</span></label><input id="phone" name="phone" type="tel" autoComplete="tel" placeholder={ui.phPhone} maxLength={29} {...validity("phone")}/>{errorFor("phone")}</div></div></fieldset>
     <fieldset className="form-part" disabled={pending}><legend><span>02</span>{ui.step2}</legend><div className="form-grid"><div className="form-field form-full"><label htmlFor="destination">{fieldsLabels.destination} *</label><select id="destination" name="destination" defaultValue={destination} required {...validity("destination")}><option value="a-definir">{ui.toDefine}</option>{destinations.map(item => <option key={item.slug} value={item.slug}>{item.name}</option>)}</select>{errorFor("destination")}</div><div className="form-field"><label htmlFor="startDate">{fieldsLabels.startDate} <span>({t.form.optional})</span></label><input id="startDate" name="startDate" type="date" min={new Date().toISOString().slice(0,10)} defaultValue={initialStartDate} {...validity("startDate")}/>{errorFor("startDate")}</div><div className="form-field"><label htmlFor="travellers">{fieldsLabels.travellers} *</label><input id="travellers" name="travellers" type="number" min={1} max={30} step={1} defaultValue={initialTravellers >= 1 && initialTravellers <= 30 ? initialTravellers : 2} required {...validity("travellers")}/>{errorFor("travellers")}</div></div></fieldset>
-    <fieldset className="form-part" disabled={pending}><legend><span>03</span>{ui.step3}</legend><div className="form-field"><label htmlFor="message">{fieldsLabels.message} <span>({t.form.optional})</span></label><textarea id="message" name="message" rows={4} maxLength={4000} onChange={event => setMessageLength(event.currentTarget.value.length)} placeholder={ui.phMessage} {...validity("message")}/>{errorFor("message")}<span className="form-character-count">{messageLength} / 4 000</span></div></fieldset>
+    <fieldset className="form-part" disabled={pending}><legend><span>03</span>{ui.step3}</legend><div className="form-field"><label htmlFor="message">{fieldsLabels.message} <span>({t.form.optional})</span></label><textarea id="message" name="message" rows={4} maxLength={4000} defaultValue={prefillMessage} onChange={event => setMessageLength(event.currentTarget.value.length)} placeholder={ui.phMessage} {...validity("message")}/>{errorFor("message")}<span className="form-character-count">{messageLength} / 4 000</span></div></fieldset>
     <div className="honeypot" aria-hidden="true"><label htmlFor="website">{t.form.optional}</label><input id="website" name="website" tabIndex={-1} autoComplete="off"/></div>
     <label className="form-checkbox"><input name="consent" type="checkbox" required disabled={pending} {...validity("consent")}/><span>{ui.consent} <Link href="/confidentialite">{ui.privacyMore}</Link> *</span></label>{errorFor("consent")}
     <div className="preview-note"><Info size={15}/><p>{ui.previewNote}</p></div>

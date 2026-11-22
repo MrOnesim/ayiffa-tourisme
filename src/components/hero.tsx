@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Pause, Play } from "lucide-react";
 import { Magnetic, WordReveal } from "./motion-primitives";
@@ -25,6 +25,45 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const [playing, setPlaying] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
+
+  // The film is a bonus, not the LCP: its source is attached only when the hero
+  // is actually seen on a capable desktop connection, or on an explicit click.
+  const enableVideo = useCallback(() => {
+    const video = heroVideo.current;
+    if (!video || video.getAttribute("src")) return;
+    video.preload = "metadata";
+    video.setAttribute("src", "/videos/vue-aérienne-benin-hero.mp4");
+    video.load();
+  }, []);
+
+  useEffect(() => {
+    const element = hero.current;
+    if (!element) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const desktop = window.matchMedia("(min-width: 701px)");
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    let inView = false;
+
+    function sync() {
+      if (reduced.matches || document.hidden || connection?.saveData || ["slow-2g", "2g"].includes(connection?.effectiveType || "")) return;
+      if (!inView || !desktop.matches) return;
+      enableVideo();
+      void heroVideo.current?.play().catch(() => { /* Poster stays visible. */ });
+    }
+
+    const observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting && entry.intersectionRatio > .12; sync(); }, { threshold: [0, .12, .2] });
+    observer.observe(element);
+    reduced.addEventListener("change", sync);
+    desktop.addEventListener("change", sync);
+    document.addEventListener("visibilitychange", sync);
+    return () => {
+      observer.disconnect();
+      reduced.removeEventListener("change", sync);
+      desktop.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", sync);
+      heroVideo.current?.pause();
+    };
+  }, [enableVideo]);
 
   useEffect(() => {
     if (reduceMotion) heroVideo.current?.pause();
@@ -62,8 +101,9 @@ export function Hero() {
   function toggleVideo() {
     const video = heroVideo.current;
     if (!video) return;
-    if (playing) video.pause();
-    else void video.play().catch(() => setPlaying(false));
+    if (playing) { video.pause(); return; }
+    enableVideo();
+    void video.play().catch(() => setPlaying(false));
   }
 
   return <>
@@ -72,7 +112,7 @@ export function Hero() {
       {slides.map((slide, index) => <motion.div key={slide.image} className={`hero-image shimmer-container ${index === 0 ? "hero-image-active" : ""}`} aria-hidden={index !== 0} inert={index !== 0} initial={false} animate={{ opacity: index === 0 ? 1 : 0 }} transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeOut" }}>
         <Image src={slide.image} alt={ui.heroImageAlt} fill sizes="100vw" preload={index === 0} loading={index === 0 ? undefined : "lazy"} quality={85}/>
         <span className="shimmer-overlay" aria-hidden="true"/>
-        {index === 0 && <video ref={heroVideo} className={`ambient-video ${playing ? "is-ready" : ""}`} src="/videos/vue-aérienne-benin-hero.mp4" poster={slide.image} muted loop playsInline autoPlay preload="metadata" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setUnavailable(true)}/>}
+        {index === 0 && <video ref={heroVideo} className={`ambient-video ${playing ? "is-ready" : ""}`} muted loop playsInline preload="none" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setUnavailable(true)}/>}
       </motion.div>)}
       <div className="hero-shade" aria-hidden="true"/>
       <div className="cinematic-grain" aria-hidden="true"/>

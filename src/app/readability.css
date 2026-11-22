@@ -246,3 +246,105 @@ body.ayiffa-signature .atlas-dialog-detail .button { font-size: 12px !important;
   body.ayiffa-signature .signature-hero .hero-description { font-size: 14px !important; }
   body.ayiffa-signature .signature-hero .hero-buttons .button { font-size: 12px !important; }
 }
+
+/* ── Map → itinerary: selectable stops, one clear action ─────────────────── */
+body.ayiffa-signature .atlas-map-top { gap: 10px; }
+body.ayiffa-signature .atlas-compose-toggle {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid #d8cfb8;
+  border-radius: 999px;
+  background: #fbf8f1f2;
+  color: #405645;
+  cursor: pointer;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: .3px;
+  white-space: nowrap;
+  transition: background .2s, color .2s, border-color .2s;
+}
+body.ayiffa-signature .atlas-compose-toggle:hover,
+body.ayiffa-signature .atlas-compose-toggle.is-active { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff8e9; }
+body.ayiffa-signature .atlas-stop { pointer-events: none; }
+body.ayiffa-signature .atlas-stop-dot { pointer-events: auto; }
+body.ayiffa-signature .atlas-stop.is-composing .atlas-stop-dot { box-shadow: 0 0 0 5px #e8a33d33; }
+body.ayiffa-signature .atlas-stop.is-picked .atlas-stop-dot,
+body.ayiffa-signature .atlas-dialog-stop.is-picked { background: var(--accent-dark); color: #fff8e9; }
+body.ayiffa-signature .atlas-dialog-stop.is-picked { outline: 2px solid var(--accent-dark); outline-offset: -2px; }
+body.ayiffa-signature .atlas-pick-button { min-height: 44px; font-size: 12px !important; }
+body.ayiffa-signature .atlas-composer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid #d8cfb8;
+  border-radius: 14px;
+  background: #fbf8f1;
+}
+body.ayiffa-signature .atlas-composer > p { margin: 0; font-size: 13px !important; }
+body.ayiffa-signature .atlas-composer-stops { display: flex; flex: 1 1 260px; flex-wrap: wrap; gap: 8px; }
+body.ayiffa-signature .atlas-composer-stops > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #d8cfb8;
+  border-radius: 999px;
+  background: #fff;
+  color: #405645;
+  cursor: pointer;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+body.ayiffa-signature .atlas-composer-stops > button:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+body.ayiffa-signature .atlas-composer-empty { align-self: center; color: #7b8779; font-size: 13px !important; }
+body.ayiffa-signature .atlas-composer-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+body.ayiffa-signature .atlas-composer-count,
+body.ayiffa-signature .atlas-composer-clear,
+body.ayiffa-signature .atlas-composer-send { font-size: 12px !important; }
+body.ayiffa-signature .atlas-composer-count { white-space: nowrap; color: #51604f; }
+body.ayiffa-signature .atlas-composer-clear { min-height: 44px; padding: 0 4px; border: 0; background: none; color: #51604f; cursor: pointer; text-decoration: underline; }
+body.ayiffa-signature .atlas-composer-send { min-height: 44px; }
+body.ayiffa-signature .atlas-composer-send:disabled { opacity: .45; cursor: not-allowed; }
+@media (max-width: 700px) {
+  body.ayiffa-signature .atlas-compose-toggle { padding: 0 10px; gap: 5px; }
+  body.ayiffa-signature .atlas-composer { padding: 16px; }
+  body.ayiffa-signature .atlas-composer-actions { width: 100%; margin-left: 0; flex-wrap: wrap; }
+  body.ayiffa-signature .atlas-composer-send { flex: 1 1 100%; }
+}
+
+/* ── Circuit comparison: 8 / 10 / 12 / 15 days at a glance ───────────────── */
+body.ayiffa-signature .circuit-compare { background: #f4f1e8; }
+body.ayiffa-signature .compare-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+body.ayiffa-signature .compare-heading > p { max-width: 380px; margin: 0; font-size: 14px !important; line-height: 1.75; color: #51604f; }
+body.ayiffa-signature .compare-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid #d8cfb8; border-radius: 14px; background: #d8cfb8; }
+body.ayiffa-signature .compare-column { display: flex; flex-direction: column; gap: 18px; padding: 22px; background: #fbf8f1; }
+body.ayiffa-signature .compare-column header > span { font-size: 12px !important; letter-spacing: .6px; color: #51604f; }
+body.ayiffa-signature .compare-column h3 { font-family: var(--font-sans) !important; font-size: 16px !important; font-weight: 600 !important; line-height: 1.35; }
+body.ayiffa-signature .compare-column dl { display: grid; gap: 14px; margin: 0; }
+body.ayiffa-signature .compare-column dt { font-size: 12px !important; letter-spacing: .6px; text-transform: uppercase; color: #7b8779; }
+body.ayiffa-signature .compare-column dd { margin: 4px 0 0; font-size: 14px !important; line-height: 1.5; }
+body.ayiffa-signature .compare-choose { margin-top: auto; min-height: 44px; font-size: 12px !important; }
+body.ayiffa-signature .compare-note { margin: 18px 0 0; font-size: 13px !important; line-height: 1.7; color: #51604f; }
+@media (prefers-reduced-motion: no-preference) {
+  body.ayiffa-signature .chapter-rail-steps a:hover .chapter-rail-stamp,
+  body.ayiffa-signature .chapter-rail-steps a:focus-visible .chapter-rail-stamp { transform: translateY(-3px) rotate(-4deg) scale(1.04); box-shadow: 0 0 0 5px var(--neutral), 0 0 0 7px #c8a76a55; }
+}
+@media (max-width: 1000px) {
+  body.ayiffa-signature .compare-heading { align-items: start; flex-direction: column; gap: 14px; }
+  body.ayiffa-signature .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  body.ayiffa-signature .compare-grid { grid-template-columns: 1fr; }
+  body.ayiffa-signature .compare-column { padding: 20px; }
+}

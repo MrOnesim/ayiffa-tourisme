@@ -38,6 +38,7 @@ export function AmbientVideo({ active = true, paused = false, manuallyStarted = 
       if (shouldPlay) {
         const source = src || beninFilm.ambient;
         if (player.getAttribute("src") !== source) {
+          player.preload = "metadata";
           player.setAttribute("src", source);
           player.load();
         }
@@ -62,5 +63,5 @@ export function AmbientVideo({ active = true, paused = false, manuallyStarted = 
     };
   }, [active, paused, manuallyStarted, isOpen, allowMobileAutoPlay, src]);
 
-  return <video ref={ref} src={src || beninFilm.ambient} poster={poster} className={`ambient-video ${ready ? "is-ready" : ""} ${className}`} muted loop playsInline autoPlay={allowMobileAutoPlay && !paused} preload="metadata" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => { setReady(true); onPlaybackChange?.(true); }} onPause={() => onPlaybackChange?.(false)} onTimeUpdate={event => { const player = event.currentTarget; onProgress?.(player.duration ? player.currentTime / player.duration : 0); }} onError={() => { setReady(false); onPlaybackChange?.(false); onUnavailable?.(); }}/>;
+  return <video ref={ref} poster={poster} className={`ambient-video ${ready ? "is-ready" : ""} ${className}`} muted loop playsInline preload="none" disablePictureInPicture tabIndex={-1} aria-hidden="true" onPlaying={() => { setReady(true); onPlaybackChange?.(true); }} onPause={() => onPlaybackChange?.(false)} onTimeUpdate={event => { const player = event.currentTarget; onProgress?.(player.duration ? player.currentTime / player.duration : 0); }} onError={() => { setReady(false); onPlaybackChange?.(false); onUnavailable?.(); }}/>;
 }
