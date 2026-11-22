@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Manrope, Cormorant_Garamond } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getLocalizedContent } from "@/lib/content-locales";
@@ -30,5 +32,5 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const dict = getDictionary(locale);
   const { site } = getLocalizedContent(locale);
   const structuredData = {"@context":"https://schema.org","@type":"TravelAgency",name:site.name,url:site.url,email:site.email,address:{"@type":"PostalAddress",addressLocality:"Ouidah",addressRegion:locale === "fr" ? "Atlantique" : locale === "es" ? "Atlántico" : locale === "de" ? "Atlantik" : "Atlantic",addressCountry:"BJ"},areaServed:{"@type":"Country",name:dict.ui.benin},description:dict.seo.structuredDescription};
-  return <html lang={locale} className={`${sans.variable} ${editorial.variable}`}><body className="ayiffa-signature" data-design={appliedIdentity.id}><a href="#contenu" className="skip-link">{dict.ui.skipLink}</a><LocaleProvider initialLocale={locale}><CinemaProvider><Header/><main id="contenu">{children}</main><Footer/></CinemaProvider></LocaleProvider><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,"\\u003c")}}/></body></html>;
+  return <html lang={locale} className={`${sans.variable} ${editorial.variable}`}><body className="ayiffa-signature" data-design={appliedIdentity.id}><a href="#contenu" className="skip-link">{dict.ui.skipLink}</a><LocaleProvider initialLocale={locale}><CinemaProvider><Header/><main id="contenu">{children}</main><Footer/></CinemaProvider></LocaleProvider><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structuredData).replace(/</g,"\\u003c")}}/><Analytics/><SpeedInsights/></body></html>;
 }
